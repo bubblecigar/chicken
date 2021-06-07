@@ -29,6 +29,7 @@ io.on('connection', async function (socket) {
     gameMethods.removePlayer(userId)
     messageMethods.pushSystemMessage(`${userName} leave the room`)
     io.emit('update-gameObject', gameObject)
+    io.emit('update-messages', messages)
   });
 
   socket.on('message', messageObject => {
