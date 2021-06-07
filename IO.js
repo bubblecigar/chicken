@@ -1,5 +1,5 @@
 
-const IO = io => {
+const mount = io => {
   io.on('connection', function (socket) {
     socket.on('send', message => {
       io.emit('notify', message)
@@ -10,4 +10,4 @@ const IO = io => {
   });
 }
 
-module.exports = IO
+module.exports = { mount }
