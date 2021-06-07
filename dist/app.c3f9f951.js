@@ -41037,17 +41037,12 @@ var ChatInput = function ChatInput() {
     }
   };
 
-  var onFocus = function onFocus() {
-    _app.socket.emit('isTyping', (0, _UserPanel.getLocalUserData)());
-  };
-
   return /*#__PURE__*/_react.default.createElement(ChatInputStyle, null, /*#__PURE__*/_react.default.createElement("input", {
     value: message,
     onKeyDown: onKeyDown,
     onChange: function onChange(e) {
       return setMessage(e.target.value);
-    },
-    onFocus: onFocus
+    }
   }), /*#__PURE__*/_react.default.createElement("button", {
     onClick: onSend
   }, "send"));
