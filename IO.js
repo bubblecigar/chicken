@@ -8,6 +8,7 @@ const mount = io => {
     })
 
     socket.on('disconnect', function () {
+      io.emit('notify', { user: { userName: 'system' }, message: 'Someone leave the room' })
     });
   });
 }
