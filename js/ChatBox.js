@@ -9,7 +9,7 @@ const ChatInputStyle = styled.div`
 const ChatInput = () => {
   const [message, setMessage] = React.useState('')
   const onSend = () => {
-    const messageObject = createMessage(message, { user: getLocalUserData() })
+    const messageObject = { message, user: getLocalUserData() }
     socket.emit('message', messageObject)
   }
   const onKeyDown = e => {

@@ -40952,9 +40952,10 @@ var ChatInput = function ChatInput() {
       setMessage = _React$useState2[1];
 
   var onSend = function onSend() {
-    var messageObject = createMessage(message, {
+    var messageObject = {
+      message: message,
       user: (0, _UserPanel.getLocalUserData)()
-    });
+    };
 
     _app.socket.emit('message', messageObject);
   };
