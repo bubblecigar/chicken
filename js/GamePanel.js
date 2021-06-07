@@ -12,7 +12,7 @@ const GamePanel = () => {
         gameObject.players.map(
           player => (
             <div key={player.id}>
-              {player.id}
+              {player.name}
             </div>
           )
         )

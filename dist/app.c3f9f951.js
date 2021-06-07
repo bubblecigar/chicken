@@ -41105,7 +41105,7 @@ var GamePanel = function GamePanel() {
   return gameObject ? /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", null, gameObject.status), gameObject.players.map(function (player) {
     return /*#__PURE__*/_react.default.createElement("div", {
       key: player.id
-    }, player.id);
+    }, player.name);
   })) : null;
 };
 
