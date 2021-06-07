@@ -41086,10 +41086,14 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
+var _app = require("./app");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var GamePanel = function GamePanel(_ref) {
-  var gameObject = _ref.gameObject;
+var GamePanel = function GamePanel() {
+  var _React$useContext = _react.default.useContext(_app.GlobalContext),
+      gameObject = _React$useContext.gameObject;
+
   return gameObject ? /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", null, gameObject.status), gameObject.players.map(function (player) {
     return /*#__PURE__*/_react.default.createElement("div", {
       key: player.id
@@ -41099,13 +41103,13 @@ var GamePanel = function GamePanel(_ref) {
 
 var _default = GamePanel;
 exports.default = _default;
-},{"react":"node_modules/react/index.js"}],"js/app.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./app":"js/app.js"}],"js/app.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.socket = void 0;
+exports.GlobalContext = exports.socket = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -41145,6 +41149,10 @@ var socket = _socket.default.connect();
 
 exports.socket = socket;
 
+var GlobalContext = _react.default.createContext();
+
+exports.GlobalContext = GlobalContext;
+
 var App = function App() {
   var _React$useState = _react.default.useState(null),
       _React$useState2 = _slicedToArray(_React$useState, 2),
@@ -41166,9 +41174,12 @@ var App = function App() {
   }, []);
 
   console.log('gameObject:', gameObject);
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_GamePanel.default, {
-    gameObject: gameObject
-  }), /*#__PURE__*/_react.default.createElement(_UserPanel.default, null), /*#__PURE__*/_react.default.createElement(_ChatBox.default, null));
+  return /*#__PURE__*/_react.default.createElement(GlobalContext.Provider, {
+    value: {
+      gameObject: gameObject,
+      messages: messages
+    }
+  }, /*#__PURE__*/_react.default.createElement(_GamePanel.default, null), /*#__PURE__*/_react.default.createElement(_UserPanel.default, null), /*#__PURE__*/_react.default.createElement(_ChatBox.default, null));
 };
 
 _reactDom.default.render( /*#__PURE__*/_react.default.createElement(App, null), document.querySelector('#app'));

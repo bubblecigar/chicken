@@ -1,6 +1,8 @@
 import React from 'react'
+import { GlobalContext } from './app'
 
-const GamePanel = ({ gameObject }) => {
+const GamePanel = () => {
+  const { gameObject } = React.useContext(GlobalContext)
   return gameObject ? (
     <div>
       <div>

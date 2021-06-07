@@ -9,6 +9,8 @@ import GamePanel from './GamePanel'
 
 const socket = io.connect()
 
+const GlobalContext = React.createContext()
+
 const App = () => {
   const [gameObject, setGameObject] = React.useState(null)
   const [messages, setMessages] = React.useState([])
@@ -23,14 +25,14 @@ const App = () => {
   )
   console.log('gameObject:', gameObject)
   return (
-    <div>
-      <GamePanel gameObject={gameObject} />
+    <GlobalContext.Provider value={{ gameObject, messages }}>
+      <GamePanel />
       <UserPanel />
       <ChatBox />
-    </div>
+    </GlobalContext.Provider>
   )
 }
 
 ReactDOM.render(<App />, document.querySelector('#app'))
 
-export { socket }
+export { socket, GlobalContext }
