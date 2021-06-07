@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useMessage } from './useMessage'
+import { useMessage, createMessage, pushMessage } from './useMessage'
 import { getLocalUserData } from './UserPanel'
 import { socket } from './app'
 
@@ -9,7 +9,11 @@ const ChatInputStyle = styled.div`
 `
 const ChatInput = () => {
     const [message, setMessage] = React.useState('')
-    const onSend = () => socket.emit('send', { user: getLocalUserData(), message })
+    const onSend = () => {
+        const messageObject = createMessage(message, { user: getLocalUserData() })
+        socket.emit('send', messageObject)
+        pushMessage(messageObject)
+    }
     const onKeyDown = e => {
         if (e.keyCode === 13) {
             onSend()

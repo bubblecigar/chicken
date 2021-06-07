@@ -40179,11 +40179,17 @@ exports.default = _default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.pushMessage = exports.useMessage = void 0;
+exports.createMessage = exports.pushMessage = exports.useMessage = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
@@ -40225,6 +40231,17 @@ var useMessage = function useMessage() {
 };
 
 exports.useMessage = useMessage;
+
+var createMessage = function createMessage(message, data) {
+  return _objectSpread({
+    user: {
+      userName: 'system'
+    },
+    message: message
+  }, data);
+};
+
+exports.createMessage = createMessage;
 },{"react":"node_modules/react/index.js"}],"node_modules/uuid/lib/rng-browser.js":[function(require,module,exports) {
 // Unique ID creation requires a high quality random # generator.  In the
 // browser this is a little complicated due to unknown quality of Math.random()
@@ -40474,14 +40491,18 @@ var defaultUserData = {
 };
 
 var getLocalUserData = function getLocalUserData() {
-  var localUserData = localStorage.getItem(localKey);
+  try {
+    var localUserData = localStorage.getItem(localKey);
 
-  if (!localUserData) {
-    localStorage.setItem(localKey, JSON.stringify(defaultUserData));
+    if (!localUserData) {
+      localStorage.setItem(localKey, JSON.stringify(defaultUserData));
+      return defaultUserData;
+    } else {
+      var userData = JSON.parse(localUserData);
+      return userData;
+    }
+  } catch (err) {
     return defaultUserData;
-  } else {
-    var userData = JSON.parse(localUserData);
-    return userData;
   }
 };
 
@@ -40598,10 +40619,13 @@ var ChatInput = function ChatInput() {
       setMessage = _React$useState2[1];
 
   var onSend = function onSend() {
-    return _app.socket.emit('send', {
-      user: (0, _UserPanel.getLocalUserData)(),
-      message: message
+    var messageObject = (0, _useMessage.createMessage)(message, {
+      user: (0, _UserPanel.getLocalUserData)()
     });
+
+    _app.socket.emit('send', messageObject);
+
+    (0, _useMessage.pushMessage)(messageObject);
   };
 
   var onKeyDown = function onKeyDown(e) {
@@ -40711,7 +40735,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51921" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58727" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -8,13 +8,17 @@ const defaultUserData = {
 }
 
 const getLocalUserData = () => {
-  const localUserData = localStorage.getItem(localKey)
-  if (!localUserData) {
-    localStorage.setItem(localKey, JSON.stringify(defaultUserData))
+  try {
+    const localUserData = localStorage.getItem(localKey)
+    if (!localUserData) {
+      localStorage.setItem(localKey, JSON.stringify(defaultUserData))
+      return defaultUserData
+    } else {
+      const userData = JSON.parse(localUserData)
+      return userData
+    }
+  } catch (err) {
     return defaultUserData
-  } else {
-    const userData = JSON.parse(localUserData)
-    return userData
   }
 }
 

@@ -7,4 +7,14 @@ const useMessage = () => {
   return messages
 }
 
-export { useMessage, pushMessage }
+const createMessage = (message, data) => {
+  return {
+    user: {
+      userName: 'system'
+    },
+    message,
+    ...data
+  }
+}
+
+export { useMessage, pushMessage, createMessage }
