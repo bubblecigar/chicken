@@ -37,6 +37,11 @@ io.on('connection', async function (socket) {
     io.emit('update-gameObject', gameObject)
   })
 
+  socket.on('reset-chessboard', action => {
+    gameMethods.resetChessboard()
+    io.emit('update-gameObject', gameObject)
+  })
+
   socket.on('message', messageObject => {
     messageMethods.pushUserMessage(messageObject)
     io.emit('update-messages', messages)

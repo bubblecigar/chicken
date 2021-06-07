@@ -41032,7 +41032,13 @@ var GamePanel = function GamePanel() {
   var _React$useContext = _react.default.useContext(_app.GlobalContext),
       gameObject = _React$useContext.gameObject;
 
-  return gameObject ? /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", null, gameObject.status), gameObject.players.map(function (player) {
+  var onReset = function onReset() {
+    _app.socket.emit('reset-chessboard');
+  };
+
+  return gameObject ? /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", null, gameObject.status, /*#__PURE__*/_react.default.createElement("button", {
+    onClick: onReset
+  }, "reset")), gameObject.players.map(function (player) {
     return /*#__PURE__*/_react.default.createElement("div", {
       key: player.id
     }, player.name);

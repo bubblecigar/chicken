@@ -17,6 +17,22 @@ const gameObject = {
   status: 'waiting' // playing, end
 }
 
+const resetChessboard = () => {
+  gameObject.chess = [
+    { color: 'red', size: 1 }, { color: 'red', size: 1 },
+    { color: 'red', size: 2 }, { color: 'red', size: 2 },
+    { color: 'red', size: 3 }, { color: 'red', size: 3 },
+    { color: 'blue', size: 1 }, { color: 'blue', size: 1 },
+    { color: 'blue', size: 2 }, { color: 'blue', size: 2 },
+    { color: 'blue', size: 3 }, { color: 'blue', size: 3 },
+  ]
+  gameObject.chessboard = [
+    [[], [], []],
+    [[], [], []],
+    [[], [], []]
+  ]
+}
+
 const checkNeighbor = (from, to) => {
   if (!from) { // its from chessBox
     return true
@@ -67,6 +83,7 @@ module.exports = {
   methods: {
     addPlayer,
     removePlayer,
-    moveChess
+    moveChess,
+    resetChessboard
   }
 }
