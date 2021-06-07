@@ -41041,81 +41041,13 @@ var GamePanel = function GamePanel() {
 
 var _default = GamePanel;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","./app":"js/app.js"}],"js/Chessboard.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./app":"js/app.js"}],"js/ChessBox.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _styledComponents = _interopRequireDefault(require("styled-components"));
-
-var _app = require("./app");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  background-color: white;\n  justify-content: center;\n  align-items: center;\n"]);
-
-  _templateObject2 = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  display: inline-grid;\n  background-color: black;\n  grid-template-rows: repeat(3, 200px);\n  grid-template-columns: repeat(3, 200px);\n  grid-gap: 1px;\n  border: 1px solid black;\n  margin: 20px;\n"]);
-
-  _templateObject = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-
-function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-var ChessboardStyle = _styledComponents.default.div(_templateObject());
-
-var CellStyle = _styledComponents.default.div(_templateObject2());
-
-var Chessboard = function Chessboard() {
-  var _React$useContext = _react.default.useContext(_app.GlobalContext),
-      gameObject = _React$useContext.gameObject;
-
-  var onDrop = function onDrop(e) {
-    var json = e.dataTransfer.getData('application/json');
-    var object = JSON.parse(json);
-  };
-
-  return gameObject ? /*#__PURE__*/_react.default.createElement(ChessboardStyle, null, gameObject.chessboard.map(function (row, i) {
-    return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, {
-      key: i
-    }, row.map(function (col, j) {
-      return /*#__PURE__*/_react.default.createElement(CellStyle, {
-        key: j,
-        onDragOver: function onDragOver(e) {
-          return e.preventDefault();
-        },
-        onDrop: onDrop
-      }, "(".concat(i, ",").concat(j, ")"));
-    }));
-  })) : null;
-};
-
-var _default = Chessboard;
-exports.default = _default;
-},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./app":"js/app.js"}],"js/ChessBox.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
+exports.Chess = exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -41150,41 +41082,151 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 var ChessBoxStyle = _styledComponents.default.div(_templateObject());
 
 var ChessStyle = _styledComponents.default.div(_templateObject2(), function (props) {
-  return props.size;
+  return props.size * 50;
 }, function (props) {
-  return props.size;
+  return props.size * 50;
 }, function (props) {
   return props.color;
 });
 
-var Chessbox = function Chessbox(_ref) {
-  var color = _ref.color;
-
-  var _React$useContext = _react.default.useContext(_app.GlobalContext),
-      gameObject = _React$useContext.gameObject;
+var Chess = function Chess(_ref) {
+  var chess = _ref.chess;
 
   var _onDragStart = function onDragStart(e, c) {
     e.dataTransfer.setData("application/json", JSON.stringify(c));
   };
 
+  return /*#__PURE__*/_react.default.createElement(ChessStyle, {
+    color: chess.color,
+    size: chess.size,
+    draggable: true,
+    onDragStart: function onDragStart(e) {
+      return _onDragStart(e, chess);
+    }
+  });
+};
+
+exports.Chess = Chess;
+
+var Chessbox = function Chessbox(_ref2) {
+  var color = _ref2.color;
+
+  var _React$useContext = _react.default.useContext(_app.GlobalContext),
+      gameObject = _React$useContext.gameObject;
+
   return gameObject ? /*#__PURE__*/_react.default.createElement(ChessBoxStyle, null, gameObject.chess.filter(function (c) {
     return c.color === color;
   }).map(function (c, i) {
-    return /*#__PURE__*/_react.default.createElement(ChessStyle, {
+    return /*#__PURE__*/_react.default.createElement(Chess, {
       key: i,
-      color: color,
-      size: c.size * 50,
-      draggable: true,
-      onDragStart: function onDragStart(e) {
-        return _onDragStart(e, c);
-      }
+      chess: c
     });
   })) : null;
 };
 
 var _default = Chessbox;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./app":"js/app.js"}],"js/app.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./app":"js/app.js"}],"js/Chessboard.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _styledComponents = _interopRequireDefault(require("styled-components"));
+
+var _app = require("./app");
+
+var _ChessBox = require("./ChessBox");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  background-color: white;\n  justify-content: center;\n  align-items: center;\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n  display: inline-grid;\n  background-color: black;\n  grid-template-rows: repeat(3, 200px);\n  grid-template-columns: repeat(3, 200px);\n  grid-gap: 1px;\n  border: 1px solid black;\n  margin: 20px;\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var ChessboardStyle = _styledComponents.default.div(_templateObject());
+
+var CellStyle = _styledComponents.default.div(_templateObject2());
+
+var Chessboard = function Chessboard() {
+  var _React$useContext = _react.default.useContext(_app.GlobalContext),
+      gameObject = _React$useContext.gameObject;
+
+  var _onDrop = function onDrop(e, _ref) {
+    var _ref2 = _slicedToArray(_ref, 2),
+        i = _ref2[0],
+        j = _ref2[1];
+
+    var json = e.dataTransfer.getData('application/json');
+    var object = JSON.parse(json);
+    var action = {
+      chess: object,
+      from: null,
+      to: [i, j]
+    };
+
+    _app.socket.emit('move-chess', action);
+  };
+
+  return gameObject ? /*#__PURE__*/_react.default.createElement(ChessboardStyle, null, gameObject.chessboard.map(function (row, i) {
+    return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, {
+      key: i
+    }, row.map(function (col, j) {
+      return /*#__PURE__*/_react.default.createElement(CellStyle, {
+        key: j,
+        onDragOver: function onDragOver(e) {
+          return e.preventDefault();
+        },
+        onDrop: function onDrop(e) {
+          return _onDrop(e, [i, j]);
+        }
+      }, col.map(function (c, k) {
+        return /*#__PURE__*/_react.default.createElement(_ChessBox.Chess, {
+          key: k,
+          chess: c
+        });
+      }));
+    }));
+  })) : null;
+};
+
+var _default = Chessboard;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./app":"js/app.js","./ChessBox":"js/ChessBox.js"}],"js/app.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

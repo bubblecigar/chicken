@@ -12,25 +12,34 @@ const ChessStyle = styled.div`
   margin: 10px;
   justify-content: center;
   align-items: center;
-  width: ${props => props.size}px;
-  height: ${props => props.size}px;
+  width: ${props => props.size * 50}px;
+  height: ${props => props.size * 50}px;
   border-radius: 50%;
   background-color: ${props => props.color}
 `
-const Chessbox = ({ color }) => {
-  const { gameObject } = React.useContext(GlobalContext)
+const Chess = ({ chess }) => {
   const onDragStart = (e, c) => {
     e.dataTransfer.setData("application/json", JSON.stringify(c))
   }
+  return (
+    <ChessStyle
+      color={chess.color}
+      size={chess.size}
+      draggable
+      onDragStart={e => onDragStart(e, chess)}
+    />
+  )
+}
+const Chessbox = ({ color }) => {
+  const { gameObject } = React.useContext(GlobalContext)
   return gameObject ? (
     <ChessBoxStyle>
       {
         gameObject.chess.filter(c => c.color === color).map(
           (c, i) =>
-            <ChessStyle
-              key={i} color={color} size={c.size * 50}
-              draggable
-              onDragStart={e => onDragStart(e, c)}
+            <Chess
+              key={i}
+              chess={c}
             />
         )
       }
@@ -39,3 +48,4 @@ const Chessbox = ({ color }) => {
 }
 
 export default Chessbox
+export { Chess }

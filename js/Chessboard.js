@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import { GlobalContext } from './app'
+import { socket, GlobalContext } from './app'
+import { Chess } from './ChessBox'
 
 const ChessboardStyle = styled.div`
   display: inline-grid;
@@ -20,9 +21,15 @@ const CellStyle = styled.div`
 const Chessboard = () => {
   const { gameObject } = React.useContext(GlobalContext)
 
-  const onDrop = e => {
+  const onDrop = (e, [i, j]) => {
     const json = e.dataTransfer.getData('application/json')
     const object = JSON.parse(json)
+    const action = {
+      chess: object,
+      from: null,
+      to: [i, j]
+    }
+    socket.emit('move-chess', action)
   }
 
   return gameObject ? (
@@ -37,10 +44,14 @@ const Chessboard = () => {
                     <CellStyle
                       key={j}
                       onDragOver={e => e.preventDefault()}
-                      onDrop={onDrop}
+                      onDrop={e => onDrop(e, [i, j])}
                     >
                       {
-                        `(${i},${j})`
+                        col.map(
+                          (c, k) => (
+                            <Chess key={k} chess={c} />
+                          )
+                        )
                       }
                     </CellStyle>
                   )
