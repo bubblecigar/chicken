@@ -19,11 +19,13 @@ server.listen(process.env.PORT || 8081, function () {
 io.on('connection', async function (socket) {
   const userId = v4()
   gameMethods.addPlayer({ id: userId })
+  messageMethods.pushSystemMessage(`${userId} join the room`)
   io.emit('update-gameObject', gameObject)
   io.emit('update-messages', messages)
 
   socket.on('disconnect', async function () {
     gameMethods.removePlayer(userId)
+    messageMethods.pushSystemMessage(`${userId} leave the room`)
     io.emit('update-gameObject', gameObject)
   });
 
