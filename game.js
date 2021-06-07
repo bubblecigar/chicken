@@ -1,7 +1,21 @@
 
 const gameObject = {
-    players: [],
-    status: 'waiting' // playing, end
+  players: [],
+  status: 'waiting' // playing, end
 }
 
-module.exports = { gameObject }
+const addPlayer = player => {
+  gameObject.players.push(player)
+}
+
+const removePlayer = playerId => {
+  gameObject.players = gameObject.players.filter(player => player.id !== playerId)
+}
+
+module.exports = {
+  gameObject,
+  methods: {
+    addPlayer,
+    removePlayer
+  }
+}

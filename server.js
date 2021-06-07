@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-const { gameObject } = require('./game.js')
+const { v4 } = require('uuid')
+const { gameObject, methods } = require('./game.js')
 
 app.use('/', express.static(__dirname + '/dist'));
 
@@ -15,9 +16,12 @@ server.listen(process.env.PORT || 8081, function () {
 });
 
 io.on('connection', async function (socket) {
+  const userId = v4()
+  methods.addPlayer({ id: userId })
   io.emit('update-gameObject', gameObject)
 
   socket.on('disconnect', async function () {
+    methods.removePlayer(userId)
     io.emit('update-gameObject', gameObject)
   });
 });
