@@ -26,14 +26,23 @@ const checkNeighbor = (from, to) => {
   }
   return false
 }
+const checkSize = (chess, to) => {
+  const targetCell = gameObject.chessboard[to[0]][to[1]]
+  const targetChess = targetCell[targetCell.length - 1]
+  if (!targetChess) {
+    return true // empty cell
+  }
+  return chess.size > targetChess.size
+}
 
 const moveChess = action => {
   const { chess, from, to } = action
   // check if moving to its neighbor
   const isNeighbor = checkNeighbor(from, to)
+  const isBigger = checkSize(chess, to)
 
   // action is valid, perform
-  if (isNeighbor) {
+  if (isNeighbor && isBigger) {
     if (!from) { // move from chessBox to target
       const index = gameObject.chess.findIndex(c => c.color === chess.color && c.size === chess.size)
       gameObject.chess.splice(index, 1)
