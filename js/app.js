@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import UserPanel, { getLocalUserData } from './UserPanel'
 import ChatBox from './ChatBox'
 import GamePanel from './GamePanel'
+import Chessboard from './Chessboard'
 
 const socket = io.connect({
   auth: {
@@ -34,6 +35,7 @@ const App = () => {
     <GlobalContext.Provider value={{ gameObject, messages }}>
       <GamePanel />
       <UserPanel />
+      <Chessboard />
       <ChatBox />
     </GlobalContext.Provider>
   )

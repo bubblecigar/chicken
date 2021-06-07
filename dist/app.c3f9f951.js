@@ -41041,6 +41041,37 @@ var GamePanel = function GamePanel() {
 
 var _default = GamePanel;
 exports.default = _default;
+},{"react":"node_modules/react/index.js","./app":"js/app.js"}],"js/Chessboard.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _app = require("./app");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Chessboard = function Chessboard() {
+  var _React$useContext = _react.default.useContext(_app.GlobalContext),
+      gameObject = _React$useContext.gameObject;
+
+  return gameObject ? /*#__PURE__*/_react.default.createElement("div", null, gameObject.chessboard.map(function (row, i) {
+    return /*#__PURE__*/_react.default.createElement("div", {
+      key: i
+    }, row.map(function (col, j) {
+      return /*#__PURE__*/_react.default.createElement("span", {
+        key: j
+      }, "(".concat(i, ",").concat(j, ")"));
+    }));
+  })) : null;
+};
+
+var _default = Chessboard;
+exports.default = _default;
 },{"react":"node_modules/react/index.js","./app":"js/app.js"}],"js/app.js":[function(require,module,exports) {
 "use strict";
 
@@ -41062,6 +41093,8 @@ var _UserPanel = _interopRequireWildcard(require("./UserPanel"));
 var _ChatBox = _interopRequireDefault(require("./ChatBox"));
 
 var _GamePanel = _interopRequireDefault(require("./GamePanel"));
+
+var _Chessboard = _interopRequireDefault(require("./Chessboard"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
@@ -41126,11 +41159,11 @@ var App = function App() {
       gameObject: gameObject,
       messages: messages
     }
-  }, /*#__PURE__*/_react.default.createElement(_GamePanel.default, null), /*#__PURE__*/_react.default.createElement(_UserPanel.default, null), /*#__PURE__*/_react.default.createElement(_ChatBox.default, null));
+  }, /*#__PURE__*/_react.default.createElement(_GamePanel.default, null), /*#__PURE__*/_react.default.createElement(_UserPanel.default, null), /*#__PURE__*/_react.default.createElement(_Chessboard.default, null), /*#__PURE__*/_react.default.createElement(_ChatBox.default, null));
 };
 
 _reactDom.default.render( /*#__PURE__*/_react.default.createElement(App, null), document.querySelector('#app'));
-},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","socket.io-client":"node_modules/socket.io-client/build/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./UserPanel":"js/UserPanel.js","./ChatBox":"js/ChatBox.js","./GamePanel":"js/GamePanel.js"}],"../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","socket.io-client":"node_modules/socket.io-client/build/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./UserPanel":"js/UserPanel.js","./ChatBox":"js/ChatBox.js","./GamePanel":"js/GamePanel.js","./Chessboard":"js/Chessboard.js"}],"../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;

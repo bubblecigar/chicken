@@ -1,6 +1,11 @@
 
 const gameObject = {
   players: [],
+  chessboard: [
+    [[], [], []],
+    [[], [], []],
+    [[], [], []]
+  ],
   status: 'waiting' // playing, end
 }
 
