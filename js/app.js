@@ -10,6 +10,9 @@ const socket = io.connect()
 socket.on('notify', message => {
   pushMessage(message)
 })
+socket.on('update-clients', sids => {
+  console.log('sids:', sids)
+})
 
 const App = () => {
   return (
