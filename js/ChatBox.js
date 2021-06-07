@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useMessage, createMessage, pushMessage } from './useMessage'
 import { getLocalUserData } from './UserPanel'
 import { socket, GlobalContext } from './app'
 
