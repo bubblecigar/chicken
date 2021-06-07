@@ -19,6 +19,12 @@ const CellStyle = styled.div`
 `
 const Chessboard = () => {
   const { gameObject } = React.useContext(GlobalContext)
+
+  const onDrop = e => {
+    const json = e.dataTransfer.getData('application/json')
+    const object = JSON.parse(json)
+  }
+
   return gameObject ? (
     <ChessboardStyle>
       {
@@ -28,7 +34,11 @@ const Chessboard = () => {
               {
                 row.map(
                   (col, j) => (
-                    <CellStyle key={j}>
+                    <CellStyle
+                      key={j}
+                      onDragOver={e => e.preventDefault()}
+                      onDrop={onDrop}
+                    >
                       {
                         `(${i},${j})`
                       }

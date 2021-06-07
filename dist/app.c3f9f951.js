@@ -41087,12 +41087,21 @@ var Chessboard = function Chessboard() {
   var _React$useContext = _react.default.useContext(_app.GlobalContext),
       gameObject = _React$useContext.gameObject;
 
+  var onDrop = function onDrop(e) {
+    var json = e.dataTransfer.getData('application/json');
+    var object = JSON.parse(json);
+  };
+
   return gameObject ? /*#__PURE__*/_react.default.createElement(ChessboardStyle, null, gameObject.chessboard.map(function (row, i) {
     return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, {
       key: i
     }, row.map(function (col, j) {
       return /*#__PURE__*/_react.default.createElement(CellStyle, {
-        key: j
+        key: j,
+        onDragOver: function onDragOver(e) {
+          return e.preventDefault();
+        },
+        onDrop: onDrop
       }, "(".concat(i, ",").concat(j, ")"));
     }));
   })) : null;
@@ -41154,13 +41163,21 @@ var Chessbox = function Chessbox(_ref) {
   var _React$useContext = _react.default.useContext(_app.GlobalContext),
       gameObject = _React$useContext.gameObject;
 
+  var _onDragStart = function onDragStart(e, c) {
+    e.dataTransfer.setData("application/json", JSON.stringify(c));
+  };
+
   return gameObject ? /*#__PURE__*/_react.default.createElement(ChessBoxStyle, null, gameObject.chess.filter(function (c) {
     return c.color === color;
   }).map(function (c, i) {
     return /*#__PURE__*/_react.default.createElement(ChessStyle, {
       key: i,
       color: color,
-      size: c.size * 50
+      size: c.size * 50,
+      draggable: true,
+      onDragStart: function onDragStart(e) {
+        return _onDragStart(e, c);
+      }
     });
   })) : null;
 };

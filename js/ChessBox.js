@@ -19,12 +19,19 @@ const ChessStyle = styled.div`
 `
 const Chessbox = ({ color }) => {
   const { gameObject } = React.useContext(GlobalContext)
+  const onDragStart = (e, c) => {
+    e.dataTransfer.setData("application/json", JSON.stringify(c))
+  }
   return gameObject ? (
     <ChessBoxStyle>
       {
         gameObject.chess.filter(c => c.color === color).map(
           (c, i) =>
-            <ChessStyle key={i} color={color} size={c.size * 50} />
+            <ChessStyle
+              key={i} color={color} size={c.size * 50}
+              draggable
+              onDragStart={e => onDragStart(e, c)}
+            />
         )
       }
     </ChessBoxStyle>
