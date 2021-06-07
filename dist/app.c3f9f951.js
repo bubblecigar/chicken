@@ -41090,10 +41090,14 @@ var ChessStyle = _styledComponents.default.div(_templateObject2(), function (pro
 });
 
 var Chess = function Chess(_ref) {
-  var chess = _ref.chess;
+  var chess = _ref.chess,
+      at = _ref.at;
 
-  var _onDragStart = function onDragStart(e, c) {
-    e.dataTransfer.setData("application/json", JSON.stringify(c));
+  var _onDragStart = function onDragStart(e, chess) {
+    e.dataTransfer.setData("application/json", JSON.stringify({
+      chess: chess,
+      from: at
+    }));
   };
 
   return /*#__PURE__*/_react.default.createElement(ChessStyle, {
@@ -41119,7 +41123,8 @@ var Chessbox = function Chessbox(_ref2) {
   }).map(function (c, i) {
     return /*#__PURE__*/_react.default.createElement(Chess, {
       key: i,
-      chess: c
+      chess: c,
+      at: null
     });
   })) : null;
 };
@@ -41192,10 +41197,14 @@ var Chessboard = function Chessboard() {
         j = _ref2[1];
 
     var json = e.dataTransfer.getData('application/json');
-    var object = JSON.parse(json);
+
+    var _JSON$parse = JSON.parse(json),
+        chess = _JSON$parse.chess,
+        from = _JSON$parse.from;
+
     var action = {
-      chess: object,
-      from: null,
+      chess: chess,
+      from: from,
       to: [i, j]
     };
 
@@ -41217,7 +41226,8 @@ var Chessboard = function Chessboard() {
       }, col.map(function (c, k) {
         return /*#__PURE__*/_react.default.createElement(_ChessBox.Chess, {
           key: k,
-          chess: c
+          chess: c,
+          at: [i, j]
         });
       }));
     }));

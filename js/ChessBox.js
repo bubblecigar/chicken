@@ -17,9 +17,9 @@ const ChessStyle = styled.div`
   border-radius: 50%;
   background-color: ${props => props.color}
 `
-const Chess = ({ chess }) => {
-  const onDragStart = (e, c) => {
-    e.dataTransfer.setData("application/json", JSON.stringify(c))
+const Chess = ({ chess, at }) => {
+  const onDragStart = (e, chess) => {
+    e.dataTransfer.setData("application/json", JSON.stringify({ chess, from: at }))
   }
   return (
     <ChessStyle
@@ -37,7 +37,7 @@ const Chessbox = ({ color }) => {
       {
         gameObject.chess.filter(c => c.color === color).map(
           (c, i) =>
-            <Chess key={i} chess={c} />
+            <Chess key={i} chess={c} at={null} />
         )
       }
     </ChessBoxStyle>

@@ -23,10 +23,10 @@ const Chessboard = () => {
 
   const onDrop = (e, [i, j]) => {
     const json = e.dataTransfer.getData('application/json')
-    const object = JSON.parse(json)
+    const { chess, from } = JSON.parse(json)
     const action = {
-      chess: object,
-      from: null,
+      chess,
+      from,
       to: [i, j]
     }
     socket.emit('move-chess', action)
@@ -49,7 +49,7 @@ const Chessboard = () => {
                       {
                         col.map(
                           (c, k) => (
-                            <Chess key={k} chess={c} />
+                            <Chess key={k} chess={c} at={[i, j]} />
                           )
                         )
                       }

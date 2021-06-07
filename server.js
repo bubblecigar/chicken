@@ -32,6 +32,11 @@ io.on('connection', async function (socket) {
     io.emit('update-messages', messages)
   });
 
+  socket.on('move-chess', action => {
+    gameMethods.moveChess(action)
+    io.emit('update-gameObject', gameObject)
+  })
+
   socket.on('message', messageObject => {
     messageMethods.pushUserMessage(messageObject)
     io.emit('update-messages', messages)
