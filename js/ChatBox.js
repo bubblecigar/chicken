@@ -8,27 +8,27 @@ const ChatInputStyle = styled.div`
   padding: 10px;
 `
 const ChatInput = () => {
-    const [message, setMessage] = React.useState('')
-    const onSend = () => {
-        const messageObject = createMessage(message, { user: getLocalUserData() })
-        socket.emit('message', messageObject)
+  const [message, setMessage] = React.useState('')
+  const onSend = () => {
+    const messageObject = createMessage(message, { user: getLocalUserData() })
+    socket.emit('message', messageObject)
+  }
+  const onKeyDown = e => {
+    if (e.keyCode === 13) {
+      onSend()
+      setMessage('')
     }
-    const onKeyDown = e => {
-        if (e.keyCode === 13) {
-            onSend()
-            setMessage('')
-        }
-    }
-    return (
-        <ChatInputStyle>
-            <input
-                value={message}
-                onKeyDown={onKeyDown}
-                onChange={e => setMessage(e.target.value)}
-            />
-            <button onClick={onSend}>send</button>
-        </ChatInputStyle>
-    )
+  }
+  return (
+    <ChatInputStyle>
+      <input
+        value={message}
+        onKeyDown={onKeyDown}
+        onChange={e => setMessage(e.target.value)}
+      />
+      <button onClick={onSend}>send</button>
+    </ChatInputStyle>
+  )
 }
 
 const ChatRecordStyle = styled.div`
@@ -37,19 +37,30 @@ const MessageRowStyle = styled.div`
   padding: 5px 10px;
 `
 const ChatRecord = () => {
-    const { messages } = React.useContext(GlobalContext)
-    console.log('messages:', messages)
-    return (
-        <ChatRecordStyle>
-            {
-                messages.map(
-                    (message, i) => (
-                        <MessageRowStyle key={i}>{message.user.userName} : {message.message}</MessageRowStyle>
-                    )
+  const { messages } = React.useContext(GlobalContext)
+  console.log('messages:', messages)
+  return (
+    <ChatRecordStyle>
+      {
+        messages.map(
+          (message, i) => {
+            switch (message.type) {
+              case 'user-message': {
+                return (
+                  <MessageRowStyle key={i}>{message.user.userName} : {message.message}</MessageRowStyle>
                 )
+              }
+              case 'system-message': {
+                return (
+                  <MessageRowStyle key={i}>system : {message.message}</MessageRowStyle>
+                )
+              }
             }
-        </ChatRecordStyle>
-    )
+          }
+        )
+      }
+    </ChatRecordStyle>
+  )
 }
 
 
@@ -60,12 +71,12 @@ const ChatBoxStyle = styled.div`
   border: 1px solid black;
 `
 const ChatBox = () => {
-    return (
-        <ChatBoxStyle>
-            <ChatRecord />
-            <ChatInput />
-        </ChatBoxStyle>
-    )
+  return (
+    <ChatBoxStyle>
+      <ChatRecord />
+      <ChatInput />
+    </ChatBoxStyle>
+  )
 }
 
 export default ChatBox

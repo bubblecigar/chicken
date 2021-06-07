@@ -41058,9 +41058,21 @@ var ChatRecord = function ChatRecord() {
 
   console.log('messages:', messages);
   return /*#__PURE__*/_react.default.createElement(ChatRecordStyle, null, messages.map(function (message, i) {
-    return /*#__PURE__*/_react.default.createElement(MessageRowStyle, {
-      key: i
-    }, message.user.userName, " : ", message.message);
+    switch (message.type) {
+      case 'user-message':
+        {
+          return /*#__PURE__*/_react.default.createElement(MessageRowStyle, {
+            key: i
+          }, message.user.userName, " : ", message.message);
+        }
+
+      case 'system-message':
+        {
+          return /*#__PURE__*/_react.default.createElement(MessageRowStyle, {
+            key: i
+          }, "system : ", message.message);
+        }
+    }
   }));
 };
 

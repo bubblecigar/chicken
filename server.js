@@ -28,7 +28,7 @@ io.on('connection', async function (socket) {
   });
 
   socket.on('message', messageObject => {
-    messageMethods.pushMessage(messageObject)
+    messageMethods.pushUserMessage(messageObject)
     io.emit('update-messages', messages)
   })
 });
