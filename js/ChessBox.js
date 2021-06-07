@@ -17,14 +17,14 @@ const ChessStyle = styled.div`
   border-radius: 50%;
   background-color: ${props => props.color}
 `
-const Chessbox = () => {
+const Chessbox = ({ color }) => {
   const { gameObject } = React.useContext(GlobalContext)
   return gameObject ? (
     <ChessBoxStyle>
       {
-        gameObject.chess.map(
+        gameObject.chess.filter(c => c.color === color).map(
           (c, i) =>
-            <ChessStyle key={i} color={c.color} size={c.size * 50} />
+            <ChessStyle key={i} color={color} size={c.size * 50} />
         )
       }
     </ChessBoxStyle>

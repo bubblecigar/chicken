@@ -41148,14 +41148,18 @@ var ChessStyle = _styledComponents.default.div(_templateObject2(), function (pro
   return props.color;
 });
 
-var Chessbox = function Chessbox() {
+var Chessbox = function Chessbox(_ref) {
+  var color = _ref.color;
+
   var _React$useContext = _react.default.useContext(_app.GlobalContext),
       gameObject = _React$useContext.gameObject;
 
-  return gameObject ? /*#__PURE__*/_react.default.createElement(ChessBoxStyle, null, gameObject.chess.map(function (c, i) {
+  return gameObject ? /*#__PURE__*/_react.default.createElement(ChessBoxStyle, null, gameObject.chess.filter(function (c) {
+    return c.color === color;
+  }).map(function (c, i) {
     return /*#__PURE__*/_react.default.createElement(ChessStyle, {
       key: i,
-      color: c.color,
+      color: color,
       size: c.size * 50
     });
   })) : null;
@@ -41252,7 +41256,11 @@ var App = function App() {
       gameObject: gameObject,
       messages: messages
     }
-  }, /*#__PURE__*/_react.default.createElement(_GamePanel.default, null), /*#__PURE__*/_react.default.createElement(_UserPanel.default, null), /*#__PURE__*/_react.default.createElement(_Chessboard.default, null), /*#__PURE__*/_react.default.createElement(_ChessBox.default, null), /*#__PURE__*/_react.default.createElement(_ChatBox.default, null));
+  }, /*#__PURE__*/_react.default.createElement(_GamePanel.default, null), /*#__PURE__*/_react.default.createElement(_UserPanel.default, null), /*#__PURE__*/_react.default.createElement(_ChessBox.default, {
+    color: "red"
+  }), /*#__PURE__*/_react.default.createElement(_Chessboard.default, null), /*#__PURE__*/_react.default.createElement(_ChessBox.default, {
+    color: "blue"
+  }), /*#__PURE__*/_react.default.createElement(_ChatBox.default, null));
 };
 
 _reactDom.default.render( /*#__PURE__*/_react.default.createElement(App, null), document.querySelector('#app'));
