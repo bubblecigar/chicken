@@ -22,7 +22,11 @@ const ChatInput = () => {
     }
     return (
         <ChatInputStyle>
-            <input value={message} onKeyDown={onKeyDown} onChange={e => setMessage(e.target.value)} />
+            <input
+                value={message}
+                onKeyDown={onKeyDown}
+                onChange={e => setMessage(e.target.value)}
+            />
             <button onClick={onSend}>send</button>
         </ChatInputStyle>
     )
