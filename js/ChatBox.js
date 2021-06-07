@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { useMessage, createMessage, pushMessage } from './useMessage'
 import { getLocalUserData } from './UserPanel'
-import { socket } from './app'
+import { socket, GlobalContext } from './app'
 
 const ChatInputStyle = styled.div`
   padding: 10px;
@@ -11,8 +11,7 @@ const ChatInput = () => {
     const [message, setMessage] = React.useState('')
     const onSend = () => {
         const messageObject = createMessage(message, { user: getLocalUserData() })
-        socket.emit('send', messageObject)
-        pushMessage(messageObject)
+        socket.emit('message', messageObject)
     }
     const onKeyDown = e => {
         if (e.keyCode === 13) {
@@ -42,8 +41,8 @@ const MessageRowStyle = styled.div`
   padding: 5px 10px;
 `
 const ChatRecord = () => {
-    const messages = useMessage()
-
+    const { messages } = React.useContext(GlobalContext)
+    console.log('messages:', messages)
     return (
         <ChatRecordStyle>
             {

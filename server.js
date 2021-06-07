@@ -3,7 +3,8 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const { v4 } = require('uuid')
-const { gameObject, methods } = require('./game.js')
+const { gameObject, methods: gameMethods } = require('./game.js')
+const { messages, methods: messageMethods } = require('./message.js')
 
 app.use('/', express.static(__dirname + '/dist'));
 
@@ -17,11 +18,17 @@ server.listen(process.env.PORT || 8081, function () {
 
 io.on('connection', async function (socket) {
   const userId = v4()
-  methods.addPlayer({ id: userId })
+  gameMethods.addPlayer({ id: userId })
   io.emit('update-gameObject', gameObject)
+  io.emit('update-messages', messages)
 
   socket.on('disconnect', async function () {
-    methods.removePlayer(userId)
+    gameMethods.removePlayer(userId)
     io.emit('update-gameObject', gameObject)
   });
+
+  socket.on('message', messageObject => {
+    messageMethods.pushMessage(messageObject)
+    io.emit('update-messages', messages)
+  })
 });

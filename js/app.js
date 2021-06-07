@@ -2,7 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import io from 'socket.io-client'
 import styled from 'styled-components'
-import { pushMessage } from './useMessage'
 import UserPanel, { getLocalUserData } from './UserPanel'
 import ChatBox from './ChatBox'
 import GamePanel from './GamePanel'
@@ -19,6 +18,9 @@ const App = () => {
     () => {
       socket.on('update-gameObject', gameObject => {
         setGameObject(gameObject)
+      })
+      socket.on('update-messages', messages => {
+        setMessages(messages)
       })
       return () => socket.disconnect()
     }, []
