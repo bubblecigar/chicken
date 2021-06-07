@@ -9,6 +9,7 @@ const socket = io.connect()
 socket.on('notify', message => {
   pushMessage(message)
 })
+console.log('socket:', socket)
 
 const ChatInputStyle = styled.div`
   padding: 10px;

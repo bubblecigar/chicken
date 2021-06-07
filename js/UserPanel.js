@@ -1,8 +1,10 @@
 import React from 'react'
+import { v4 as uuidv4 } from 'uuid';
 
 const localKey = 'chicken-chess-user'
 const defaultUserData = {
-  userName: Math.random()
+  userName: 'unknown user',
+  userId: uuidv4()
 }
 
 const getLocalUserData = () => {
