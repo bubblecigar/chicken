@@ -23,7 +23,8 @@ const getLocalUserData = () => {
 }
 
 const setLocalUserData = data => {
-  localStorage.setItem(localKey, JSON.stringify(data))
+  const oldData = getLocalUserData()
+  localStorage.setItem(localKey, JSON.stringify({ ...oldData, ...data }))
 }
 
 const UserPanel = () => {
