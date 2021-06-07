@@ -2,8 +2,7 @@ const express = require('express');
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-const { mount } = require('./IO.js')
-
+const { gameObject } = require('./game.js')
 
 app.use('/', express.static(__dirname + '/dist'));
 
@@ -15,8 +14,10 @@ server.listen(process.env.PORT || 8081, function () {
   console.log('Listening on ' + server.address().port);
 });
 
-mount(io)
+io.on('connection', async function (socket) {
+  io.emit('update-gameObject', gameObject)
 
-// setInterval(() => {
-//   console.log('io.engine.clientsCount:', io.engine.clientsCount)
-// }, (1000));
+  socket.on('disconnect', async function () {
+    io.emit('update-gameObject', gameObject)
+  });
+});

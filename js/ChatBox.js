@@ -20,12 +20,16 @@ const ChatInput = () => {
             setMessage('')
         }
     }
+    const onFocus = () => {
+        socket.emit('isTyping', getLocalUserData())
+    }
     return (
         <ChatInputStyle>
             <input
                 value={message}
                 onKeyDown={onKeyDown}
                 onChange={e => setMessage(e.target.value)}
+                onFocus={onFocus}
             />
             <button onClick={onSend}>send</button>
         </ChatInputStyle>

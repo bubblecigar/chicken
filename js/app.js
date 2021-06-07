@@ -7,14 +7,20 @@ import UserPanel, { getLocalUserData } from './UserPanel'
 import ChatBox from './ChatBox'
 
 const socket = io.connect()
-socket.on('notify', message => {
-  pushMessage(message)
-})
-socket.on('update-clients', sids => {
-  console.log('sids:', sids)
-})
 
 const App = () => {
+  const [gameObject, setGameObject] = React.useState(null)
+  const [messages, setMessages] = React.useState([])
+
+  React.useEffect(
+    () => {
+      socket.on('update-gameObject', gameObject => {
+        setGameObject(gameObject)
+      })
+      return () => socket.disconnect()
+    }, []
+  )
+  console.log('gameObject:', gameObject)
   return (
     <div>
       <UserPanel />

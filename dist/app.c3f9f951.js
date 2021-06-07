@@ -40881,6 +40881,12 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var localKey = 'chicken-chess-user';
 var defaultUserData = {
   userName: 'unknown user',
@@ -40906,7 +40912,8 @@ var getLocalUserData = function getLocalUserData() {
 exports.getLocalUserData = getLocalUserData;
 
 var setLocalUserData = function setLocalUserData(data) {
-  localStorage.setItem(localKey, JSON.stringify(data));
+  var oldData = getLocalUserData();
+  localStorage.setItem(localKey, JSON.stringify(_objectSpread(_objectSpread({}, oldData), data)));
 };
 
 var UserPanel = function UserPanel() {
@@ -41032,12 +41039,17 @@ var ChatInput = function ChatInput() {
     }
   };
 
+  var onFocus = function onFocus() {
+    _app.socket.emit('isTyping', (0, _UserPanel.getLocalUserData)());
+  };
+
   return /*#__PURE__*/_react.default.createElement(ChatInputStyle, null, /*#__PURE__*/_react.default.createElement("input", {
     value: message,
     onKeyDown: onKeyDown,
     onChange: function onChange(e) {
       return setMessage(e.target.value);
-    }
+    },
+    onFocus: onFocus
   }), /*#__PURE__*/_react.default.createElement("button", {
     onClick: onSend
   }, "send"));
@@ -41092,17 +41104,43 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 var socket = _socket.default.connect();
 
 exports.socket = socket;
-socket.on('notify', function (message) {
-  (0, _useMessage.pushMessage)(message);
-});
-socket.on('update-clients', function (sids) {
-  console.log('sids:', sids);
-});
 
 var App = function App() {
+  var _React$useState = _react.default.useState(null),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      gameObject = _React$useState2[0],
+      setGameObject = _React$useState2[1];
+
+  var _React$useState3 = _react.default.useState([]),
+      _React$useState4 = _slicedToArray(_React$useState3, 2),
+      messages = _React$useState4[0],
+      setMessages = _React$useState4[1];
+
+  _react.default.useEffect(function () {
+    socket.on('update-gameObject', function (gameObject) {
+      setGameObject(gameObject);
+    });
+    return function () {
+      return socket.disconnect();
+    };
+  }, []);
+
+  console.log('gameObject:', gameObject);
   return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_UserPanel.default, null), /*#__PURE__*/_react.default.createElement(_ChatBox.default, null));
 };
 
