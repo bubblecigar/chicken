@@ -41100,6 +41100,69 @@ var Chessboard = function Chessboard() {
 
 var _default = Chessboard;
 exports.default = _default;
+},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./app":"js/app.js"}],"js/ChessBox.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _styledComponents = _interopRequireDefault(require("styled-components"));
+
+var _app = require("./app");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  margin: 10px;\n  justify-content: center;\n  align-items: center;\n  width: ", "px;\n  height: ", "px;\n  border-radius: 50%;\n  background-color: ", "\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  flex-wrap: wrap;\n  align-items: center;\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var ChessBoxStyle = _styledComponents.default.div(_templateObject());
+
+var ChessStyle = _styledComponents.default.div(_templateObject2(), function (props) {
+  return props.size;
+}, function (props) {
+  return props.size;
+}, function (props) {
+  return props.color;
+});
+
+var Chessbox = function Chessbox() {
+  var _React$useContext = _react.default.useContext(_app.GlobalContext),
+      gameObject = _React$useContext.gameObject;
+
+  return gameObject ? /*#__PURE__*/_react.default.createElement(ChessBoxStyle, null, gameObject.chess.map(function (c, i) {
+    return /*#__PURE__*/_react.default.createElement(ChessStyle, {
+      key: i,
+      color: c.color,
+      size: c.size * 50
+    });
+  })) : null;
+};
+
+var _default = Chessbox;
+exports.default = _default;
 },{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./app":"js/app.js"}],"js/app.js":[function(require,module,exports) {
 "use strict";
 
@@ -41123,6 +41186,8 @@ var _ChatBox = _interopRequireDefault(require("./ChatBox"));
 var _GamePanel = _interopRequireDefault(require("./GamePanel"));
 
 var _Chessboard = _interopRequireDefault(require("./Chessboard"));
+
+var _ChessBox = _interopRequireDefault(require("./ChessBox"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
@@ -41187,11 +41252,11 @@ var App = function App() {
       gameObject: gameObject,
       messages: messages
     }
-  }, /*#__PURE__*/_react.default.createElement(_GamePanel.default, null), /*#__PURE__*/_react.default.createElement(_UserPanel.default, null), /*#__PURE__*/_react.default.createElement(_Chessboard.default, null), /*#__PURE__*/_react.default.createElement(_ChatBox.default, null));
+  }, /*#__PURE__*/_react.default.createElement(_GamePanel.default, null), /*#__PURE__*/_react.default.createElement(_UserPanel.default, null), /*#__PURE__*/_react.default.createElement(_Chessboard.default, null), /*#__PURE__*/_react.default.createElement(_ChessBox.default, null), /*#__PURE__*/_react.default.createElement(_ChatBox.default, null));
 };
 
 _reactDom.default.render( /*#__PURE__*/_react.default.createElement(App, null), document.querySelector('#app'));
-},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","socket.io-client":"node_modules/socket.io-client/build/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./UserPanel":"js/UserPanel.js","./ChatBox":"js/ChatBox.js","./GamePanel":"js/GamePanel.js","./Chessboard":"js/Chessboard.js"}],"../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","socket.io-client":"node_modules/socket.io-client/build/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./UserPanel":"js/UserPanel.js","./ChatBox":"js/ChatBox.js","./GamePanel":"js/GamePanel.js","./Chessboard":"js/Chessboard.js","./ChessBox":"js/ChessBox.js"}],"../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
