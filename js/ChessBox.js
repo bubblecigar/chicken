@@ -37,10 +37,7 @@ const Chessbox = ({ color }) => {
       {
         gameObject.chess.filter(c => c.color === color).map(
           (c, i) =>
-            <Chess
-              key={i}
-              chess={c}
-            />
+            <Chess key={i} chess={c} />
         )
       }
     </ChessBoxStyle>
