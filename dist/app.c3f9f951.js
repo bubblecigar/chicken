@@ -41076,7 +41076,30 @@ var ChatBox = function ChatBox() {
 
 var _default = ChatBox;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./useMessage":"js/useMessage.js","./UserPanel":"js/UserPanel.js","./app":"js/app.js"}],"js/app.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./useMessage":"js/useMessage.js","./UserPanel":"js/UserPanel.js","./app":"js/app.js"}],"js/GamePanel.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var GamePanel = function GamePanel(_ref) {
+  var gameObject = _ref.gameObject;
+  return gameObject ? /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", null, gameObject.status), gameObject.players.map(function (player) {
+    return /*#__PURE__*/_react.default.createElement("div", {
+      key: player.id
+    }, player.id);
+  })) : null;
+};
+
+var _default = GamePanel;
+exports.default = _default;
+},{"react":"node_modules/react/index.js"}],"js/app.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -41097,6 +41120,8 @@ var _useMessage = require("./useMessage");
 var _UserPanel = _interopRequireWildcard(require("./UserPanel"));
 
 var _ChatBox = _interopRequireDefault(require("./ChatBox"));
+
+var _GamePanel = _interopRequireDefault(require("./GamePanel"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
@@ -41141,11 +41166,13 @@ var App = function App() {
   }, []);
 
   console.log('gameObject:', gameObject);
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_UserPanel.default, null), /*#__PURE__*/_react.default.createElement(_ChatBox.default, null));
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_GamePanel.default, {
+    gameObject: gameObject
+  }), /*#__PURE__*/_react.default.createElement(_UserPanel.default, null), /*#__PURE__*/_react.default.createElement(_ChatBox.default, null));
 };
 
 _reactDom.default.render( /*#__PURE__*/_react.default.createElement(App, null), document.querySelector('#app'));
-},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","socket.io-client":"node_modules/socket.io-client/build/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./useMessage":"js/useMessage.js","./UserPanel":"js/UserPanel.js","./ChatBox":"js/ChatBox.js"}],"../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","socket.io-client":"node_modules/socket.io-client/build/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./useMessage":"js/useMessage.js","./UserPanel":"js/UserPanel.js","./ChatBox":"js/ChatBox.js","./GamePanel":"js/GamePanel.js"}],"../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -41173,7 +41200,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64112" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58246" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

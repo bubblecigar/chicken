@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { pushMessage } from './useMessage'
 import UserPanel, { getLocalUserData } from './UserPanel'
 import ChatBox from './ChatBox'
+import GamePanel from './GamePanel'
 
 const socket = io.connect()
 
@@ -23,6 +24,7 @@ const App = () => {
   console.log('gameObject:', gameObject)
   return (
     <div>
+      <GamePanel gameObject={gameObject} />
       <UserPanel />
       <ChatBox />
     </div>
