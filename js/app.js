@@ -6,7 +6,11 @@ import UserPanel, { getLocalUserData } from './UserPanel'
 import ChatBox from './ChatBox'
 import GamePanel from './GamePanel'
 
-const socket = io.connect()
+const socket = io.connect({
+  auth: {
+    ...getLocalUserData()
+  }
+})
 
 const GlobalContext = React.createContext()
 
