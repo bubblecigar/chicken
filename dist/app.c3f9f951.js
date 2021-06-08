@@ -40920,7 +40920,7 @@ var _app = require("./app");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject4() {
-  var data = _taggedTemplateLiteral(["\n  border: 4px solid black;\n  height: 406px;\n  flex-grow: 1;\n  position: relative;\n  dispplay: flex;\n  flex-flow: column;\n\n"]);
+  var data = _taggedTemplateLiteral(["\n  border: 4px solid black;\n  height: 405px;\n  flex-grow: 1;\n  position: relative;\n  dispplay: flex;\n  flex-flow: column;\n\n"]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -40988,6 +40988,8 @@ var ChatInput = function ChatInput() {
     };
 
     _app.socket.emit('message', messageObject);
+
+    setMessage('');
   };
 
   var onKeyDown = function onKeyDown(e) {
@@ -41010,7 +41012,8 @@ var ChatInput = function ChatInput() {
     }
   }), /*#__PURE__*/_react.default.createElement("button", {
     type: "button",
-    className: "nes-btn is-primary",
+    disabled: !message,
+    className: "nes-btn ".concat(message === '' ? 'is-disabled' : 'is-success'),
     onClick: onSend
   }, "send"));
 };

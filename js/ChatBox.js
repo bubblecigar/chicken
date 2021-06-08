@@ -19,6 +19,7 @@ const ChatInput = () => {
   const onSend = () => {
     const messageObject = { message, user: getLocalUserData() }
     socket.emit('message', messageObject)
+    setMessage('')
   }
   const onKeyDown = e => {
     if (e.keyCode === 13) {
@@ -31,8 +32,8 @@ const ChatInput = () => {
       <input type="text" className="nes-input" placeholder="type some messages..." value={message}
         onKeyDown={onKeyDown}
         onChange={e => setMessage(e.target.value)} />
-      <button type="button" className="nes-btn is-primary" onClick={onSend}>send</button>
-    </ChatInputStyle>
+      <button type="button" disabled={!message} className={`nes-btn ${message === '' ? 'is-disabled' : 'is-success'}`} onClick={onSend}>send</button>
+    </ChatInputStyle >
   )
 }
 
@@ -73,7 +74,7 @@ const ChatRecord = () => {
 
 const ChatBoxStyle = styled.div`
   border: 4px solid black;
-  height: 406px;
+  height: 405px;
   flex-grow: 1;
   position: relative;
   dispplay: flex;
