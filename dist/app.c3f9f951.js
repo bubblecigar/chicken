@@ -40993,7 +40993,7 @@ var ChatInput = function ChatInput() {
   };
 
   var onKeyDown = function onKeyDown(e) {
-    if (e.keyCode === 13) {
+    if (e.keyCode === 13 && message !== '') {
       onSend();
       setMessage('');
     }

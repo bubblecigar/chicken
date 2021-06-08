@@ -22,7 +22,7 @@ const ChatInput = () => {
     setMessage('')
   }
   const onKeyDown = e => {
-    if (e.keyCode === 13) {
+    if (e.keyCode === 13 && (message !== '')) {
       onSend()
       setMessage('')
     }
