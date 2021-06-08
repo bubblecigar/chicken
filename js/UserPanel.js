@@ -35,7 +35,7 @@ const UserPanelStyle = styled.div`
   align-items: center;
 
   input {
-    max-width: 35%;
+    max-width: 40%;
   }
 
   label {

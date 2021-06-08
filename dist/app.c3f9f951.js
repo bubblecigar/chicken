@@ -40817,7 +40817,7 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: flex-end;\n  align-items: center;\n\n  input {\n    max-width: 35%;\n  }\n\n  label {\n    margin: 0;\n    margin-right: 10px;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: flex-end;\n  align-items: center;\n\n  input {\n    max-width: 40%;\n  }\n\n  label {\n    margin: 0;\n    margin-right: 10px;\n  }\n"]);
 
   _templateObject = function _templateObject() {
     return data;
