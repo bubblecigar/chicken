@@ -39,8 +39,8 @@ const ChatInput = () => {
 
 const ChatRecordStyle = styled.div`
   overflow-y: auto;
+  overflow-x: hidden;
   height: calc(100% - 75px);
-  border-bottom: 4px solid black;
 `
 const MessageRowStyle = styled.div`
   padding: 5px 10px;
@@ -48,7 +48,7 @@ const MessageRowStyle = styled.div`
 const ChatRecord = () => {
   const { messages } = React.useContext(GlobalContext)
   return (
-    <ChatRecordStyle>
+    <ChatRecordStyle className='nes-container is-dark'>
       {
         messages.map(
           (message, i) => {

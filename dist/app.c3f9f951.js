@@ -40961,7 +40961,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  overflow-y: auto;\n  height: calc(100% - 75px);\n  border-bottom: 4px solid black;\n"]);
+  var data = _taggedTemplateLiteral(["\n  overflow-y: auto;\n  overflow-x: hidden;\n  height: calc(100% - 75px);\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -41047,7 +41047,9 @@ var ChatRecord = function ChatRecord() {
   var _React$useContext = _react.default.useContext(_app.GlobalContext),
       messages = _React$useContext.messages;
 
-  return /*#__PURE__*/_react.default.createElement(ChatRecordStyle, null, messages.map(function (message, i) {
+  return /*#__PURE__*/_react.default.createElement(ChatRecordStyle, {
+    className: "nes-container is-dark"
+  }, messages.map(function (message, i) {
     switch (message.type) {
       case 'user-message':
         {
