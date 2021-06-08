@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 const localKey = 'chicken-chess-user'
 const defaultUserData = {
-  userName: 'unknown user',
+  userName: '',
   userId: uuidv4()
 }
 
