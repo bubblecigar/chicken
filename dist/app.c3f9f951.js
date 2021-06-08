@@ -41062,7 +41062,7 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  margin: 10px;\n  justify-content: center;\n  align-items: center;\n  width: ", "px;\n  height: ", "px;\n  border-radius: 50%;\n  background-color: ", "\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  margin: 10px;\n  justify-content: center;\n  align-items: center;\n  width: ", "px;\n  height: ", "px;\n  border-radius: 50%;\n  background-color: ", ";\n  position: ", ";\n  z-index: ", ";\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -41079,11 +41079,16 @@ var ChessStyle = _styledComponents.default.div(_templateObject(), function (prop
   return props.size * 50;
 }, function (props) {
   return props.color;
+}, function (props) {
+  return props.zIndex ? 'absolute' : 'relative';
+}, function (props) {
+  return props.zIndex;
 });
 
 var Chess = function Chess(_ref) {
   var chess = _ref.chess,
-      at = _ref.at;
+      at = _ref.at,
+      zIndex = _ref.zIndex;
 
   var _onDragStart = function onDragStart(e, chess) {
     e.dataTransfer.setData("application/json", JSON.stringify({
@@ -41095,6 +41100,7 @@ var Chess = function Chess(_ref) {
   return /*#__PURE__*/_react.default.createElement(ChessStyle, {
     color: chess.color,
     size: chess.size,
+    zIndex: zIndex,
     draggable: true,
     onDragStart: function onDragStart(e) {
       return _onDragStart(e, chess);
@@ -41188,7 +41194,8 @@ var Chessboard = function Chessboard() {
         return /*#__PURE__*/_react.default.createElement(_Chess.default, {
           key: k,
           chess: c,
-          at: [i, j]
+          at: [i, j],
+          zIndex: k + 1
         });
       }));
     }));
@@ -41373,7 +41380,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58246" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50940" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

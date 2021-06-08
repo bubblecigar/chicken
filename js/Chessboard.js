@@ -52,7 +52,7 @@ const Chessboard = () => {
                       {
                         col.map(
                           (c, k) => (
-                            <Chess key={k} chess={c} at={[i, j]} />
+                            <Chess key={k} chess={c} at={[i, j]} zIndex={k + 1} />
                           )
                         )
                       }
