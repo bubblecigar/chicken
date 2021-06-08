@@ -22,6 +22,7 @@ const CellStyle = styled.div`
   background-size: ${ChessboardSize}px;
   justify-content: center;
   align-items: center;
+  position: relative;
 `
 const Chessboard = () => {
   const { gameObject } = React.useContext(GlobalContext)

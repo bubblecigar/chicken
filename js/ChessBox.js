@@ -5,6 +5,7 @@ import Chess from './Chess'
 
 const ChessBoxStyle = styled.div`
   margin: 20px;
+  position: relative;
   width: calc(50% - 40px);
 `
 const ChessGroup = styled.div`
