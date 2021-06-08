@@ -29,6 +29,9 @@ const Chessboard = () => {
       from,
       to: [i, j]
     }
+    if (from[0] === to[0] && from[1] === to[1]) {
+      return // in the same cell
+    }
     socket.emit('move-chess', action)
   }
 
