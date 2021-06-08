@@ -7,6 +7,7 @@ import ChatBox from './ChatBox'
 import GamePanel from './GamePanel'
 import Chessboard from './Chessboard'
 import ChessBox from './ChessBox'
+import ExplainDialog from './ExplainDialog'
 
 const socket = io.connect({
   auth: {
@@ -16,6 +17,23 @@ const socket = io.connect({
 
 const GlobalContext = React.createContext()
 
+const PlayGround = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+`
+const BoxGroup = styled.div`
+  position: fixed;
+  display: flex;
+  width: 100%;
+  bottom: 0;
+  justify-content: center;
+  align-items: center;
+`
+const Header = styled.h1`
+  padding: 20px;
+`
 const App = () => {
   const [gameObject, setGameObject] = React.useState(null)
   const [messages, setMessages] = React.useState([])
@@ -31,15 +49,25 @@ const App = () => {
       return () => socket.disconnect()
     }, []
   )
-  console.log('gameObject:', gameObject)
+
   return (
-    <GlobalContext.Provider value={{ gameObject, messages }}>
-      <GamePanel />
-      <ChessBox color='red' />
-      <Chessboard />
-      <ChessBox color='blue' />
-      <ChatBox />
-    </GlobalContext.Provider>
+    <div style={{ paddingBottom: '400px' }}>
+      <GlobalContext.Provider value={{ gameObject, messages }}>
+        <Header><a target='_BLANK' href='https://www.youtube.com/watch?v=F8F29jfZBRo'><span className="nes-text is-primary">#</span> Gobblet Gobbler</a></Header>
+        <GamePanel />
+        <PlayGround>
+          <Chessboard />
+          <ChatBox />
+        </PlayGround>
+        <PlayGround>
+          <ExplainDialog />
+        </PlayGround>
+        <BoxGroup>
+          <ChessBox color='red' />
+          <ChessBox color='blue' />
+        </BoxGroup>
+      </GlobalContext.Provider>
+    </div>
   )
 }
 

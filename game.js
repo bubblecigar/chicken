@@ -1,4 +1,5 @@
 const _ = require('lodash')
+const { methods: messageMethods } = require('./message.js')
 
 const gameObject = {
   guests: [],
@@ -18,6 +19,22 @@ const gameObject = {
     { color: 'blue', size: 3 }, { color: 'blue', size: 3 },
   ],
   status: 'waiting' // red, blue, red-win, blue-win
+}
+
+const updateUserData = userData => {
+  if (gameObject.redPlayer) {
+    if (gameObject.redPlayer.userId === userData.userId) {
+      gameObject.redPlayer = userData
+    }
+  }
+  if (gameObject.bluePlayer) {
+    if (gameObject.bluePlayer.userId === userData.userId) {
+      gameObject.bluePlayer = userData
+    }
+  }
+  gameObject.guests = gameObject.guests.map(
+    g => g.userId === userData.userId ? userData : g
+  )
 }
 
 const resetChessboard = () => {
@@ -128,6 +145,7 @@ const moveChess = (action, user) => {
       const winner = checkWin()
       if (winner) {
         gameObject.status = `${winner}-win`
+        messageMethods.pushGameMessage(`${winner} player win the game!`)
         return
       }
     } else { // move from cell to cell
@@ -136,11 +154,13 @@ const moveChess = (action, user) => {
       gameObject.chessboard[to[0]][to[1]].push(chess)
       if (winner) {
         gameObject.status = `${winner}-win`
+        messageMethods.pushGameMessage(`${winner} player win the game!`)
         return
       } else {
         const winner = checkWin()
         if (winner) {
           gameObject.status = `${winner}-win`
+          messageMethods.pushGameMessage(`${winner} player win the game!`)
           return
         }
       }
@@ -189,6 +209,7 @@ const takeColor = (user, color) => {
 module.exports = {
   gameObject,
   methods: {
+    updateUserData,
     joinGuest,
     removeGuest,
     takeColor,

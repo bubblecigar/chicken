@@ -12,10 +12,19 @@ const pushSystemMessage = message => {
     messages.push({ message, type: 'system-message' })
 }
 
+
+const pushGameMessage = message => {
+    const prevGameMessageIndex = messages.findIndex(msg => msg.type === 'game-message')
+    messages.splice(prevGameMessageIndex, 1)
+    messages.push({ message, type: 'game-message' })
+}
+
+
 module.exports = {
     messages,
     methods: {
         pushUserMessage,
-        pushSystemMessage
+        pushSystemMessage,
+        pushGameMessage
     }
 }

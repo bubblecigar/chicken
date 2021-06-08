@@ -17,18 +17,23 @@ server.listen(process.env.PORT || 8081, function () {
 });
 
 io.on('connection', async function (socket) {
-  const userData = socket.handshake.auth
-  const { userName, userId } = userData
+  let userData = socket.handshake.auth
+
+  socket.on('update-user-data', _userData => {
+    userData = _userData
+    gameMethods.updateUserData(userData)
+    io.emit('update-gameObject', gameObject)
+  })
 
   gameMethods.joinGuest(userData)
-  messageMethods.pushSystemMessage(`${userName} join the room`)
+  messageMethods.pushSystemMessage(`${userData.userName} enter the room`)
   io.emit('update-gameObject', gameObject)
   io.emit('update-messages', messages)
 
   socket.on('disconnect', async function () {
-    gameMethods.removeGuest(userId)
+    gameMethods.removeGuest(userData.userId)
     gameMethods.leaveGame(userData)
-    messageMethods.pushSystemMessage(`${userName} leave the room`)
+    messageMethods.pushSystemMessage(`${userData.userName} leave the room`)
     io.emit('update-gameObject', gameObject)
     io.emit('update-messages', messages)
   });
@@ -36,6 +41,7 @@ io.on('connection', async function (socket) {
   socket.on('move-chess', action => {
     gameMethods.gameLoop(action, userData)
     io.emit('update-gameObject', gameObject)
+    io.emit('update-messages', messages)
   })
 
   socket.on('reset-chessboard', action => {
@@ -49,6 +55,8 @@ io.on('connection', async function (socket) {
   })
   socket.on('start-game', () => {
     gameMethods.startGame()
+    messageMethods.pushGameMessage(`Game start, It's red player's turn!`)
+    io.emit('update-messages', messages)
     io.emit('update-gameObject', gameObject)
   })
   socket.on('leave-game', () => {

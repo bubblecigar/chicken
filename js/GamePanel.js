@@ -1,19 +1,32 @@
 import React from 'react'
 import styled from 'styled-components'
 import { GlobalContext, socket } from './app'
-import UserPanel from './UserPanel'
+import UserPanel, { getLocalUserData } from './UserPanel'
+
+const Player = ({ player, color, onSubscribe }) => {
+  return player ? (
+    <button type="button" className={`nes-btn ${(color === "red") ? "is-error" : "is-primary"}`} >
+      {player.userName || '?'}
+    </button >
+  ) : (
+      <button type="button" className="nes-btn" onClick={onSubscribe}>empty +</button>
+    )
+}
 
 const GamePanelStyle = styled.div`
-  position: fixed;
-  right: 0;
-  top: 0;
-  border: 1px solid black;
+  margin: 20px;
+`
+const ButtonGroup = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    margin: 10px;
+  }
 `
 const GamePanel = () => {
   const { gameObject } = React.useContext(GlobalContext)
-  const onReset = () => {
-    socket.emit('reset-chessboard')
-  }
+
   const takeColor = color => () => {
     socket.emit('take-color', color)
   }
@@ -23,38 +36,56 @@ const GamePanel = () => {
   const onStart = () => {
     socket.emit('start-game')
   }
+
+  const isInGame = () => {
+    const user = getLocalUserData()
+    if (gameObject) {
+      const { redPlayer, bluePlayer } = gameObject
+      if (redPlayer && redPlayer.userId === user.userId) {
+        return true
+      }
+      if (bluePlayer && bluePlayer.userId === user.userId) {
+        return true
+      }
+      return false
+    }
+  }
+  const enoughPlayer = () => {
+    if (gameObject) {
+      const { redPlayer, bluePlayer } = gameObject
+      return redPlayer && bluePlayer
+    }
+  }
   return gameObject ? (
-    <GamePanelStyle>
-      <UserPanel />
-      <div>
-        {gameObject.status}
-        <button onClick={onStart}>start</button>
-        <button onClick={onReset}>reset</button>
-      </div>
-      <div>
-        guests:
-        {
-          gameObject.guests.map(
-            user => (
-              <div key={user.userId}>
-                {user.userName}
-              </div>
-            )
-          )
-        }
-      </div>
-      <div>
-        players:
-        {
-          gameObject.redPlayer
-            ? <span>{gameObject.redPlayer.userName}</span>
-            : <button onClick={takeColor('red')}>sit red</button>
-        }
-        {
-          gameObject.bluePlayer ? <span>{gameObject.bluePlayer.userName}</span> : <button onClick={takeColor('blue')}>sit blue</button>
-        }
-        <button onClick={leaveGame}>leave</button>
-      </div>
+    <GamePanelStyle className="nes-container with-title is-centered">
+      <p className="title">game status - {gameObject.status}</p>
+      <ButtonGroup>
+        <div>
+          <Player player={gameObject.redPlayer} color={'red'} onSubscribe={takeColor('red')} />
+          <span style={{ margin: '0 15px' }} className="nes-text is-disabled">vs</span>
+          <Player player={gameObject.bluePlayer} color={'blue'} onSubscribe={takeColor('blue')} />
+        </div>
+        <div>
+          {
+            isInGame() && enoughPlayer() && (gameObject.status === 'blue-win' || gameObject.status === 'red-win')
+              ? <button onClick={onStart} type="button" className="nes-btn is-warning">new</button>
+              : null
+          }
+          {
+            isInGame()
+              ? <button onClick={leaveGame} type="button" className="nes-btn">leave</button>
+              : null
+          }
+          {
+            isInGame() && enoughPlayer() && gameObject.status === 'waiting'
+              ? <button onClick={onStart} type="button" className="nes-btn is-success">Start</button>
+              : null
+          }
+          {
+            !isInGame() && !enoughPlayer() && <UserPanel />
+          }
+        </div>
+      </ButtonGroup>
     </GamePanelStyle>
   ) : null
 }

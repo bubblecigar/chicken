@@ -2,21 +2,27 @@ import React from 'react'
 import styled from 'styled-components'
 import { socket, GlobalContext } from './app'
 import Chess from './Chess'
+import grassWithHole from '../assets/grassWithHole.png'
+import grassWithFlower from '../assets/grassWithFlower.png'
+
+const ChessboardSize = 130
 
 const ChessboardStyle = styled.div`
   display: inline-grid;
   background-color: black;
-  grid-template-rows: repeat(3, 200px);
-  grid-template-columns: repeat(3, 200px);
-  grid-gap: 1px;
-  border: 1px solid black;
-  margin: 20px;
+  grid-template-rows: repeat(3, ${ChessboardSize}px);
+  grid-template-columns: repeat(3, ${ChessboardSize}px);
+  grid-gap: 4px;
+  border: 4px solid black;
+  margin-right: 20px;
 `
 const CellStyle = styled.div`
   display: flex;
-  background-color: white;
+  background-image: url(${props => (props.index % 2 === 0) ? grassWithHole : grassWithFlower});
+  background-size: ${ChessboardSize}px;
   justify-content: center;
   align-items: center;
+  position: relative;
 `
 const Chessboard = () => {
   const { gameObject } = React.useContext(GlobalContext)
@@ -45,6 +51,7 @@ const Chessboard = () => {
                 row.map(
                   (col, j) => (
                     <CellStyle
+                      index={i + j}
                       key={j}
                       onDragOver={e => e.preventDefault()}
                       onDrop={e => onDrop(e, [i, j])}

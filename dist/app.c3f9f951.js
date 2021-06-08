@@ -40798,6 +40798,10 @@ var _react = _interopRequireDefault(require("react"));
 
 var _uuid = require("uuid");
 
+var _styledComponents = _interopRequireDefault(require("styled-components"));
+
+var _app = require("./app");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
@@ -40812,6 +40816,28 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  opacity: 0;\n  pointer-events: none;\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: flex-end;\n  align-items: center;\n\n  input {\n    width: 15em;\n    margin-left: 10px;\n  }\n\n  label {\n    margin: 0;\n    margin-right: 10px;\n  }\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -40820,7 +40846,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var localKey = 'chicken-chess-user';
 var defaultUserData = {
-  userName: 'unknown user',
+  userName: '',
   userId: (0, _uuid.v4)()
 };
 
@@ -40847,6 +40873,10 @@ var setLocalUserData = function setLocalUserData(data) {
   localStorage.setItem(localKey, JSON.stringify(_objectSpread(_objectSpread({}, oldData), data)));
 };
 
+var UserPanelStyle = _styledComponents.default.div(_templateObject());
+
+var BufferButton = _styledComponents.default.button(_templateObject2());
+
 var UserPanel = function UserPanel() {
   var _React$useState = _react.default.useState(getLocalUserData().userName),
       _React$useState2 = _slicedToArray(_React$useState, 2),
@@ -40857,21 +40887,42 @@ var UserPanel = function UserPanel() {
     setLocalUserData({
       userName: userName
     });
+
+    _app.socket.emit('update-user-data', getLocalUserData());
   };
 
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("input", {
+  var onCancel = function onCancel() {
+    setUserName(getLocalUserData().userName);
+  };
+
+  return /*#__PURE__*/_react.default.createElement(UserPanelStyle, {
+    className: "nes-field"
+  }, /*#__PURE__*/_react.default.createElement(BufferButton, {
+    type: "button",
+    className: "nes-btn"
+  }, "X"), userName !== getLocalUserData().userName ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("button", {
+    type: "button",
+    className: "nes-btn is-success",
+    onClick: onSave
+  }, "Save"), /*#__PURE__*/_react.default.createElement("button", {
+    type: "button",
+    className: "nes-btn is-error",
+    onClick: onCancel
+  }, "X")) : null, /*#__PURE__*/_react.default.createElement("input", {
+    type: "text",
+    id: "inline_field",
+    className: "nes-input",
+    placeholder: "Your Name",
     value: userName,
     onChange: function onChange(e) {
       return setUserName(e.target.value);
     }
-  }), /*#__PURE__*/_react.default.createElement("button", {
-    onClick: onSave
-  }, "Save"));
+  }));
 };
 
 var _default = UserPanel;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","uuid":"node_modules/uuid/index.js"}],"js/ChatBox.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","uuid":"node_modules/uuid/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./app":"js/app.js"}],"js/ChatBox.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40889,8 +40940,38 @@ var _app = require("./app");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _templateObject7() {
+  var data = _taggedTemplateLiteral(["\n  border: 4px solid black;\n  height: 405px;\n  flex-grow: 1;\n  position: relative;\n  dispplay: flex;\n  flex-flow: column;\n\n"]);
+
+  _templateObject7 = function _templateObject7() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject6() {
+  var data = _taggedTemplateLiteral(["\n  position: absolute;\n  left: -33px;\n  bottom: -50px;\n  color: #d3d3d3;\n"]);
+
+  _templateObject6 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject5() {
+  var data = _taggedTemplateLiteral(["\n  color: black;\n  line-break: anywhere;\n"]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject4() {
-  var data = _taggedTemplateLiteral(["\n  position: fixed;\n  right: 0;\n  bottom: 0;\n  border: 1px solid black;\n"]);
+  var data = _taggedTemplateLiteral(["\n  padding: 10px;\n  text-align: center;\n  display: block;\n  color: black;\n  margin: 30px -20px;\n  animation-name: coloring;\n  animation-duration: 1s;\n  animation-direction: alternate;\n  animation-iteration-count: infinite;\n\n  @keyframes coloring {\n    from {color: red;}\n    to {color: blue;}\n  }\n"]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -40900,7 +40981,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  padding: 5px 10px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  padding: 10px;\n  text-align: center;\n  display: block;\n  color: #e59400;\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -40910,7 +40991,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n"]);
+  var data = _taggedTemplateLiteral(["\n  overflow-y: auto;\n  overflow-x: hidden;\n  height: calc(100% - 75px);\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -40932,7 +41013,7 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  padding: 10px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  position: absolute;\n  bottom: 0;\n  padding: 10px;\n  align-items: center;\n  width: 100%;\n  input {\n    margin-right: 15px;\n  }\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -40958,55 +41039,106 @@ var ChatInput = function ChatInput() {
     };
 
     _app.socket.emit('message', messageObject);
+
+    setMessage('');
   };
 
   var onKeyDown = function onKeyDown(e) {
-    if (e.keyCode === 13) {
+    if (e.keyCode === 13 && message !== '') {
       onSend();
       setMessage('');
     }
   };
 
-  return /*#__PURE__*/_react.default.createElement(ChatInputStyle, null, /*#__PURE__*/_react.default.createElement("input", {
+  return /*#__PURE__*/_react.default.createElement(ChatInputStyle, {
+    className: "nes-field"
+  }, /*#__PURE__*/_react.default.createElement("input", {
+    type: "text",
+    className: "nes-input",
+    placeholder: "type some messages...",
     value: message,
     onKeyDown: onKeyDown,
     onChange: function onChange(e) {
       return setMessage(e.target.value);
     }
   }), /*#__PURE__*/_react.default.createElement("button", {
+    type: "button",
+    disabled: !message,
+    className: "nes-btn ".concat(message === '' ? 'is-disabled' : 'is-success'),
     onClick: onSend
   }, "send"));
 };
 
 var ChatRecordStyle = _styledComponents.default.div(_templateObject2());
 
-var MessageRowStyle = _styledComponents.default.div(_templateObject3());
+var SystemMessageStyle = _styledComponents.default.span(_templateObject3());
+
+var GameMessageStyle = _styledComponents.default.span(_templateObject4());
+
+var P = _styledComponents.default.p(_templateObject5());
+
+var Name = _styledComponents.default.span(_templateObject6());
+
+var MessageRow = function MessageRow(_ref) {
+  var message = _ref.message;
+
+  switch (message.type) {
+    case 'user-message':
+      {
+        var isMyMessage = message.user.userId === (0, _UserPanel.getLocalUserData)().userId;
+        return /*#__PURE__*/_react.default.createElement("section", {
+          className: "message is-dark ".concat(isMyMessage ? 'right' : 'left'),
+          style: {
+            textAlign: isMyMessage ? 'right' : 'left'
+          }
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          className: "nes-balloon from-".concat(isMyMessage ? 'right' : 'left')
+        }, isMyMessage ? null : /*#__PURE__*/_react.default.createElement(Name, null, message.user.userName), /*#__PURE__*/_react.default.createElement(P, null, message.message)));
+      }
+
+    case 'system-message':
+      {
+        return /*#__PURE__*/_react.default.createElement(SystemMessageStyle, {
+          className: "nes-text is-warning"
+        }, message.message);
+      }
+
+    case 'game-message':
+      {
+        return /*#__PURE__*/_react.default.createElement(GameMessageStyle, null, message.message);
+      }
+
+    default:
+      {
+        return null; // unhandled message type
+      }
+  }
+};
 
 var ChatRecord = function ChatRecord() {
   var _React$useContext = _react.default.useContext(_app.GlobalContext),
       messages = _React$useContext.messages;
 
-  console.log('messages:', messages);
-  return /*#__PURE__*/_react.default.createElement(ChatRecordStyle, null, messages.map(function (message, i) {
-    switch (message.type) {
-      case 'user-message':
-        {
-          return /*#__PURE__*/_react.default.createElement(MessageRowStyle, {
-            key: i
-          }, message.user.userName, " : ", message.message);
-        }
+  var ref = _react.default.useRef();
 
-      case 'system-message':
-        {
-          return /*#__PURE__*/_react.default.createElement(MessageRowStyle, {
-            key: i
-          }, "system : ", message.message);
-        }
+  _react.default.useEffect(function () {
+    if (ref.current) {
+      ref.current.scrollTo(0, ref.current.scrollHeight);
     }
+  }, [messages]);
+
+  return /*#__PURE__*/_react.default.createElement(ChatRecordStyle, {
+    className: "nes-container is-dark",
+    ref: ref
+  }, messages.map(function (message, i) {
+    return /*#__PURE__*/_react.default.createElement(MessageRow, {
+      key: i,
+      message: message
+    });
   }));
 };
 
-var ChatBoxStyle = _styledComponents.default.div(_templateObject4());
+var ChatBoxStyle = _styledComponents.default.div(_templateObject7());
 
 var ChatBox = function ChatBox() {
   return /*#__PURE__*/_react.default.createElement(ChatBoxStyle, null, /*#__PURE__*/_react.default.createElement(ChatRecord, null), /*#__PURE__*/_react.default.createElement(ChatInput, null));
@@ -41028,12 +41160,26 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 var _app = require("./app");
 
-var _UserPanel = _interopRequireDefault(require("./UserPanel"));
+var _UserPanel = _interopRequireWildcard(require("./UserPanel"));
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: space-between;\n\n  button {\n    margin: 10px;\n  }\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  position: fixed;\n  right: 0;\n  top: 0;\n  border: 1px solid black;\n"]);
+  var data = _taggedTemplateLiteral(["\n  margin: 20px;\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -41044,15 +41190,27 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
+var Player = function Player(_ref) {
+  var player = _ref.player,
+      color = _ref.color,
+      onSubscribe = _ref.onSubscribe;
+  return player ? /*#__PURE__*/_react.default.createElement("button", {
+    type: "button",
+    className: "nes-btn ".concat(color === "red" ? "is-error" : "is-primary")
+  }, player.userName || '?') : /*#__PURE__*/_react.default.createElement("button", {
+    type: "button",
+    className: "nes-btn",
+    onClick: onSubscribe
+  }, "empty +");
+};
+
 var GamePanelStyle = _styledComponents.default.div(_templateObject());
+
+var ButtonGroup = _styledComponents.default.div(_templateObject2());
 
 var GamePanel = function GamePanel() {
   var _React$useContext = _react.default.useContext(_app.GlobalContext),
       gameObject = _React$useContext.gameObject;
-
-  var onReset = function onReset() {
-    _app.socket.emit('reset-chessboard');
-  };
 
   var takeColor = function takeColor(color) {
     return function () {
@@ -41068,21 +41226,63 @@ var GamePanel = function GamePanel() {
     _app.socket.emit('start-game');
   };
 
-  return gameObject ? /*#__PURE__*/_react.default.createElement(GamePanelStyle, null, /*#__PURE__*/_react.default.createElement(_UserPanel.default, null), /*#__PURE__*/_react.default.createElement("div", null, gameObject.status, /*#__PURE__*/_react.default.createElement("button", {
-    onClick: onStart
-  }, "start"), /*#__PURE__*/_react.default.createElement("button", {
-    onClick: onReset
-  }, "reset")), /*#__PURE__*/_react.default.createElement("div", null, "guests:", gameObject.guests.map(function (user) {
-    return /*#__PURE__*/_react.default.createElement("div", {
-      key: user.userId
-    }, user.userName);
-  })), /*#__PURE__*/_react.default.createElement("div", null, "players:", gameObject.redPlayer ? /*#__PURE__*/_react.default.createElement("span", null, gameObject.redPlayer.userName) : /*#__PURE__*/_react.default.createElement("button", {
-    onClick: takeColor('red')
-  }, "sit red"), gameObject.bluePlayer ? /*#__PURE__*/_react.default.createElement("span", null, gameObject.bluePlayer.userName) : /*#__PURE__*/_react.default.createElement("button", {
-    onClick: takeColor('blue')
-  }, "sit blue"), /*#__PURE__*/_react.default.createElement("button", {
-    onClick: leaveGame
-  }, "leave"))) : null;
+  var isInGame = function isInGame() {
+    var user = (0, _UserPanel.getLocalUserData)();
+
+    if (gameObject) {
+      var redPlayer = gameObject.redPlayer,
+          bluePlayer = gameObject.bluePlayer;
+
+      if (redPlayer && redPlayer.userId === user.userId) {
+        return true;
+      }
+
+      if (bluePlayer && bluePlayer.userId === user.userId) {
+        return true;
+      }
+
+      return false;
+    }
+  };
+
+  var enoughPlayer = function enoughPlayer() {
+    if (gameObject) {
+      var redPlayer = gameObject.redPlayer,
+          bluePlayer = gameObject.bluePlayer;
+      return redPlayer && bluePlayer;
+    }
+  };
+
+  return gameObject ? /*#__PURE__*/_react.default.createElement(GamePanelStyle, {
+    className: "nes-container with-title is-centered"
+  }, /*#__PURE__*/_react.default.createElement("p", {
+    className: "title"
+  }, "game status - ", gameObject.status), /*#__PURE__*/_react.default.createElement(ButtonGroup, null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(Player, {
+    player: gameObject.redPlayer,
+    color: 'red',
+    onSubscribe: takeColor('red')
+  }), /*#__PURE__*/_react.default.createElement("span", {
+    style: {
+      margin: '0 15px'
+    },
+    className: "nes-text is-disabled"
+  }, "vs"), /*#__PURE__*/_react.default.createElement(Player, {
+    player: gameObject.bluePlayer,
+    color: 'blue',
+    onSubscribe: takeColor('blue')
+  })), /*#__PURE__*/_react.default.createElement("div", null, isInGame() && enoughPlayer() && (gameObject.status === 'blue-win' || gameObject.status === 'red-win') ? /*#__PURE__*/_react.default.createElement("button", {
+    onClick: onStart,
+    type: "button",
+    className: "nes-btn is-warning"
+  }, "new") : null, isInGame() ? /*#__PURE__*/_react.default.createElement("button", {
+    onClick: leaveGame,
+    type: "button",
+    className: "nes-btn"
+  }, "leave") : null, isInGame() && enoughPlayer() && gameObject.status === 'waiting' ? /*#__PURE__*/_react.default.createElement("button", {
+    onClick: onStart,
+    type: "button",
+    className: "nes-btn is-success"
+  }, "Start") : null, !isInGame() && !enoughPlayer() && /*#__PURE__*/_react.default.createElement(_UserPanel.default, null)))) : null;
 };
 
 var _default = GamePanel;
@@ -41102,7 +41302,7 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  margin: 10px;\n  justify-content: center;\n  align-items: center;\n  width: ", "px;\n  height: ", "px;\n  border-radius: 50%;\n  background-color: ", ";\n  position: ", ";\n  z-index: ", ";\n"]);
+  var data = _taggedTemplateLiteral(["\n  position: absolute;\n  z-index: ", ";\n  margin: 10px;\n  transform: scale(", ");\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -41113,22 +41313,17 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var ChessStyle = _styledComponents.default.div(_templateObject(), function (props) {
-  return props.size * 50;
-}, function (props) {
-  return props.size * 50;
-}, function (props) {
-  return props.color;
-}, function (props) {
-  return props.zIndex ? 'absolute' : 'relative';
-}, function (props) {
+var IconStyle = _styledComponents.default.i(_templateObject(), function (props) {
   return props.zIndex;
+}, function (props) {
+  return props.size / 3;
 });
 
 var Chess = function Chess(_ref) {
   var chess = _ref.chess,
       at = _ref.at,
-      zIndex = _ref.zIndex;
+      zIndex = _ref.zIndex,
+      i = _ref.i;
 
   var _onDragStart = function onDragStart(e, chess) {
     e.dataTransfer.setData("application/json", JSON.stringify({
@@ -41137,10 +41332,15 @@ var Chess = function Chess(_ref) {
     }));
   };
 
-  return /*#__PURE__*/_react.default.createElement(ChessStyle, {
-    color: chess.color,
-    size: chess.size,
+  return /*#__PURE__*/_react.default.createElement(IconStyle, {
+    className: 'nes-pointer' + ' ' + (chess.color === 'red' ? 'nes-charmander' : 'nes-squirtle'),
     zIndex: zIndex,
+    style: {
+      left: "".concat(at ? '0' : 15 * i, "%"),
+      bottom: '-14px',
+      transformOrigin: "".concat(at ? 'center' : 'bottom')
+    },
+    size: chess.size,
     draggable: true,
     onDragStart: function onDragStart(e) {
       return _onDragStart(e, chess);
@@ -41150,7 +41350,11 @@ var Chess = function Chess(_ref) {
 
 var _default = Chess;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"js/Chessboard.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"assets/grassWithHole.png":[function(require,module,exports) {
+module.exports = "/grassWithHole.f1e9fa77.png";
+},{}],"assets/grassWithFlower.png":[function(require,module,exports) {
+module.exports = "/grassWithFlower.611b9ca1.png";
+},{}],"js/Chessboard.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -41166,10 +41370,14 @@ var _app = require("./app");
 
 var _Chess = _interopRequireDefault(require("./Chess"));
 
+var _grassWithHole = _interopRequireDefault(require("../assets/grassWithHole.png"));
+
+var _grassWithFlower = _interopRequireDefault(require("../assets/grassWithFlower.png"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  background-color: white;\n  justify-content: center;\n  align-items: center;\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  background-image: url(", ");\n  background-size: ", "px;\n  justify-content: center;\n  align-items: center;\n  position: relative;\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -41179,7 +41387,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  display: inline-grid;\n  background-color: black;\n  grid-template-rows: repeat(3, 200px);\n  grid-template-columns: repeat(3, 200px);\n  grid-gap: 1px;\n  border: 1px solid black;\n  margin: 20px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: inline-grid;\n  background-color: black;\n  grid-template-rows: repeat(3, ", "px);\n  grid-template-columns: repeat(3, ", "px);\n  grid-gap: 4px;\n  border: 4px solid black;\n  margin-right: 20px;\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -41190,9 +41398,13 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var ChessboardStyle = _styledComponents.default.div(_templateObject());
+var ChessboardSize = 130;
 
-var CellStyle = _styledComponents.default.div(_templateObject2());
+var ChessboardStyle = _styledComponents.default.div(_templateObject(), ChessboardSize, ChessboardSize);
+
+var CellStyle = _styledComponents.default.div(_templateObject2(), function (props) {
+  return props.index % 2 === 0 ? _grassWithHole.default : _grassWithFlower.default;
+}, ChessboardSize);
 
 var Chessboard = function Chessboard() {
   var _React$useContext = _react.default.useContext(_app.GlobalContext),
@@ -41223,6 +41435,7 @@ var Chessboard = function Chessboard() {
       key: i
     }, row.map(function (col, j) {
       return /*#__PURE__*/_react.default.createElement(CellStyle, {
+        index: i + j,
         key: j,
         onDragOver: function onDragOver(e) {
           return e.preventDefault();
@@ -41244,7 +41457,7 @@ var Chessboard = function Chessboard() {
 
 var _default = Chessboard;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./app":"js/app.js","./Chess":"js/Chess.js"}],"js/ChessBox.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./app":"js/app.js","./Chess":"js/Chess.js","../assets/grassWithHole.png":"assets/grassWithHole.png","../assets/grassWithFlower.png":"assets/grassWithFlower.png"}],"js/ChessBox.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -41262,8 +41475,18 @@ var _Chess = _interopRequireDefault(require("./Chess"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  flex-wrap: wrap;\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  flex-wrap: wrap;\n  align-items: center;\n"]);
+  var data = _taggedTemplateLiteral(["\n  margin: 20px;\n  position: relative;\n  width: calc(50% - 40px);\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -41276,26 +41499,98 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 var ChessBoxStyle = _styledComponents.default.div(_templateObject());
 
+var ChessGroup = _styledComponents.default.div(_templateObject2());
+
 var Chessbox = function Chessbox(_ref) {
   var color = _ref.color;
 
   var _React$useContext = _react.default.useContext(_app.GlobalContext),
       gameObject = _React$useContext.gameObject;
 
-  return gameObject ? /*#__PURE__*/_react.default.createElement(ChessBoxStyle, null, gameObject.chess.filter(function (c) {
+  return gameObject ? /*#__PURE__*/_react.default.createElement(ChessBoxStyle, {
+    className: "nes-container with-title"
+  }, /*#__PURE__*/_react.default.createElement("p", {
+    className: "title"
+  }, color), /*#__PURE__*/_react.default.createElement(ChessGroup, null, gameObject.chess.filter(function (c) {
     return c.color === color;
   }).map(function (c, i) {
     return /*#__PURE__*/_react.default.createElement(_Chess.default, {
       key: i,
+      i: i,
       chess: c,
       at: null
     });
-  })) : null;
+  }))) : null;
 };
 
 var _default = Chessbox;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./app":"js/app.js","./Chess":"js/Chess.js"}],"js/app.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./app":"js/app.js","./Chess":"js/Chess.js"}],"js/ExplainDialog.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _styledComponents = _interopRequireDefault(require("styled-components"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n  p {\n    font-size: larger;\n  }\n\n  li {\n    margin-bottom: 10px;\n  }\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var Dialog = _styledComponents.default.dialog(_templateObject());
+
+var ExplainDialog = function ExplainDialog(_ref) {
+  _objectDestructuringEmpty(_ref);
+
+  var onOpen = function onOpen() {
+    document.getElementById('dialog-default').showModal();
+  };
+
+  return /*#__PURE__*/_react.default.createElement("section", null, /*#__PURE__*/_react.default.createElement("button", {
+    type: "button",
+    className: "nes-btn is-error",
+    onClick: onOpen
+  }, "How to play?"), /*#__PURE__*/_react.default.createElement(Dialog, {
+    className: "nes-dialog",
+    id: "dialog-default"
+  }, /*#__PURE__*/_react.default.createElement("form", {
+    method: "dialog"
+  }, /*#__PURE__*/_react.default.createElement("p", {
+    className: "title"
+  }, /*#__PURE__*/_react.default.createElement("span", {
+    className: "nes-text is-primary"
+  }, "#"), " Gobblet Gobbler"), /*#__PURE__*/_react.default.createElement("ul", null, /*#__PURE__*/_react.default.createElement("li", null, "Choose ", /*#__PURE__*/_react.default.createElement("span", {
+    className: "nes-text is-error"
+  }, "Red"), " or ", /*#__PURE__*/_react.default.createElement("span", {
+    className: "nes-text is-primary"
+  }, "Blue")), /*#__PURE__*/_react.default.createElement("li", null, "At your turn, drag a monster (of your color) onto the chessboard, or move one of which to its neighbor"), /*#__PURE__*/_react.default.createElement("li", null, "Bigger monster can cover a smaller one"), /*#__PURE__*/_react.default.createElement("li", null, "When three monsters of the same color are in a row, the player of the color win")), /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      textAlign: 'right'
+    }
+  }, /*#__PURE__*/_react.default.createElement("button", {
+    className: "nes-btn is-success"
+  }, "OK")))));
+};
+
+var _default = ExplainDialog;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"js/app.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -41321,6 +41616,8 @@ var _Chessboard = _interopRequireDefault(require("./Chessboard"));
 
 var _ChessBox = _interopRequireDefault(require("./ChessBox"));
 
+var _ExplainDialog = _interopRequireDefault(require("./ExplainDialog"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
@@ -41334,6 +41631,38 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _templateObject3() {
+  var data = _taggedTemplateLiteral(["\n  padding: 20px;\n"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  position: fixed;\n  display: flex;\n  width: 100%;\n  bottom: 0;\n  justify-content: center;\n  align-items: center;\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 20px;\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -41350,6 +41679,12 @@ exports.socket = socket;
 var GlobalContext = _react.default.createContext();
 
 exports.GlobalContext = GlobalContext;
+
+var PlayGround = _styledComponents.default.div(_templateObject());
+
+var BoxGroup = _styledComponents.default.div(_templateObject2());
+
+var Header = _styledComponents.default.h1(_templateObject3());
 
 var App = function App() {
   var _React$useState = _react.default.useState(null),
@@ -41374,21 +41709,29 @@ var App = function App() {
     };
   }, []);
 
-  console.log('gameObject:', gameObject);
-  return /*#__PURE__*/_react.default.createElement(GlobalContext.Provider, {
+  return /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      paddingBottom: '400px'
+    }
+  }, /*#__PURE__*/_react.default.createElement(GlobalContext.Provider, {
     value: {
       gameObject: gameObject,
       messages: messages
     }
-  }, /*#__PURE__*/_react.default.createElement(_GamePanel.default, null), /*#__PURE__*/_react.default.createElement(_ChessBox.default, {
+  }, /*#__PURE__*/_react.default.createElement(Header, null, /*#__PURE__*/_react.default.createElement("a", {
+    target: "_BLANK",
+    href: "https://www.youtube.com/watch?v=F8F29jfZBRo"
+  }, /*#__PURE__*/_react.default.createElement("span", {
+    className: "nes-text is-primary"
+  }, "#"), " Gobblet Gobbler")), /*#__PURE__*/_react.default.createElement(_GamePanel.default, null), /*#__PURE__*/_react.default.createElement(PlayGround, null, /*#__PURE__*/_react.default.createElement(_Chessboard.default, null), /*#__PURE__*/_react.default.createElement(_ChatBox.default, null)), /*#__PURE__*/_react.default.createElement(PlayGround, null, /*#__PURE__*/_react.default.createElement(_ExplainDialog.default, null)), /*#__PURE__*/_react.default.createElement(BoxGroup, null, /*#__PURE__*/_react.default.createElement(_ChessBox.default, {
     color: "red"
-  }), /*#__PURE__*/_react.default.createElement(_Chessboard.default, null), /*#__PURE__*/_react.default.createElement(_ChessBox.default, {
+  }), /*#__PURE__*/_react.default.createElement(_ChessBox.default, {
     color: "blue"
-  }), /*#__PURE__*/_react.default.createElement(_ChatBox.default, null));
+  }))));
 };
 
 _reactDom.default.render( /*#__PURE__*/_react.default.createElement(App, null), document.querySelector('#app'));
-},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","socket.io-client":"node_modules/socket.io-client/build/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./UserPanel":"js/UserPanel.js","./ChatBox":"js/ChatBox.js","./GamePanel":"js/GamePanel.js","./Chessboard":"js/Chessboard.js","./ChessBox":"js/ChessBox.js"}],"../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","socket.io-client":"node_modules/socket.io-client/build/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./UserPanel":"js/UserPanel.js","./ChatBox":"js/ChatBox.js","./GamePanel":"js/GamePanel.js","./Chessboard":"js/Chessboard.js","./ChessBox":"js/ChessBox.js","./ExplainDialog":"js/ExplainDialog.js"}],"../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -41416,7 +41759,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50940" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61206" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
