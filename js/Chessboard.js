@@ -21,15 +21,15 @@ const CellStyle = styled.div`
 const Chessboard = () => {
   const { gameObject } = React.useContext(GlobalContext)
 
-  const onDrop = (e, [i, j]) => {
+  const onDrop = (e, to) => {
     const json = e.dataTransfer.getData('application/json')
     const { chess, from } = JSON.parse(json)
     const action = {
       chess,
       from,
-      to: [i, j]
+      to
     }
-    if (from[0] === to[0] && from[1] === to[1]) {
+    if (from && (from[0] === to[0] && from[1] === to[1])) {
       return // in the same cell
     }
     socket.emit('move-chess', action)
