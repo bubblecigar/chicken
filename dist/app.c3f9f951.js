@@ -40800,6 +40800,8 @@ var _uuid = require("uuid");
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
+var _app = require("./app");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
@@ -40834,7 +40836,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var localKey = 'chicken-chess-user';
 var defaultUserData = {
-  userName: 'unknown user',
+  userName: '',
   userId: (0, _uuid.v4)()
 };
 
@@ -40873,6 +40875,8 @@ var UserPanel = function UserPanel() {
     setLocalUserData({
       userName: userName
     });
+
+    _app.socket.emit('update-user-data', getLocalUserData());
   };
 
   return /*#__PURE__*/_react.default.createElement(UserPanelStyle, {
@@ -40897,7 +40901,7 @@ var UserPanel = function UserPanel() {
 
 var _default = UserPanel;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","uuid":"node_modules/uuid/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"js/ChatBox.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","uuid":"node_modules/uuid/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./app":"js/app.js"}],"js/ChatBox.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -41091,7 +41095,7 @@ var Player = function Player(_ref) {
   return player ? /*#__PURE__*/_react.default.createElement("button", {
     type: "button",
     className: "nes-btn ".concat(color === "red" ? "is-error" : "is-primary")
-  }, player.userName) : /*#__PURE__*/_react.default.createElement("button", {
+  }, player.userName || '?') : /*#__PURE__*/_react.default.createElement("button", {
     type: "button",
     className: "nes-btn",
     onClick: onSubscribe

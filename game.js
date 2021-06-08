@@ -20,6 +20,22 @@ const gameObject = {
   status: 'waiting' // red, blue, red-win, blue-win
 }
 
+const updateUserData = userData => {
+  if (gameObject.redPlayer) {
+    if (gameObject.redPlayer.userId === userData.userId) {
+      gameObject.redPlayer = userData
+    }
+  }
+  if (gameObject.bluePlayer) {
+    if (gameObject.bluePlayer.userId === userData.userId) {
+      gameObject.bluePlayer = userData
+    }
+  }
+  gameObject.guests = gameObject.guests.map(
+    g => g.userId === userData.userId ? userData : g
+  )
+}
+
 const resetChessboard = () => {
   gameObject.status = 'waiting'
   gameObject.chess = [
@@ -189,6 +205,7 @@ const takeColor = (user, color) => {
 module.exports = {
   gameObject,
   methods: {
+    updateUserData,
     joinGuest,
     removeGuest,
     takeColor,

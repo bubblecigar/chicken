@@ -1,6 +1,7 @@
 import React from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components'
+import { socket } from './app'
 
 const localKey = 'chicken-chess-user'
 const defaultUserData = {
@@ -47,6 +48,7 @@ const UserPanel = () => {
 
   const onSave = () => {
     setLocalUserData({ userName })
+    socket.emit('update-user-data', getLocalUserData())
   }
   return (
     <UserPanelStyle className="nes-field">
