@@ -41047,34 +41047,22 @@ var GamePanel = function GamePanel() {
 
 var _default = GamePanel;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","./app":"js/app.js"}],"js/ChessBox.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./app":"js/app.js"}],"js/Chess.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Chess = exports.default = void 0;
+exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
-var _app = require("./app");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  margin: 10px;\n  justify-content: center;\n  align-items: center;\n  width: ", "px;\n  height: ", "px;\n  border-radius: 50%;\n  background-color: ", "\n"]);
-
-  _templateObject2 = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  flex-wrap: wrap;\n  align-items: center;\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  margin: 10px;\n  justify-content: center;\n  align-items: center;\n  width: ", "px;\n  height: ", "px;\n  border-radius: 50%;\n  background-color: ", "\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -41085,9 +41073,7 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var ChessBoxStyle = _styledComponents.default.div(_templateObject());
-
-var ChessStyle = _styledComponents.default.div(_templateObject2(), function (props) {
+var ChessStyle = _styledComponents.default.div(_templateObject(), function (props) {
   return props.size * 50;
 }, function (props) {
   return props.size * 50;
@@ -41116,28 +41102,9 @@ var Chess = function Chess(_ref) {
   });
 };
 
-exports.Chess = Chess;
-
-var Chessbox = function Chessbox(_ref2) {
-  var color = _ref2.color;
-
-  var _React$useContext = _react.default.useContext(_app.GlobalContext),
-      gameObject = _React$useContext.gameObject;
-
-  return gameObject ? /*#__PURE__*/_react.default.createElement(ChessBoxStyle, null, gameObject.chess.filter(function (c) {
-    return c.color === color;
-  }).map(function (c, i) {
-    return /*#__PURE__*/_react.default.createElement(Chess, {
-      key: i,
-      chess: c,
-      at: null
-    });
-  })) : null;
-};
-
-var _default = Chessbox;
+var _default = Chess;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./app":"js/app.js"}],"js/Chessboard.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"js/Chessboard.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -41151,7 +41118,7 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 var _app = require("./app");
 
-var _ChessBox = require("./ChessBox");
+var _Chess = _interopRequireDefault(require("./Chess"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -41218,7 +41185,7 @@ var Chessboard = function Chessboard() {
           return _onDrop(e, [i, j]);
         }
       }, col.map(function (c, k) {
-        return /*#__PURE__*/_react.default.createElement(_ChessBox.Chess, {
+        return /*#__PURE__*/_react.default.createElement(_Chess.default, {
           key: k,
           chess: c,
           at: [i, j]
@@ -41230,7 +41197,58 @@ var Chessboard = function Chessboard() {
 
 var _default = Chessboard;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./app":"js/app.js","./ChessBox":"js/ChessBox.js"}],"js/app.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./app":"js/app.js","./Chess":"js/Chess.js"}],"js/ChessBox.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _styledComponents = _interopRequireDefault(require("styled-components"));
+
+var _app = require("./app");
+
+var _Chess = _interopRequireDefault(require("./Chess"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  flex-wrap: wrap;\n  align-items: center;\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var ChessBoxStyle = _styledComponents.default.div(_templateObject());
+
+var Chessbox = function Chessbox(_ref) {
+  var color = _ref.color;
+
+  var _React$useContext = _react.default.useContext(_app.GlobalContext),
+      gameObject = _React$useContext.gameObject;
+
+  return gameObject ? /*#__PURE__*/_react.default.createElement(ChessBoxStyle, null, gameObject.chess.filter(function (c) {
+    return c.color === color;
+  }).map(function (c, i) {
+    return /*#__PURE__*/_react.default.createElement(_Chess.default, {
+      key: i,
+      chess: c,
+      at: null
+    });
+  })) : null;
+};
+
+var _default = Chessbox;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./app":"js/app.js","./Chess":"js/Chess.js"}],"js/app.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

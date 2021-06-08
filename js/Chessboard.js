@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { socket, GlobalContext } from './app'
-import { Chess } from './ChessBox'
+import Chess from './Chess'
 
 const ChessboardStyle = styled.div`
   display: inline-grid;
