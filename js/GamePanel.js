@@ -6,7 +6,7 @@ import UserPanel, { getLocalUserData } from './UserPanel'
 const Player = ({ player, color, onSubscribe }) => {
   return player ? (
     <button type="button" className={`nes-btn ${(color === "red") ? "is-error" : "is-primary"}`} >
-      {player.userName}
+      {player.userName || '?'}
     </button >
   ) : (
       <button type="button" className="nes-btn" onClick={onSubscribe}>empty +</button>
