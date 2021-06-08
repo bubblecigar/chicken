@@ -30,11 +30,16 @@ const setLocalUserData = data => {
 
 const UserPanelStyle = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
 
   input {
-    margin: 20px;
+    max-width: 35%;
+  }
+
+  label {
+    margin: 0;
+    margin-right: 10px;
   }
 `
 const UserPanel = () => {
@@ -46,7 +51,7 @@ const UserPanel = () => {
   return (
     <UserPanelStyle className="nes-field">
       <label htmlFor="inline_field">Name</label>
-      <input type="text" id="inline_field" className="nes-input" placeholder="NES.css" value={userName} onChange={e => setUserName(e.target.value)} />
+      <input type="text" id="inline_field" className="nes-input" placeholder="Your Name" value={userName} onChange={e => setUserName(e.target.value)} />
       <button type="button" className="nes-btn is-primary" onClick={onSave}>Save</button>
     </UserPanelStyle>
   )

@@ -40815,7 +40815,7 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n\n  input {\n    margin: 20px;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: flex-end;\n  align-items: center;\n\n  input {\n    max-width: 35%;\n  }\n\n  label {\n    margin: 0;\n    margin-right: 10px;\n  }\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -40883,7 +40883,7 @@ var UserPanel = function UserPanel() {
     type: "text",
     id: "inline_field",
     className: "nes-input",
-    placeholder: "NES.css",
+    placeholder: "Your Name",
     value: userName,
     onChange: function onChange(e) {
       return setUserName(e.target.value);
@@ -41054,7 +41054,11 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 var _app = require("./app");
 
-var _UserPanel = require("./UserPanel");
+var _UserPanel = _interopRequireWildcard(require("./UserPanel"));
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -41173,7 +41177,7 @@ var GamePanel = function GamePanel() {
     onClick: onReset,
     type: "button",
     className: "nes-btn is-error"
-  }, "Reset")) : null))) : null;
+  }, "Reset")) : null, !isInGame() && !enoughPlayer() && /*#__PURE__*/_react.default.createElement(_UserPanel.default, null)))) : null;
 };
 
 var _default = GamePanel;
@@ -41402,7 +41406,7 @@ var _socket = _interopRequireDefault(require("socket.io-client"));
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
-var _UserPanel = require("./UserPanel");
+var _UserPanel = _interopRequireWildcard(require("./UserPanel"));
 
 var _ChatBox = _interopRequireDefault(require("./ChatBox"));
 
@@ -41411,6 +41415,10 @@ var _GamePanel = _interopRequireDefault(require("./GamePanel"));
 var _Chessboard = _interopRequireDefault(require("./Chessboard"));
 
 var _ChessBox = _interopRequireDefault(require("./ChessBox"));
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

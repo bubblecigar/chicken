@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { GlobalContext, socket } from './app'
-import { getLocalUserData } from './UserPanel'
+import UserPanel, { getLocalUserData } from './UserPanel'
 
 const Player = ({ player, color, onSubscribe }) => {
   return player ? (
@@ -78,6 +78,9 @@ const GamePanel = () => {
               <button onClick={onStart} type="button" className="nes-btn is-success">Start</button>
               <button onClick={onReset} type="button" className="nes-btn is-error">Reset</button>
             </> : null
+          }
+          {
+            !isInGame() && !enoughPlayer() && <UserPanel />
           }
         </div>
       </ButtonGroup>
