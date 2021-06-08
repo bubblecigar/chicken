@@ -17,7 +17,7 @@ const gameObject = {
     { color: 'blue', size: 2 }, { color: 'blue', size: 2 },
     { color: 'blue', size: 3 }, { color: 'blue', size: 3 },
   ],
-  status: 'waiting' // playing, red-win, blue-win
+  status: 'waiting' // red, blue, red-win, blue-win
 }
 
 const resetChessboard = () => {
@@ -111,11 +111,12 @@ const checkChessAuth = (action, user) => {
 }
 const moveChess = (action, user) => {
   const { chess, from, to } = action
-  const isAuth = checkChessAuth(action, user)
+  const isYourChess = checkChessAuth(action, user)
+  const isYourTurn = chess.color === gameObject.status
   const isNeighbor = checkNeighbor(from, to)
   const isBigger = checkSize(chess, to)
 
-  if (isAuth && isNeighbor && isBigger) {
+  if (isYourChess && isYourTurn && isNeighbor && isBigger) {
     if (!from) { // move from chessBox to target
       const index = gameObject.chess.findIndex(c => c.color === chess.color && c.size === chess.size)
       gameObject.chess.splice(index, 1)
