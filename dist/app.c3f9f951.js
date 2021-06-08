@@ -40817,7 +40817,7 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: flex-end;\n  align-items: center;\n\n  input {\n    max-width: 40%;\n  }\n\n  label {\n    margin: 0;\n    margin-right: 10px;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: flex-end;\n  align-items: center;\n\n  input {\n    width: 15em;\n  }\n\n  label {\n    margin: 0;\n    margin-right: 10px;\n  }\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -40879,11 +40879,21 @@ var UserPanel = function UserPanel() {
     _app.socket.emit('update-user-data', getLocalUserData());
   };
 
+  var onCancel = function onCancel() {
+    setUserName(getLocalUserData().userName);
+  };
+
   return /*#__PURE__*/_react.default.createElement(UserPanelStyle, {
     className: "nes-field"
-  }, /*#__PURE__*/_react.default.createElement("label", {
-    htmlFor: "inline_field"
-  }, "Name"), /*#__PURE__*/_react.default.createElement("input", {
+  }, userName !== getLocalUserData().userName ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("button", {
+    type: "button",
+    className: "nes-btn is-success",
+    onClick: onSave
+  }, "Save"), /*#__PURE__*/_react.default.createElement("button", {
+    type: "button",
+    className: "nes-btn is-error",
+    onClick: onCancel
+  }, "X")) : null, /*#__PURE__*/_react.default.createElement("input", {
     type: "text",
     id: "inline_field",
     className: "nes-input",
@@ -40892,11 +40902,7 @@ var UserPanel = function UserPanel() {
     onChange: function onChange(e) {
       return setUserName(e.target.value);
     }
-  }), /*#__PURE__*/_react.default.createElement("button", {
-    type: "button",
-    className: "nes-btn is-primary",
-    onClick: onSave
-  }, "Save"));
+  }));
 };
 
 var _default = UserPanel;

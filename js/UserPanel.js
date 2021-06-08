@@ -35,7 +35,7 @@ const UserPanelStyle = styled.div`
   align-items: center;
 
   input {
-    max-width: 40%;
+    width: 15em;
   }
 
   label {
@@ -50,11 +50,20 @@ const UserPanel = () => {
     setLocalUserData({ userName })
     socket.emit('update-user-data', getLocalUserData())
   }
+  const onCancel = () => {
+    setUserName(getLocalUserData().userName)
+  }
   return (
     <UserPanelStyle className="nes-field">
-      <label htmlFor="inline_field">Name</label>
+      {
+        userName !== getLocalUserData().userName
+          ? <>
+            <button type="button" className="nes-btn is-success" onClick={onSave}>Save</button>
+            <button type="button" className="nes-btn is-error" onClick={onCancel}>X</button>
+          </>
+          : null
+      }
       <input type="text" id="inline_field" className="nes-input" placeholder="Your Name" value={userName} onChange={e => setUserName(e.target.value)} />
-      <button type="button" className="nes-btn is-primary" onClick={onSave}>Save</button>
     </UserPanelStyle>
   )
 }
