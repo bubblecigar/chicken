@@ -41278,7 +41278,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  display: inline-grid;\n  background-color: black;\n  grid-template-rows: repeat(3, 200px);\n  grid-template-columns: repeat(3, 200px);\n  grid-gap: 1px;\n  border: 1px solid black;\n  margin: 20px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: inline-grid;\n  background-color: black;\n  grid-template-rows: repeat(3, ", "px);\n  grid-template-columns: repeat(3, ", "px);\n  grid-gap: 4px;\n  border: 4px solid black;\n  margin: 20px;\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -41289,7 +41289,9 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var ChessboardStyle = _styledComponents.default.div(_templateObject());
+var ChessboardSize = 130;
+
+var ChessboardStyle = _styledComponents.default.div(_templateObject(), ChessboardSize, ChessboardSize);
 
 var CellStyle = _styledComponents.default.div(_templateObject2());
 

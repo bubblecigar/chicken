@@ -3,13 +3,15 @@ import styled from 'styled-components'
 import { socket, GlobalContext } from './app'
 import Chess from './Chess'
 
+const ChessboardSize = 130
+
 const ChessboardStyle = styled.div`
   display: inline-grid;
   background-color: black;
-  grid-template-rows: repeat(3, 200px);
-  grid-template-columns: repeat(3, 200px);
-  grid-gap: 1px;
-  border: 1px solid black;
+  grid-template-rows: repeat(3, ${ChessboardSize}px);
+  grid-template-columns: repeat(3, ${ChessboardSize}px);
+  grid-gap: 4px;
+  border: 4px solid black;
   margin: 20px;
 `
 const CellStyle = styled.div`
