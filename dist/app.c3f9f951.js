@@ -41024,9 +41024,25 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
+var _styledComponents = _interopRequireDefault(require("styled-components"));
+
 var _app = require("./app");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n  position: fixed;\n  right: 0;\n  top: 0;\n  border: 1px solid black;\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var GamePanelStyle = _styledComponents.default.div(_templateObject());
 
 var GamePanel = function GamePanel() {
   var _React$useContext = _react.default.useContext(_app.GlobalContext),
@@ -41036,18 +41052,18 @@ var GamePanel = function GamePanel() {
     _app.socket.emit('reset-chessboard');
   };
 
-  return gameObject ? /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", null, gameObject.status, /*#__PURE__*/_react.default.createElement("button", {
+  return gameObject ? /*#__PURE__*/_react.default.createElement(GamePanelStyle, null, /*#__PURE__*/_react.default.createElement("div", null, gameObject.status, /*#__PURE__*/_react.default.createElement("button", {
     onClick: onReset
   }, "reset")), /*#__PURE__*/_react.default.createElement("div", null, "guests:", gameObject.guests.map(function (user) {
     return /*#__PURE__*/_react.default.createElement("div", {
       key: user.id
     }, user.name);
-  }))) : null;
+  })), /*#__PURE__*/_react.default.createElement("div", null, "players:", /*#__PURE__*/_react.default.createElement("button", null, "sit red"), /*#__PURE__*/_react.default.createElement("button", null, "sit blue"))) : null;
 };
 
 var _default = GamePanel;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","./app":"js/app.js"}],"js/Chess.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./app":"js/app.js"}],"js/Chess.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

@@ -2,7 +2,8 @@ const _ = require('lodash')
 
 const gameObject = {
   guests: [],
-  players: [],
+  redPlayer: null,
+  bluePlayer: null,
   chessboard: [
     [[], [], []],
     [[], [], []],
@@ -135,9 +136,6 @@ const gameLoop = action => {
   moveChess(action)
 }
 
-const addPlayer = player => {
-  gameObject.players.push(player)
-}
 
 const joinGuest = user => {
   gameObject.guests.push(user)
@@ -145,18 +143,13 @@ const joinGuest = user => {
 const removeGuest = userId => {
   gameObject.guests = gameObject.guests.filter(user => user.id !== userId)
 }
-const removePlayer = playerId => {
-  gameObject.players = gameObject.players.filter(player => player.id !== playerId)
-}
 
 module.exports = {
   gameObject,
   methods: {
-    addPlayer,
     joinGuest,
-    removePlayer,
+    removeGuest,
     resetChessboard,
-    gameLoop,
-    removeGuest
+    gameLoop
   }
 }
