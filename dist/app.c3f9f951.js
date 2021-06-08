@@ -41206,7 +41206,11 @@ var GamePanel = function GamePanel() {
     player: gameObject.bluePlayer,
     color: 'blue',
     onSubscribe: takeColor('blue')
-  })), /*#__PURE__*/_react.default.createElement("div", null, isInGame() ? /*#__PURE__*/_react.default.createElement("button", {
+  })), /*#__PURE__*/_react.default.createElement("div", null, isInGame() && enoughPlayer() && (gameObject.status === 'blue-win' || gameObject.status === 'red-win') ? /*#__PURE__*/_react.default.createElement("button", {
+    onClick: onStart,
+    type: "button",
+    className: "nes-btn is-warning"
+  }, "Re") : null, isInGame() ? /*#__PURE__*/_react.default.createElement("button", {
     onClick: leaveGame,
     type: "button",
     className: "nes-btn"

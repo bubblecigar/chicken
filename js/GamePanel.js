@@ -67,6 +67,11 @@ const GamePanel = () => {
         </div>
         <div>
           {
+            isInGame() && enoughPlayer() && (gameObject.status === 'blue-win' || gameObject.status === 'red-win')
+              ? <button onClick={onStart} type="button" className="nes-btn is-warning">Re</button>
+              : null
+          }
+          {
             isInGame()
               ? <button onClick={leaveGame} type="button" className="nes-btn">leave</button>
               : null
