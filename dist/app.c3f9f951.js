@@ -41038,11 +41038,11 @@ var GamePanel = function GamePanel() {
 
   return gameObject ? /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", null, gameObject.status, /*#__PURE__*/_react.default.createElement("button", {
     onClick: onReset
-  }, "reset")), gameObject.players.map(function (player) {
+  }, "reset")), /*#__PURE__*/_react.default.createElement("div", null, "guests:", gameObject.guests.map(function (user) {
     return /*#__PURE__*/_react.default.createElement("div", {
-      key: player.id
-    }, player.name);
-  })) : null;
+      key: user.id
+    }, user.name);
+  }))) : null;
 };
 
 var _default = GamePanel;

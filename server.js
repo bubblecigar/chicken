@@ -20,7 +20,7 @@ io.on('connection', async function (socket) {
   const userData = socket.handshake.auth
   const { userName, userId } = userData
 
-  gameMethods.addPlayer({ id: userId, name: userName })
+  gameMethods.joinGuest({ id: userId, name: userName })
   messageMethods.pushSystemMessage(`${userName} join the room`)
   io.emit('update-gameObject', gameObject)
   io.emit('update-messages', messages)

@@ -12,15 +12,18 @@ const GamePanel = () => {
         {gameObject.status}
         <button onClick={onReset}>reset</button>
       </div>
-      {
-        gameObject.players.map(
-          player => (
-            <div key={player.id}>
-              {player.name}
-            </div>
+      <div>
+        guests:
+        {
+          gameObject.guests.map(
+            user => (
+              <div key={user.id}>
+                {user.name}
+              </div>
+            )
           )
-        )
-      }
+        }
+      </div>
     </div>
   ) : null
 }
