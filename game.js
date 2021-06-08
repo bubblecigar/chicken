@@ -142,7 +142,9 @@ const addPlayer = player => {
 const joinGuest = user => {
   gameObject.guests.push(user)
 }
-
+const removeGuest = userId => {
+  gameObject.guests = gameObject.guests.filter(user => user.id !== userId)
+}
 const removePlayer = playerId => {
   gameObject.players = gameObject.players.filter(player => player.id !== playerId)
 }
@@ -154,6 +156,7 @@ module.exports = {
     joinGuest,
     removePlayer,
     resetChessboard,
-    gameLoop
+    gameLoop,
+    removeGuest
   }
 }
