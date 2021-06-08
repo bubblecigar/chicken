@@ -31,6 +31,9 @@ const BoxGroup = styled.div`
   justify-content: center;
   align-items: center;
 `
+const Header = styled.h1`
+  padding: 20px;
+`
 const App = () => {
   const [gameObject, setGameObject] = React.useState(null)
   const [messages, setMessages] = React.useState([])
@@ -50,13 +53,14 @@ const App = () => {
   return (
     <div style={{ paddingBottom: '400px' }}>
       <GlobalContext.Provider value={{ gameObject, messages }}>
-        <PlayGround>
-          <ExplainDialog />
-        </PlayGround>
+        <Header><span className="nes-text is-primary">#</span> Gobblet Gobbler</Header>
         <GamePanel />
         <PlayGround>
           <Chessboard />
           <ChatBox />
+        </PlayGround>
+        <PlayGround>
+          <ExplainDialog />
         </PlayGround>
         <BoxGroup>
           <ChessBox color='red' />
