@@ -1,4 +1,5 @@
 const _ = require('lodash')
+const { methods: messageMethods } = require('./message.js')
 
 const gameObject = {
   guests: [],
@@ -144,6 +145,7 @@ const moveChess = (action, user) => {
       const winner = checkWin()
       if (winner) {
         gameObject.status = `${winner}-win`
+        messageMethods.pushGameMessage(`${winner} player win the game!`)
         return
       }
     } else { // move from cell to cell
@@ -152,11 +154,13 @@ const moveChess = (action, user) => {
       gameObject.chessboard[to[0]][to[1]].push(chess)
       if (winner) {
         gameObject.status = `${winner}-win`
+        messageMethods.pushGameMessage(`${winner} player win the game!`)
         return
       } else {
         const winner = checkWin()
         if (winner) {
           gameObject.status = `${winner}-win`
+          messageMethods.pushGameMessage(`${winner} player win the game!`)
           return
         }
       }

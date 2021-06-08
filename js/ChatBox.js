@@ -48,6 +48,22 @@ const SystemMessageStyle = styled.span`
   display: block;
   color: #e59400;
 `
+const GameMessageStyle = styled.span`
+  padding: 10px;
+  text-align: center;
+  display: block;
+  color: black;
+  margin: 30px -20px;
+  animation-name: coloring;
+  animation-duration: 1s;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+
+  @keyframes coloring {
+    from {color: red;}
+    to {color: blue;}
+  }
+`
 const P = styled.p`
   color: black;
   line-break: anywhere;
@@ -78,8 +94,16 @@ const MessageRow = ({ message }) => {
     }
     case 'system-message': {
       return (
-        <SystemMessageStyle class="nes-text is-warning">{message.message}</SystemMessageStyle>
+        <SystemMessageStyle className="nes-text is-warning">{message.message}</SystemMessageStyle>
       )
+    }
+    case 'game-message': {
+      return (
+        <GameMessageStyle>{message.message}</GameMessageStyle>
+      )
+    }
+    default: {
+      return null // unhandled message type
     }
   }
 }

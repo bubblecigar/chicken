@@ -40940,8 +40940,18 @@ var _app = require("./app");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _templateObject6() {
+function _templateObject7() {
   var data = _taggedTemplateLiteral(["\n  border: 4px solid black;\n  height: 405px;\n  flex-grow: 1;\n  position: relative;\n  dispplay: flex;\n  flex-flow: column;\n\n"]);
+
+  _templateObject7 = function _templateObject7() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject6() {
+  var data = _taggedTemplateLiteral(["\n  position: absolute;\n  left: -33px;\n  bottom: -50px;\n  color: #d3d3d3;\n"]);
 
   _templateObject6 = function _templateObject6() {
     return data;
@@ -40951,7 +40961,7 @@ function _templateObject6() {
 }
 
 function _templateObject5() {
-  var data = _taggedTemplateLiteral(["\n  position: absolute;\n  left: -33px;\n  bottom: -50px;\n  color: #d3d3d3;\n"]);
+  var data = _taggedTemplateLiteral(["\n  color: black;\n  line-break: anywhere;\n"]);
 
   _templateObject5 = function _templateObject5() {
     return data;
@@ -40961,7 +40971,7 @@ function _templateObject5() {
 }
 
 function _templateObject4() {
-  var data = _taggedTemplateLiteral(["\n  color: black;\n  line-break: anywhere;\n"]);
+  var data = _taggedTemplateLiteral(["\n  padding: 10px;\n  text-align: center;\n  display: block;\n  color: black;\n  margin: 30px -20px;\n  animation-name: coloring;\n  animation-duration: 1s;\n  animation-direction: alternate;\n  animation-iteration-count: infinite;\n\n  @keyframes coloring {\n    from {color: red;}\n    to {color: blue;}\n  }\n"]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -41063,9 +41073,11 @@ var ChatRecordStyle = _styledComponents.default.div(_templateObject2());
 
 var SystemMessageStyle = _styledComponents.default.span(_templateObject3());
 
-var P = _styledComponents.default.p(_templateObject4());
+var GameMessageStyle = _styledComponents.default.span(_templateObject4());
 
-var Name = _styledComponents.default.span(_templateObject5());
+var P = _styledComponents.default.p(_templateObject5());
+
+var Name = _styledComponents.default.span(_templateObject6());
 
 var MessageRow = function MessageRow(_ref) {
   var message = _ref.message;
@@ -41087,8 +41099,18 @@ var MessageRow = function MessageRow(_ref) {
     case 'system-message':
       {
         return /*#__PURE__*/_react.default.createElement(SystemMessageStyle, {
-          class: "nes-text is-warning"
+          className: "nes-text is-warning"
         }, message.message);
+      }
+
+    case 'game-message':
+      {
+        return /*#__PURE__*/_react.default.createElement(GameMessageStyle, null, message.message);
+      }
+
+    default:
+      {
+        return null; // unhandled message type
       }
   }
 };
@@ -41116,7 +41138,7 @@ var ChatRecord = function ChatRecord() {
   }));
 };
 
-var ChatBoxStyle = _styledComponents.default.div(_templateObject6());
+var ChatBoxStyle = _styledComponents.default.div(_templateObject7());
 
 var ChatBox = function ChatBox() {
   return /*#__PURE__*/_react.default.createElement(ChatBoxStyle, null, /*#__PURE__*/_react.default.createElement(ChatRecord, null), /*#__PURE__*/_react.default.createElement(ChatInput, null));
