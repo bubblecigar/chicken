@@ -42,9 +42,47 @@ const ChatRecordStyle = styled.div`
   overflow-x: hidden;
   height: calc(100% - 75px);
 `
-const MessageRowStyle = styled.div`
-  padding: 5px 10px;
+const SystemMessageStyle = styled.span`
+  padding: 10px;
+  text-align: center;
+  display: block;
+  color: #e59400;
 `
+const P = styled.p`
+  color: black;
+  line-break: anywhere;
+`
+const Name = styled.span`
+  position: absolute;
+  left: -33px;
+  bottom: -50px;
+  color: #d3d3d3;
+`
+const MessageRow = ({ message }) => {
+  switch (message.type) {
+    case 'user-message': {
+      const isMyMessage = message.user.userId === getLocalUserData().userId
+      return (
+        <section
+          className={`message is-dark ${isMyMessage ? 'right' : 'left'}`}
+          style={{
+            textAlign: isMyMessage ? 'right' : 'left'
+          }}
+        >
+          <div className={`nes-balloon from-${isMyMessage ? 'right' : 'left'}`} >
+            {isMyMessage ? null : <Name>{message.user.userName}</Name>}
+            <P>{message.message}</P>
+          </div>
+        </section >
+      )
+    }
+    case 'system-message': {
+      return (
+        <SystemMessageStyle class="nes-text is-warning">{message.message}</SystemMessageStyle>
+      )
+    }
+  }
+}
 const ChatRecord = () => {
   const { messages } = React.useContext(GlobalContext)
   const ref = React.useRef()
@@ -59,20 +97,7 @@ const ChatRecord = () => {
     <ChatRecordStyle className='nes-container is-dark' ref={ref}>
       {
         messages.map(
-          (message, i) => {
-            switch (message.type) {
-              case 'user-message': {
-                return (
-                  <MessageRowStyle key={i}>{message.user.userName} : {message.message}</MessageRowStyle>
-                )
-              }
-              case 'system-message': {
-                return (
-                  <MessageRowStyle key={i}>system : {message.message}</MessageRowStyle>
-                )
-              }
-            }
-          }
+          (message, i) => <MessageRow key={i} message={message} />
         )
       }
     </ChatRecordStyle>

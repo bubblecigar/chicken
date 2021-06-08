@@ -40940,8 +40940,28 @@ var _app = require("./app");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _templateObject4() {
+function _templateObject6() {
   var data = _taggedTemplateLiteral(["\n  border: 4px solid black;\n  height: 405px;\n  flex-grow: 1;\n  position: relative;\n  dispplay: flex;\n  flex-flow: column;\n\n"]);
+
+  _templateObject6 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject5() {
+  var data = _taggedTemplateLiteral(["\n  position: absolute;\n  left: -33px;\n  bottom: -50px;\n  color: #d3d3d3;\n"]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4() {
+  var data = _taggedTemplateLiteral(["\n  color: black;\n  line-break: anywhere;\n"]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -40951,7 +40971,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  padding: 5px 10px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  padding: 10px;\n  text-align: center;\n  display: block;\n  color: #e59400;\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -41041,7 +41061,37 @@ var ChatInput = function ChatInput() {
 
 var ChatRecordStyle = _styledComponents.default.div(_templateObject2());
 
-var MessageRowStyle = _styledComponents.default.div(_templateObject3());
+var SystemMessageStyle = _styledComponents.default.span(_templateObject3());
+
+var P = _styledComponents.default.p(_templateObject4());
+
+var Name = _styledComponents.default.span(_templateObject5());
+
+var MessageRow = function MessageRow(_ref) {
+  var message = _ref.message;
+
+  switch (message.type) {
+    case 'user-message':
+      {
+        var isMyMessage = message.user.userId === (0, _UserPanel.getLocalUserData)().userId;
+        return /*#__PURE__*/_react.default.createElement("section", {
+          className: "message is-dark ".concat(isMyMessage ? 'right' : 'left'),
+          style: {
+            textAlign: isMyMessage ? 'right' : 'left'
+          }
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          className: "nes-balloon from-".concat(isMyMessage ? 'right' : 'left')
+        }, isMyMessage ? null : /*#__PURE__*/_react.default.createElement(Name, null, message.user.userName), /*#__PURE__*/_react.default.createElement(P, null, message.message)));
+      }
+
+    case 'system-message':
+      {
+        return /*#__PURE__*/_react.default.createElement(SystemMessageStyle, {
+          class: "nes-text is-warning"
+        }, message.message);
+      }
+  }
+};
 
 var ChatRecord = function ChatRecord() {
   var _React$useContext = _react.default.useContext(_app.GlobalContext),
@@ -41059,25 +41109,14 @@ var ChatRecord = function ChatRecord() {
     className: "nes-container is-dark",
     ref: ref
   }, messages.map(function (message, i) {
-    switch (message.type) {
-      case 'user-message':
-        {
-          return /*#__PURE__*/_react.default.createElement(MessageRowStyle, {
-            key: i
-          }, message.user.userName, " : ", message.message);
-        }
-
-      case 'system-message':
-        {
-          return /*#__PURE__*/_react.default.createElement(MessageRowStyle, {
-            key: i
-          }, "system : ", message.message);
-        }
-    }
+    return /*#__PURE__*/_react.default.createElement(MessageRow, {
+      key: i,
+      message: message
+    });
   }));
 };
 
-var ChatBoxStyle = _styledComponents.default.div(_templateObject4());
+var ChatBoxStyle = _styledComponents.default.div(_templateObject6());
 
 var ChatBox = function ChatBox() {
   return /*#__PURE__*/_react.default.createElement(ChatBoxStyle, null, /*#__PURE__*/_react.default.createElement(ChatRecord, null), /*#__PURE__*/_react.default.createElement(ChatInput, null));
