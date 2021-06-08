@@ -1,27 +1,20 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const ChessStyle = styled.div`
-  display: flex;
-  margin: 10px;
-  justify-content: center;
-  align-items: center;
-  width: ${props => props.size * 30}px;
-  height: ${props => props.size * 30}px;
-  border-radius: 50%;
-  background-color: ${props => props.color};
+const IconStyle = styled.i`
   position: ${props => props.zIndex ? 'absolute' : 'relative'};
   z-index: ${props => props.zIndex};
+  transform: scale(${props => props.size / 3});
 `
 const Chess = ({ chess, at, zIndex }) => {
   const onDragStart = (e, chess) => {
     e.dataTransfer.setData("application/json", JSON.stringify({ chess, from: at }))
   }
   return (
-    <ChessStyle
-      color={chess.color}
-      size={chess.size}
+    <IconStyle
+      className={chess.color === 'red' ? 'nes-charmander' : 'nes-squirtle'}
       zIndex={zIndex}
+      size={chess.size}
       draggable
       onDragStart={e => onDragStart(e, chess)}
     />

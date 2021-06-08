@@ -41238,7 +41238,7 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  margin: 10px;\n  justify-content: center;\n  align-items: center;\n  width: ", "px;\n  height: ", "px;\n  border-radius: 50%;\n  background-color: ", ";\n  position: ", ";\n  z-index: ", ";\n"]);
+  var data = _taggedTemplateLiteral(["\n  position: ", ";\n  z-index: ", ";\n  transform: scale(", ");\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -41249,16 +41249,12 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var ChessStyle = _styledComponents.default.div(_templateObject(), function (props) {
-  return props.size * 30;
-}, function (props) {
-  return props.size * 30;
-}, function (props) {
-  return props.color;
-}, function (props) {
+var IconStyle = _styledComponents.default.i(_templateObject(), function (props) {
   return props.zIndex ? 'absolute' : 'relative';
 }, function (props) {
   return props.zIndex;
+}, function (props) {
+  return props.size / 3;
 });
 
 var Chess = function Chess(_ref) {
@@ -41273,10 +41269,10 @@ var Chess = function Chess(_ref) {
     }));
   };
 
-  return /*#__PURE__*/_react.default.createElement(ChessStyle, {
-    color: chess.color,
-    size: chess.size,
+  return /*#__PURE__*/_react.default.createElement(IconStyle, {
+    className: chess.color === 'red' ? 'nes-charmander' : 'nes-squirtle',
     zIndex: zIndex,
+    size: chess.size,
     draggable: true,
     onDragStart: function onDragStart(e) {
       return _onDragStart(e, chess);
