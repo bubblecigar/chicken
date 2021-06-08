@@ -100,15 +100,22 @@ const checkSize = (chess, to) => {
   }
   return chess.size > targetChess.size
 }
-
-const moveChess = action => {
+const checkChessAuth = (action, user) => {
+  const { color } = action.chess
+  const namespace = `${color}Player`
+  const player = gameObject[namespace]
+  if (!player) {
+    return false
+  }
+  return player.userId === user.userId
+}
+const moveChess = (action, user) => {
   const { chess, from, to } = action
-  // check if moving to its neighbor
+  const isAuth = checkChessAuth(action, user)
   const isNeighbor = checkNeighbor(from, to)
   const isBigger = checkSize(chess, to)
 
-  // action is valid, perform
-  if (isNeighbor && isBigger) {
+  if (isAuth && isNeighbor && isBigger) {
     if (!from) { // move from chessBox to target
       const index = gameObject.chess.findIndex(c => c.color === chess.color && c.size === chess.size)
       gameObject.chess.splice(index, 1)
@@ -128,12 +135,12 @@ const moveChess = action => {
   }
 }
 
-const gameLoop = action => {
+const gameLoop = (action, user) => {
   const freezed = gameObject.status === 'red-win' || gameObject.status === 'blue-win'
   if (freezed) {
     return
   }
-  moveChess(action)
+  moveChess(action, user)
 }
 
 

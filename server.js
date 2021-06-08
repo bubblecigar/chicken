@@ -33,7 +33,7 @@ io.on('connection', async function (socket) {
   });
 
   socket.on('move-chess', action => {
-    gameMethods.gameLoop(action)
+    gameMethods.gameLoop(action, userData)
     io.emit('update-gameObject', gameObject)
   })
 
