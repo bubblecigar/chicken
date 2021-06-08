@@ -41058,8 +41058,18 @@ var _UserPanel = _interopRequireDefault(require("./UserPanel"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: space-between;\n\n  button {\n    margin: 10px;\n  }\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  margin: 20px;\n\n  > div {\n    padding: 5px;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  margin: 20px;\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -41070,7 +41080,23 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
+var Player = function Player(_ref) {
+  var player = _ref.player,
+      color = _ref.color,
+      onSubscribe = _ref.onSubscribe;
+  return player ? /*#__PURE__*/_react.default.createElement("button", {
+    type: "button",
+    className: "nes-btn ".concat(color === "red" ? "is-error" : "is-primary")
+  }, player.userName) : /*#__PURE__*/_react.default.createElement("button", {
+    type: "button",
+    className: "nes-btn",
+    onClick: onSubscribe
+  }, "empty +");
+};
+
 var GamePanelStyle = _styledComponents.default.div(_templateObject());
+
+var ButtonGroup = _styledComponents.default.div(_templateObject2());
 
 var GamePanel = function GamePanel() {
   var _React$useContext = _react.default.useContext(_app.GlobalContext),
@@ -41098,13 +41124,21 @@ var GamePanel = function GamePanel() {
     className: "nes-container with-title"
   }, /*#__PURE__*/_react.default.createElement("p", {
     className: "title"
-  }, "Chicken Chess"), /*#__PURE__*/_react.default.createElement("div", null, "players:", gameObject.redPlayer ? /*#__PURE__*/_react.default.createElement("span", null, gameObject.redPlayer.userName) : /*#__PURE__*/_react.default.createElement("button", {
-    onClick: takeColor('red')
-  }, "sit red"), gameObject.bluePlayer ? /*#__PURE__*/_react.default.createElement("span", null, gameObject.bluePlayer.userName) : /*#__PURE__*/_react.default.createElement("button", {
-    onClick: takeColor('blue')
-  }, "sit blue"), /*#__PURE__*/_react.default.createElement("button", {
-    onClick: leaveGame
-  }, "leave")), /*#__PURE__*/_react.default.createElement("button", {
+  }, "Chicken Chess"), /*#__PURE__*/_react.default.createElement(ButtonGroup, null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(Player, {
+    player: gameObject.redPlayer,
+    color: 'red',
+    onSubscribe: takeColor('red')
+  }), /*#__PURE__*/_react.default.createElement("span", {
+    class: "nes-text is-disabled"
+  }, "vs"), /*#__PURE__*/_react.default.createElement(Player, {
+    player: gameObject.bluePlayer,
+    color: 'blue',
+    onSubscribe: takeColor('blue')
+  })), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("button", {
+    onClick: leaveGame,
+    type: "button",
+    className: "nes-btn"
+  }, "leave"), /*#__PURE__*/_react.default.createElement("button", {
     onClick: onStart,
     type: "button",
     className: "nes-btn is-warning"
@@ -41112,7 +41146,7 @@ var GamePanel = function GamePanel() {
     onClick: onReset,
     type: "button",
     className: "nes-btn is-error"
-  }, "Reset")) : null;
+  }, "Reset")))) : null;
 };
 
 var _default = GamePanel;

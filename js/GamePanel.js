@@ -3,11 +3,25 @@ import styled from 'styled-components'
 import { GlobalContext, socket } from './app'
 import UserPanel from './UserPanel'
 
+const Player = ({ player, color, onSubscribe }) => {
+  return player ? (
+    <button type="button" className={`nes-btn ${(color === "red") ? "is-error" : "is-primary"}`} >
+      {player.userName}
+    </button >
+  ) : (
+      <button type="button" className="nes-btn" onClick={onSubscribe}>empty +</button>
+    )
+}
+
 const GamePanelStyle = styled.div`
   margin: 20px;
+`
+const ButtonGroup = styled.div`
+  display: flex;
+  justify-content: space-between;
 
-  > div {
-    padding: 5px;
+  button {
+    margin: 10px;
   }
 `
 const GamePanel = () => {
@@ -27,20 +41,18 @@ const GamePanel = () => {
   return gameObject ? (
     <GamePanelStyle className="nes-container with-title">
       <p className="title">Chicken Chess</p>
-      <div>
-        players:
-          {
-          gameObject.redPlayer
-            ? <span>{gameObject.redPlayer.userName}</span>
-            : <button onClick={takeColor('red')}>sit red</button>
-        }
-        {
-          gameObject.bluePlayer ? <span>{gameObject.bluePlayer.userName}</span> : <button onClick={takeColor('blue')}>sit blue</button>
-        }
-        <button onClick={leaveGame}>leave</button>
-      </div>
-      <button onClick={onStart} type="button" className="nes-btn is-warning">Start</button>
-      <button onClick={onReset} type="button" className="nes-btn is-error">Reset</button>
+      <ButtonGroup>
+        <div>
+          <Player player={gameObject.redPlayer} color={'red'} onSubscribe={takeColor('red')} />
+          <span class="nes-text is-disabled">vs</span>
+          <Player player={gameObject.bluePlayer} color={'blue'} onSubscribe={takeColor('blue')} />
+        </div>
+        <div>
+          <button onClick={leaveGame} type="button" className="nes-btn">leave</button>
+          <button onClick={onStart} type="button" className="nes-btn is-warning">Start</button>
+          <button onClick={onReset} type="button" className="nes-btn is-error">Reset</button>
+        </div>
+      </ButtonGroup>
     </GamePanelStyle>
   ) : null
 }
