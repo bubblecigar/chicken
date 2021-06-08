@@ -41270,7 +41270,7 @@ var Chess = function Chess(_ref) {
   };
 
   return /*#__PURE__*/_react.default.createElement(IconStyle, {
-    className: chess.color === 'red' ? 'nes-charmander' : 'nes-squirtle',
+    className: 'nes-pointer' + ' ' + (chess.color === 'red' ? 'nes-charmander' : 'nes-squirtle'),
     zIndex: zIndex,
     size: chess.size,
     draggable: true,

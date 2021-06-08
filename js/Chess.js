@@ -12,7 +12,7 @@ const Chess = ({ chess, at, zIndex }) => {
   }
   return (
     <IconStyle
-      className={chess.color === 'red' ? 'nes-charmander' : 'nes-squirtle'}
+      className={ 'nes-pointer' + ' ' + (chess.color === 'red' ? 'nes-charmander' : 'nes-squirtle')}
       zIndex={zIndex}
       size={chess.size}
       draggable
