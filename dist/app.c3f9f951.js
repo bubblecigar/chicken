@@ -41210,7 +41210,7 @@ var GamePanel = function GamePanel() {
     onClick: leaveGame,
     type: "button",
     className: "nes-btn"
-  }, "leave") : null, isInGame() && enoughPlayer() ? /*#__PURE__*/_react.default.createElement("button", {
+  }, "leave") : null, isInGame() && enoughPlayer() && gameObject.status === 'waiting' ? /*#__PURE__*/_react.default.createElement("button", {
     onClick: onStart,
     type: "button",
     className: "nes-btn is-success"

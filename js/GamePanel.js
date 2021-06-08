@@ -72,7 +72,7 @@ const GamePanel = () => {
               : null
           }
           {
-            isInGame() && enoughPlayer()
+            isInGame() && enoughPlayer() && gameObject.status === 'waiting'
               ? <button onClick={onStart} type="button" className="nes-btn is-success">Start</button>
               : null
           }
