@@ -41282,7 +41282,11 @@ var Chess = function Chess(_ref) {
 
 var _default = Chess;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"js/Chessboard.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"assets/grassWithHole.png":[function(require,module,exports) {
+module.exports = "/grassWithHole.f1e9fa77.png";
+},{}],"assets/grassWithFlower.png":[function(require,module,exports) {
+module.exports = "/grassWithFlower.611b9ca1.png";
+},{}],"js/Chessboard.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -41298,10 +41302,14 @@ var _app = require("./app");
 
 var _Chess = _interopRequireDefault(require("./Chess"));
 
+var _grassWithHole = _interopRequireDefault(require("../assets/grassWithHole.png"));
+
+var _grassWithFlower = _interopRequireDefault(require("../assets/grassWithFlower.png"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  background-color: white;\n  justify-content: center;\n  align-items: center;\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  background-image: url(", ");\n  background-size: ", "px;\n  justify-content: center;\n  align-items: center;\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -41326,7 +41334,9 @@ var ChessboardSize = 130;
 
 var ChessboardStyle = _styledComponents.default.div(_templateObject(), ChessboardSize, ChessboardSize);
 
-var CellStyle = _styledComponents.default.div(_templateObject2());
+var CellStyle = _styledComponents.default.div(_templateObject2(), function (props) {
+  return props.index % 2 === 0 ? _grassWithHole.default : _grassWithFlower.default;
+}, ChessboardSize);
 
 var Chessboard = function Chessboard() {
   var _React$useContext = _react.default.useContext(_app.GlobalContext),
@@ -41357,6 +41367,7 @@ var Chessboard = function Chessboard() {
       key: i
     }, row.map(function (col, j) {
       return /*#__PURE__*/_react.default.createElement(CellStyle, {
+        index: i + j,
         key: j,
         onDragOver: function onDragOver(e) {
           return e.preventDefault();
@@ -41378,7 +41389,7 @@ var Chessboard = function Chessboard() {
 
 var _default = Chessboard;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./app":"js/app.js","./Chess":"js/Chess.js"}],"js/ChessBox.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./app":"js/app.js","./Chess":"js/Chess.js","../assets/grassWithHole.png":"assets/grassWithHole.png","../assets/grassWithFlower.png":"assets/grassWithFlower.png"}],"js/ChessBox.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

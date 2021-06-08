@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { socket, GlobalContext } from './app'
 import Chess from './Chess'
+import grassWithHole from '../assets/grassWithHole.png'
+import grassWithFlower from '../assets/grassWithFlower.png'
 
 const ChessboardSize = 130
 
@@ -16,7 +18,8 @@ const ChessboardStyle = styled.div`
 `
 const CellStyle = styled.div`
   display: flex;
-  background-color: white;
+  background-image: url(${props => (props.index % 2 === 0) ? grassWithHole : grassWithFlower});
+  background-size: ${ChessboardSize}px;
   justify-content: center;
   align-items: center;
 `
@@ -47,6 +50,7 @@ const Chessboard = () => {
                 row.map(
                   (col, j) => (
                     <CellStyle
+                      index={i + j}
                       key={j}
                       onDragOver={e => e.preventDefault()}
                       onDrop={e => onDrop(e, [i, j])}
