@@ -1,0 +1,23 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+.isometric-container {
+  overflow: hidden;
+}
+
+.isometric {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  overflow: visible;
+  transform-style: preserve-3d;
+  transform: rotateX(60deg) rotateY(0deg) rotateZ(45deg);
+}
+.isometric * {
+  transform-style: preserve-3d;
+}
+
+/*# sourceMappingURL=/app.c3f9f951.css.map */
