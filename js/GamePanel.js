@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { GlobalContext, socket } from './app'
-import UserPanel from './UserPanel'
+import { getLocalUserData } from './UserPanel'
 
 const Player = ({ player, color, onSubscribe }) => {
   return player ? (
@@ -38,18 +38,36 @@ const GamePanel = () => {
   const onStart = () => {
     socket.emit('start-game')
   }
+
+  const isInGame = () => {
+    const user = getLocalUserData()
+    if (gameObject) {
+      const { redPlayer, bluePlayer } = gameObject
+      if (redPlayer && redPlayer.userId === user.userId) {
+        return true
+      }
+      if (bluePlayer && bluePlayer.userId === user.userId) {
+        return true
+      }
+      return false
+    }
+  }
   return gameObject ? (
     <GamePanelStyle className="nes-container with-title">
       <p className="title">Chicken Chess</p>
       <ButtonGroup>
         <div>
           <Player player={gameObject.redPlayer} color={'red'} onSubscribe={takeColor('red')} />
-          <span class="nes-text is-disabled">vs</span>
+          <span className="nes-text is-disabled">vs</span>
           <Player player={gameObject.bluePlayer} color={'blue'} onSubscribe={takeColor('blue')} />
         </div>
         <div>
-          <button onClick={leaveGame} type="button" className="nes-btn">leave</button>
-          <button onClick={onStart} type="button" className="nes-btn is-warning">Start</button>
+          {
+            isInGame()
+              ? <button onClick={leaveGame} type="button" className="nes-btn">leave</button>
+              : null
+          }
+          <button onClick={onStart} type="button" className="nes-btn is-success">Start</button>
           <button onClick={onReset} type="button" className="nes-btn is-error">Reset</button>
         </div>
       </ButtonGroup>
