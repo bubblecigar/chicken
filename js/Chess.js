@@ -6,8 +6,8 @@ const ChessStyle = styled.div`
   margin: 10px;
   justify-content: center;
   align-items: center;
-  width: ${props => props.size * 50}px;
-  height: ${props => props.size * 50}px;
+  width: ${props => props.size * 30}px;
+  height: ${props => props.size * 30}px;
   border-radius: 50%;
   background-color: ${props => props.color};
   position: ${props => props.zIndex ? 'absolute' : 'relative'};
