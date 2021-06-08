@@ -54,7 +54,7 @@ const App = () => {
   return (
     <div style={{ paddingBottom: '200px' }}>
       <GlobalContext.Provider value={{ gameObject, messages }}>
-        <Header><a target='_BLANK' href='https://www.youtube.com/watch?v=F8F29jfZBRo'><span className="nes-text is-primary">#</span> Gobblet Gobbler</a></Header>
+        <Header><a target='_BLANK' href='https://www.youtube.com/watch?v=F8F29jfZBRo'># Gobblet Gobbler</a></Header>
         <GamePanel />
         <PlayGround>
           <Chessboard />
