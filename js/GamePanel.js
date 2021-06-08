@@ -16,6 +16,9 @@ const GamePanel = () => {
   const takeColor = color => () => {
     socket.emit('take-color', color)
   }
+  const leaveGame = () => {
+    socket.emit('leave-game')
+  }
   return gameObject ? (
     <GamePanelStyle>
       <div>
@@ -36,8 +39,15 @@ const GamePanel = () => {
       </div>
       <div>
         players:
-        <button onClick={takeColor('red')}>sit red</button>
-        <button onClick={takeColor('blue')}>sit blue</button>
+        {
+          gameObject.redPlayer
+            ? <span>{gameObject.redPlayer.userName}</span>
+            : <button onClick={takeColor('red')}>sit red</button>
+        }
+        {
+          gameObject.bluePlayer ? <span>{gameObject.bluePlayer.userName}</span> : <button onClick={takeColor('blue')}>sit blue</button>
+        }
+        <button onClick={leaveGame}>leave</button>
       </div>
     </GamePanelStyle>
   ) : null

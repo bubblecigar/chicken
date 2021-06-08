@@ -41058,17 +41058,23 @@ var GamePanel = function GamePanel() {
     };
   };
 
+  var leaveGame = function leaveGame() {
+    _app.socket.emit('leave-game');
+  };
+
   return gameObject ? /*#__PURE__*/_react.default.createElement(GamePanelStyle, null, /*#__PURE__*/_react.default.createElement("div", null, gameObject.status, /*#__PURE__*/_react.default.createElement("button", {
     onClick: onReset
   }, "reset")), /*#__PURE__*/_react.default.createElement("div", null, "guests:", gameObject.guests.map(function (user) {
     return /*#__PURE__*/_react.default.createElement("div", {
       key: user.userId
     }, user.userName);
-  })), /*#__PURE__*/_react.default.createElement("div", null, "players:", /*#__PURE__*/_react.default.createElement("button", {
+  })), /*#__PURE__*/_react.default.createElement("div", null, "players:", gameObject.redPlayer ? /*#__PURE__*/_react.default.createElement("span", null, gameObject.redPlayer.userName) : /*#__PURE__*/_react.default.createElement("button", {
     onClick: takeColor('red')
-  }, "sit red"), /*#__PURE__*/_react.default.createElement("button", {
+  }, "sit red"), gameObject.bluePlayer ? /*#__PURE__*/_react.default.createElement("span", null, gameObject.bluePlayer.userName) : /*#__PURE__*/_react.default.createElement("button", {
     onClick: takeColor('blue')
-  }, "sit blue"))) : null;
+  }, "sit blue"), /*#__PURE__*/_react.default.createElement("button", {
+    onClick: leaveGame
+  }, "leave"))) : null;
 };
 
 var _default = GamePanel;

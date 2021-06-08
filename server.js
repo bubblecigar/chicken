@@ -46,6 +46,10 @@ io.on('connection', async function (socket) {
     gameMethods.takeColor(userData, color)
     io.emit('update-gameObject', gameObject)
   })
+  socket.on('leave-game', () => {
+    gameMethods.leaveGame(userData)
+    io.emit('update-gameObject', gameObject)
+  })
 
   socket.on('message', messageObject => {
     messageMethods.pushUserMessage(messageObject)
