@@ -7,6 +7,7 @@ import ChatBox from './ChatBox'
 import GamePanel from './GamePanel'
 import Chessboard from './Chessboard'
 import ChessBox from './ChessBox'
+import ExplainDialog from './ExplainDialog'
 
 const socket = io.connect({
   auth: {
@@ -47,17 +48,22 @@ const App = () => {
   )
 
   return (
-    <GlobalContext.Provider value={{ gameObject, messages }}>
-      <GamePanel />
-      <PlayGround>
-        <Chessboard />
-        <ChatBox />
-      </PlayGround>
-      <BoxGroup>
-        <ChessBox color='red' />
-        <ChessBox color='blue' />
-      </BoxGroup>
-    </GlobalContext.Provider>
+    <div style={{ paddingBottom: '400px' }}>
+      <GlobalContext.Provider value={{ gameObject, messages }}>
+        <PlayGround>
+          <ExplainDialog />
+        </PlayGround>
+        <GamePanel />
+        <PlayGround>
+          <Chessboard />
+          <ChatBox />
+        </PlayGround>
+        <BoxGroup>
+          <ChessBox color='red' />
+          <ChessBox color='blue' />
+        </BoxGroup>
+      </GlobalContext.Provider>
+    </div>
   )
 }
 

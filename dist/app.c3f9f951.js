@@ -41522,7 +41522,72 @@ var Chessbox = function Chessbox(_ref) {
 
 var _default = Chessbox;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./app":"js/app.js","./Chess":"js/Chess.js"}],"js/app.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./app":"js/app.js","./Chess":"js/Chess.js"}],"js/ExplainDialog.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _styledComponents = _interopRequireDefault(require("styled-components"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n  p {\n    font-size: larger;\n  }\n\n  li {\n    margin-bottom: 10px;\n  }\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var Dialog = _styledComponents.default.dialog(_templateObject());
+
+var ExplainDialog = function ExplainDialog(_ref) {
+  _objectDestructuringEmpty(_ref);
+
+  var onOpen = function onOpen() {
+    document.getElementById('dialog-default').showModal();
+  };
+
+  return /*#__PURE__*/_react.default.createElement("section", null, /*#__PURE__*/_react.default.createElement("button", {
+    type: "button",
+    className: "nes-btn is-error",
+    onClick: onOpen
+  }, "How to play?"), /*#__PURE__*/_react.default.createElement(Dialog, {
+    className: "nes-dialog",
+    id: "dialog-default"
+  }, /*#__PURE__*/_react.default.createElement("form", {
+    method: "dialog"
+  }, /*#__PURE__*/_react.default.createElement("p", {
+    className: "title"
+  }, /*#__PURE__*/_react.default.createElement("span", {
+    className: "nes-text is-primary"
+  }, "#"), " Gobblet Gobbler"), /*#__PURE__*/_react.default.createElement("ul", null, /*#__PURE__*/_react.default.createElement("li", null, "Choose ", /*#__PURE__*/_react.default.createElement("span", {
+    className: "nes-text is-error"
+  }, "Red"), " or ", /*#__PURE__*/_react.default.createElement("span", {
+    className: "nes-text is-primary"
+  }, "Blue")), /*#__PURE__*/_react.default.createElement("li", null, "At your turn, drag a monster (of your color) onto the chessboard, or move one of which to its neighbor"), /*#__PURE__*/_react.default.createElement("li", null, "Bigger monster can cover a smaller one"), /*#__PURE__*/_react.default.createElement("li", null, "When three monsters of the same color are in a row, the player of the color win")), /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      textAlign: 'right'
+    }
+  }, /*#__PURE__*/_react.default.createElement("button", {
+    className: "nes-btn is-success"
+  }, "OK")))));
+};
+
+var _default = ExplainDialog;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"js/app.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -41547,6 +41612,8 @@ var _GamePanel = _interopRequireDefault(require("./GamePanel"));
 var _Chessboard = _interopRequireDefault(require("./Chessboard"));
 
 var _ChessBox = _interopRequireDefault(require("./ChessBox"));
+
+var _ExplainDialog = _interopRequireDefault(require("./ExplainDialog"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -41627,20 +41694,24 @@ var App = function App() {
     };
   }, []);
 
-  return /*#__PURE__*/_react.default.createElement(GlobalContext.Provider, {
+  return /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      paddingBottom: '400px'
+    }
+  }, /*#__PURE__*/_react.default.createElement(GlobalContext.Provider, {
     value: {
       gameObject: gameObject,
       messages: messages
     }
-  }, /*#__PURE__*/_react.default.createElement(_GamePanel.default, null), /*#__PURE__*/_react.default.createElement(PlayGround, null, /*#__PURE__*/_react.default.createElement(_Chessboard.default, null), /*#__PURE__*/_react.default.createElement(_ChatBox.default, null)), /*#__PURE__*/_react.default.createElement(BoxGroup, null, /*#__PURE__*/_react.default.createElement(_ChessBox.default, {
+  }, /*#__PURE__*/_react.default.createElement(PlayGround, null, /*#__PURE__*/_react.default.createElement(_ExplainDialog.default, null)), /*#__PURE__*/_react.default.createElement(_GamePanel.default, null), /*#__PURE__*/_react.default.createElement(PlayGround, null, /*#__PURE__*/_react.default.createElement(_Chessboard.default, null), /*#__PURE__*/_react.default.createElement(_ChatBox.default, null)), /*#__PURE__*/_react.default.createElement(BoxGroup, null, /*#__PURE__*/_react.default.createElement(_ChessBox.default, {
     color: "red"
   }), /*#__PURE__*/_react.default.createElement(_ChessBox.default, {
     color: "blue"
-  })));
+  }))));
 };
 
 _reactDom.default.render( /*#__PURE__*/_react.default.createElement(App, null), document.querySelector('#app'));
-},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","socket.io-client":"node_modules/socket.io-client/build/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./UserPanel":"js/UserPanel.js","./ChatBox":"js/ChatBox.js","./GamePanel":"js/GamePanel.js","./Chessboard":"js/Chessboard.js","./ChessBox":"js/ChessBox.js"}],"../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","socket.io-client":"node_modules/socket.io-client/build/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./UserPanel":"js/UserPanel.js","./ChatBox":"js/ChatBox.js","./GamePanel":"js/GamePanel.js","./Chessboard":"js/Chessboard.js","./ChessBox":"js/ChessBox.js","./ExplainDialog":"js/ExplainDialog.js"}],"../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
