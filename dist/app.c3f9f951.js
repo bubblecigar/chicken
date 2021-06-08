@@ -41718,9 +41718,12 @@ var App = function App() {
       gameObject: gameObject,
       messages: messages
     }
-  }, /*#__PURE__*/_react.default.createElement(Header, null, /*#__PURE__*/_react.default.createElement("span", {
+  }, /*#__PURE__*/_react.default.createElement(Header, null, /*#__PURE__*/_react.default.createElement("a", {
+    target: "_BLANK",
+    href: "https://www.youtube.com/watch?v=F8F29jfZBRo"
+  }, /*#__PURE__*/_react.default.createElement("span", {
     className: "nes-text is-primary"
-  }, "#"), " Gobblet Gobbler"), /*#__PURE__*/_react.default.createElement(_GamePanel.default, null), /*#__PURE__*/_react.default.createElement(PlayGround, null, /*#__PURE__*/_react.default.createElement(_Chessboard.default, null), /*#__PURE__*/_react.default.createElement(_ChatBox.default, null)), /*#__PURE__*/_react.default.createElement(PlayGround, null, /*#__PURE__*/_react.default.createElement(_ExplainDialog.default, null)), /*#__PURE__*/_react.default.createElement(BoxGroup, null, /*#__PURE__*/_react.default.createElement(_ChessBox.default, {
+  }, "#"), " Gobblet Gobbler")), /*#__PURE__*/_react.default.createElement(_GamePanel.default, null), /*#__PURE__*/_react.default.createElement(PlayGround, null, /*#__PURE__*/_react.default.createElement(_Chessboard.default, null), /*#__PURE__*/_react.default.createElement(_ChatBox.default, null)), /*#__PURE__*/_react.default.createElement(PlayGround, null, /*#__PURE__*/_react.default.createElement(_ExplainDialog.default, null)), /*#__PURE__*/_react.default.createElement(BoxGroup, null, /*#__PURE__*/_react.default.createElement(_ChessBox.default, {
     color: "red"
   }), /*#__PURE__*/_react.default.createElement(_ChessBox.default, {
     color: "blue"
