@@ -41054,7 +41054,7 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 var _app = require("./app");
 
-var _UserPanel = _interopRequireDefault(require("./UserPanel"));
+var _UserPanel = require("./UserPanel");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -41120,6 +41120,33 @@ var GamePanel = function GamePanel() {
     _app.socket.emit('start-game');
   };
 
+  var isInGame = function isInGame() {
+    var user = (0, _UserPanel.getLocalUserData)();
+
+    if (gameObject) {
+      var redPlayer = gameObject.redPlayer,
+          bluePlayer = gameObject.bluePlayer;
+
+      if (redPlayer && redPlayer.userId === user.userId) {
+        return true;
+      }
+
+      if (bluePlayer && bluePlayer.userId === user.userId) {
+        return true;
+      }
+
+      return false;
+    }
+  };
+
+  var enoughPlayer = function enoughPlayer() {
+    if (gameObject) {
+      var redPlayer = gameObject.redPlayer,
+          bluePlayer = gameObject.bluePlayer;
+      return redPlayer && bluePlayer;
+    }
+  };
+
   return gameObject ? /*#__PURE__*/_react.default.createElement(GamePanelStyle, {
     className: "nes-container with-title"
   }, /*#__PURE__*/_react.default.createElement("p", {
@@ -41129,24 +41156,24 @@ var GamePanel = function GamePanel() {
     color: 'red',
     onSubscribe: takeColor('red')
   }), /*#__PURE__*/_react.default.createElement("span", {
-    class: "nes-text is-disabled"
+    className: "nes-text is-disabled"
   }, "vs"), /*#__PURE__*/_react.default.createElement(Player, {
     player: gameObject.bluePlayer,
     color: 'blue',
     onSubscribe: takeColor('blue')
-  })), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("button", {
+  })), /*#__PURE__*/_react.default.createElement("div", null, isInGame() ? /*#__PURE__*/_react.default.createElement("button", {
     onClick: leaveGame,
     type: "button",
     className: "nes-btn"
-  }, "leave"), /*#__PURE__*/_react.default.createElement("button", {
+  }, "leave") : null, isInGame() && enoughPlayer() ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("button", {
     onClick: onStart,
     type: "button",
-    className: "nes-btn is-warning"
+    className: "nes-btn is-success"
   }, "Start"), /*#__PURE__*/_react.default.createElement("button", {
     onClick: onReset,
     type: "button",
     className: "nes-btn is-error"
-  }, "Reset")))) : null;
+  }, "Reset")) : null))) : null;
 };
 
 var _default = GamePanel;
@@ -41438,7 +41465,6 @@ var App = function App() {
     };
   }, []);
 
-  console.log('gameObject:', gameObject);
   return /*#__PURE__*/_react.default.createElement(GlobalContext.Provider, {
     value: {
       gameObject: gameObject,

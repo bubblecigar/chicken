@@ -52,6 +52,12 @@ const GamePanel = () => {
       return false
     }
   }
+  const enoughPlayer = () => {
+    if (gameObject) {
+      const { redPlayer, bluePlayer } = gameObject
+      return redPlayer && bluePlayer
+    }
+  }
   return gameObject ? (
     <GamePanelStyle className="nes-container with-title">
       <p className="title">Chicken Chess</p>
@@ -67,8 +73,12 @@ const GamePanel = () => {
               ? <button onClick={leaveGame} type="button" className="nes-btn">leave</button>
               : null
           }
-          <button onClick={onStart} type="button" className="nes-btn is-success">Start</button>
-          <button onClick={onReset} type="button" className="nes-btn is-error">Reset</button>
+          {
+            isInGame() && enoughPlayer() ? <>
+              <button onClick={onStart} type="button" className="nes-btn is-success">Start</button>
+              <button onClick={onReset} type="button" className="nes-btn is-error">Reset</button>
+            </> : null
+          }
         </div>
       </ButtonGroup>
     </GamePanelStyle>

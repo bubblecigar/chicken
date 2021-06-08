@@ -31,7 +31,7 @@ const App = () => {
       return () => socket.disconnect()
     }, []
   )
-  console.log('gameObject:', gameObject)
+
   return (
     <GlobalContext.Provider value={{ gameObject, messages }}>
       <GamePanel />
