@@ -35,9 +35,9 @@ const App = () => {
   return (
     <GlobalContext.Provider value={{ gameObject, messages }}>
       <GamePanel />
-      <ChessBox color='red' />
+      {/* <ChessBox color='red' /> */}
       <Chessboard />
-      <ChessBox color='blue' />
+      {/* <ChessBox color='blue' /> */}
       <ChatBox />
     </GlobalContext.Provider>
   )

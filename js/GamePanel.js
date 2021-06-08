@@ -4,10 +4,11 @@ import { GlobalContext, socket } from './app'
 import UserPanel from './UserPanel'
 
 const GamePanelStyle = styled.div`
-  position: fixed;
-  right: 0;
-  top: 0;
-  border: 1px solid black;
+  margin: 20px;
+
+  > div {
+    padding: 5px;
+  }
 `
 const GamePanel = () => {
   const { gameObject } = React.useContext(GlobalContext)
@@ -24,28 +25,11 @@ const GamePanel = () => {
     socket.emit('start-game')
   }
   return gameObject ? (
-    <GamePanelStyle>
-      <UserPanel />
-      <div>
-        {gameObject.status}
-        <button onClick={onStart}>start</button>
-        <button onClick={onReset}>reset</button>
-      </div>
-      <div>
-        guests:
-        {
-          gameObject.guests.map(
-            user => (
-              <div key={user.userId}>
-                {user.userName}
-              </div>
-            )
-          )
-        }
-      </div>
+    <GamePanelStyle className="nes-container with-title">
+      <p className="title">Chicken Chess</p>
       <div>
         players:
-        {
+          {
           gameObject.redPlayer
             ? <span>{gameObject.redPlayer.userName}</span>
             : <button onClick={takeColor('red')}>sit red</button>
@@ -55,6 +39,8 @@ const GamePanel = () => {
         }
         <button onClick={leaveGame}>leave</button>
       </div>
+      <button onClick={onStart} type="button" className="nes-btn is-warning">Start</button>
+      <button onClick={onReset} type="button" className="nes-btn is-error">Reset</button>
     </GamePanelStyle>
   ) : null
 }

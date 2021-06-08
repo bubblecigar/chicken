@@ -40798,6 +40798,8 @@ var _react = _interopRequireDefault(require("react"));
 
 var _uuid = require("uuid");
 
+var _styledComponents = _interopRequireDefault(require("styled-components"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
@@ -40811,6 +40813,18 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n\n  input {\n    margin: 20px;\n  }\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -40847,6 +40861,8 @@ var setLocalUserData = function setLocalUserData(data) {
   localStorage.setItem(localKey, JSON.stringify(_objectSpread(_objectSpread({}, oldData), data)));
 };
 
+var UserPanelStyle = _styledComponents.default.div(_templateObject());
+
 var UserPanel = function UserPanel() {
   var _React$useState = _react.default.useState(getLocalUserData().userName),
       _React$useState2 = _slicedToArray(_React$useState, 2),
@@ -40859,19 +40875,29 @@ var UserPanel = function UserPanel() {
     });
   };
 
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("input", {
+  return /*#__PURE__*/_react.default.createElement(UserPanelStyle, {
+    className: "nes-field"
+  }, /*#__PURE__*/_react.default.createElement("label", {
+    htmlFor: "inline_field"
+  }, "Name"), /*#__PURE__*/_react.default.createElement("input", {
+    type: "text",
+    id: "inline_field",
+    className: "nes-input",
+    placeholder: "NES.css",
     value: userName,
     onChange: function onChange(e) {
       return setUserName(e.target.value);
     }
   }), /*#__PURE__*/_react.default.createElement("button", {
+    type: "button",
+    className: "nes-btn is-primary",
     onClick: onSave
   }, "Save"));
 };
 
 var _default = UserPanel;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","uuid":"node_modules/uuid/index.js"}],"js/ChatBox.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","uuid":"node_modules/uuid/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"js/ChatBox.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -41033,7 +41059,7 @@ var _UserPanel = _interopRequireDefault(require("./UserPanel"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  position: fixed;\n  right: 0;\n  top: 0;\n  border: 1px solid black;\n"]);
+  var data = _taggedTemplateLiteral(["\n  margin: 20px;\n\n  > div {\n    padding: 5px;\n  }\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -41068,21 +41094,25 @@ var GamePanel = function GamePanel() {
     _app.socket.emit('start-game');
   };
 
-  return gameObject ? /*#__PURE__*/_react.default.createElement(GamePanelStyle, null, /*#__PURE__*/_react.default.createElement(_UserPanel.default, null), /*#__PURE__*/_react.default.createElement("div", null, gameObject.status, /*#__PURE__*/_react.default.createElement("button", {
-    onClick: onStart
-  }, "start"), /*#__PURE__*/_react.default.createElement("button", {
-    onClick: onReset
-  }, "reset")), /*#__PURE__*/_react.default.createElement("div", null, "guests:", gameObject.guests.map(function (user) {
-    return /*#__PURE__*/_react.default.createElement("div", {
-      key: user.userId
-    }, user.userName);
-  })), /*#__PURE__*/_react.default.createElement("div", null, "players:", gameObject.redPlayer ? /*#__PURE__*/_react.default.createElement("span", null, gameObject.redPlayer.userName) : /*#__PURE__*/_react.default.createElement("button", {
+  return gameObject ? /*#__PURE__*/_react.default.createElement(GamePanelStyle, {
+    className: "nes-container with-title"
+  }, /*#__PURE__*/_react.default.createElement("p", {
+    className: "title"
+  }, "Chicken Chess"), /*#__PURE__*/_react.default.createElement("div", null, "players:", gameObject.redPlayer ? /*#__PURE__*/_react.default.createElement("span", null, gameObject.redPlayer.userName) : /*#__PURE__*/_react.default.createElement("button", {
     onClick: takeColor('red')
   }, "sit red"), gameObject.bluePlayer ? /*#__PURE__*/_react.default.createElement("span", null, gameObject.bluePlayer.userName) : /*#__PURE__*/_react.default.createElement("button", {
     onClick: takeColor('blue')
   }, "sit blue"), /*#__PURE__*/_react.default.createElement("button", {
     onClick: leaveGame
-  }, "leave"))) : null;
+  }, "leave")), /*#__PURE__*/_react.default.createElement("button", {
+    onClick: onStart,
+    type: "button",
+    className: "nes-btn is-warning"
+  }, "Start"), /*#__PURE__*/_react.default.createElement("button", {
+    onClick: onReset,
+    type: "button",
+    className: "nes-btn is-error"
+  }, "Reset")) : null;
 };
 
 var _default = GamePanel;
@@ -41380,11 +41410,7 @@ var App = function App() {
       gameObject: gameObject,
       messages: messages
     }
-  }, /*#__PURE__*/_react.default.createElement(_GamePanel.default, null), /*#__PURE__*/_react.default.createElement(_ChessBox.default, {
-    color: "red"
-  }), /*#__PURE__*/_react.default.createElement(_Chessboard.default, null), /*#__PURE__*/_react.default.createElement(_ChessBox.default, {
-    color: "blue"
-  }), /*#__PURE__*/_react.default.createElement(_ChatBox.default, null));
+  }, /*#__PURE__*/_react.default.createElement(_GamePanel.default, null), /*#__PURE__*/_react.default.createElement(_Chessboard.default, null), /*#__PURE__*/_react.default.createElement(_ChatBox.default, null));
 };
 
 _reactDom.default.render( /*#__PURE__*/_react.default.createElement(App, null), document.querySelector('#app'));
