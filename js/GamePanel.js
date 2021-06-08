@@ -20,11 +20,15 @@ const GamePanel = () => {
   const leaveGame = () => {
     socket.emit('leave-game')
   }
+  const onStart = () => {
+    socket.emit('start-game')
+  }
   return gameObject ? (
     <GamePanelStyle>
       <UserPanel />
       <div>
         {gameObject.status}
+        <button onClick={onStart}>start</button>
         <button onClick={onReset}>reset</button>
       </div>
       <div>

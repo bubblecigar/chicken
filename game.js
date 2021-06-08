@@ -37,6 +37,16 @@ const resetChessboard = () => {
   ]
 }
 
+const startGame = () => {
+  const playerEnough = gameObject.redPlayer && gameObject.bluePlayer
+  if (playerEnough) {
+    resetChessboard()
+    gameObject.status = 'red'
+  } else {
+
+  }
+}
+
 const checkWin = () => {
   const toppestBoard = gameObject.chessboard.map(
     row => {
@@ -75,10 +85,8 @@ const checkWin = () => {
     }
   }
   if (winner) {
-    gameObject.status = `${winner}-win`
     return winner
   } else {
-    gameObject.status = 'playing'
     return null
   }
 }
@@ -121,18 +129,28 @@ const moveChess = (action, user) => {
       const index = gameObject.chess.findIndex(c => c.color === chess.color && c.size === chess.size)
       gameObject.chess.splice(index, 1)
       gameObject.chessboard[to[0]][to[1]].push(chess)
-      checkWin()
+      const winner = checkWin()
+      if (winner) {
+        gameObject.status = `${winner}-win`
+        return
+      }
     } else { // move from cell to cell
       const chess = gameObject.chessboard[from[0]][from[1]].pop()
       const winner = checkWin()
-      console.log('winner:', winner)
       gameObject.chessboard[to[0]][to[1]].push(chess)
       if (winner) {
-        // game already end
+        gameObject.status = `${winner}-win`
+        return
       } else {
-        checkWin()
+        const winner = checkWin()
+        if (winner) {
+          gameObject.status = `${winner}-win`
+          return
+        }
       }
     }
+    // no winner, flip turn
+    gameObject.status = chess.color === 'red' ? 'blue' : 'red'
   }
 }
 
@@ -179,6 +197,7 @@ module.exports = {
     removeGuest,
     takeColor,
     leaveGame,
+    startGame,
     resetChessboard,
     gameLoop
   }

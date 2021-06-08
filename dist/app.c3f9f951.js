@@ -41064,7 +41064,13 @@ var GamePanel = function GamePanel() {
     _app.socket.emit('leave-game');
   };
 
+  var onStart = function onStart() {
+    _app.socket.emit('start-game');
+  };
+
   return gameObject ? /*#__PURE__*/_react.default.createElement(GamePanelStyle, null, /*#__PURE__*/_react.default.createElement(_UserPanel.default, null), /*#__PURE__*/_react.default.createElement("div", null, gameObject.status, /*#__PURE__*/_react.default.createElement("button", {
+    onClick: onStart
+  }, "start"), /*#__PURE__*/_react.default.createElement("button", {
     onClick: onReset
   }, "reset")), /*#__PURE__*/_react.default.createElement("div", null, "guests:", gameObject.guests.map(function (user) {
     return /*#__PURE__*/_react.default.createElement("div", {
