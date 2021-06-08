@@ -41298,20 +41298,8 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  position: absolute;\n  z-index: ", ";\n  left: ", ";\n\n  margin: 10px;\n  transform: scale(", ");\n"]);
+  var data = _taggedTemplateLiteral(["\n  position: absolute;\n  z-index: ", ";\n  margin: 10px;\n  transform: scale(", ");\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -41325,20 +41313,14 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 var IconStyle = _styledComponents.default.i(_templateObject(), function (props) {
   return props.zIndex;
 }, function (props) {
-  return "".concat(props.x, "%");
-}, function (props) {
   return props.size / 3;
 });
 
 var Chess = function Chess(_ref) {
   var chess = _ref.chess,
       at = _ref.at,
-      zIndex = _ref.zIndex;
-
-  var _React$useState = _react.default.useState(10 + 70 * Math.random()),
-      _React$useState2 = _slicedToArray(_React$useState, 2),
-      x = _React$useState2[0],
-      setX = _React$useState2[1];
+      zIndex = _ref.zIndex,
+      i = _ref.i;
 
   var _onDragStart = function onDragStart(e, chess) {
     e.dataTransfer.setData("application/json", JSON.stringify({
@@ -41350,7 +41332,11 @@ var Chess = function Chess(_ref) {
   return /*#__PURE__*/_react.default.createElement(IconStyle, {
     className: 'nes-pointer' + ' ' + (chess.color === 'red' ? 'nes-charmander' : 'nes-squirtle'),
     zIndex: zIndex,
-    x: at ? 0 : x,
+    style: {
+      left: "".concat(at ? '0' : 12 * (i + 1), "%"),
+      bottom: 0,
+      transformOrigin: "".concat(at ? 'center' : 'bottom')
+    },
     size: chess.size,
     draggable: true,
     onDragStart: function onDragStart(e) {
@@ -41455,12 +41441,12 @@ var Chessboard = function Chessboard() {
           return _onDrop(e, [i, j]);
         }
       }, col.map(function (c, k) {
-        return /*#__PURE__*/_react.default.createElement(_Chess.default, {
+        return c ? /*#__PURE__*/_react.default.createElement(_Chess.default, {
           key: k,
           chess: c,
           at: [i, j],
           zIndex: k + 1
-        });
+        }) : null;
       }));
     }));
   })) : null;
@@ -41527,6 +41513,7 @@ var Chessbox = function Chessbox(_ref) {
   }).map(function (c, i) {
     return /*#__PURE__*/_react.default.createElement(_Chess.default, {
       key: i,
+      i: i,
       chess: c,
       at: null
     });

@@ -20,8 +20,7 @@ const Chessbox = ({ color }) => {
       <ChessGroup>
         {
           gameObject.chess.filter(c => c.color === color).map(
-            (c, i) =>
-              <Chess key={i} chess={c} at={null} />
+            (c, i) => <Chess key={i} i={i} chess={c} at={null} />
           )
         }
       </ChessGroup>
