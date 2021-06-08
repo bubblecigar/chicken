@@ -41213,9 +41213,9 @@ function _templateObject() {
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var ChessStyle = _styledComponents.default.div(_templateObject(), function (props) {
-  return props.size * 50;
+  return props.size * 30;
 }, function (props) {
-  return props.size * 50;
+  return props.size * 30;
 }, function (props) {
   return props.color;
 }, function (props) {
@@ -41363,8 +41363,18 @@ var _Chess = _interopRequireDefault(require("./Chess"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  flex-wrap: wrap;\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  flex-wrap: wrap;\n  align-items: center;\n"]);
+  var data = _taggedTemplateLiteral(["\n  margin: 20px;\n  width: calc(50% - 40px);\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -41377,13 +41387,19 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 var ChessBoxStyle = _styledComponents.default.div(_templateObject());
 
+var ChessGroup = _styledComponents.default.div(_templateObject2());
+
 var Chessbox = function Chessbox(_ref) {
   var color = _ref.color;
 
   var _React$useContext = _react.default.useContext(_app.GlobalContext),
       gameObject = _React$useContext.gameObject;
 
-  return gameObject ? /*#__PURE__*/_react.default.createElement(ChessBoxStyle, null, gameObject.chess.filter(function (c) {
+  return gameObject ? /*#__PURE__*/_react.default.createElement(ChessBoxStyle, {
+    className: "nes-container with-title"
+  }, /*#__PURE__*/_react.default.createElement("p", {
+    className: "title"
+  }, color), /*#__PURE__*/_react.default.createElement(ChessGroup, null, gameObject.chess.filter(function (c) {
     return c.color === color;
   }).map(function (c, i) {
     return /*#__PURE__*/_react.default.createElement(_Chess.default, {
@@ -41391,7 +41407,7 @@ var Chessbox = function Chessbox(_ref) {
       chess: c,
       at: null
     });
-  })) : null;
+  }))) : null;
 };
 
 var _default = Chessbox;
@@ -41412,7 +41428,7 @@ var _socket = _interopRequireDefault(require("socket.io-client"));
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
-var _UserPanel = _interopRequireWildcard(require("./UserPanel"));
+var _UserPanel = require("./UserPanel");
 
 var _ChatBox = _interopRequireDefault(require("./ChatBox"));
 
@@ -41421,10 +41437,6 @@ var _GamePanel = _interopRequireDefault(require("./GamePanel"));
 var _Chessboard = _interopRequireDefault(require("./Chessboard"));
 
 var _ChessBox = _interopRequireDefault(require("./ChessBox"));
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -41439,6 +41451,28 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: center;\n  align-items: center;\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: center;\n  align-items: center;\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -41455,6 +41489,10 @@ exports.socket = socket;
 var GlobalContext = _react.default.createContext();
 
 exports.GlobalContext = GlobalContext;
+
+var PlayGround = _styledComponents.default.div(_templateObject());
+
+var BoxGroup = _styledComponents.default.div(_templateObject2());
 
 var App = function App() {
   var _React$useState = _react.default.useState(null),
@@ -41484,7 +41522,11 @@ var App = function App() {
       gameObject: gameObject,
       messages: messages
     }
-  }, /*#__PURE__*/_react.default.createElement(_GamePanel.default, null), /*#__PURE__*/_react.default.createElement(_Chessboard.default, null), /*#__PURE__*/_react.default.createElement(_ChatBox.default, null));
+  }, /*#__PURE__*/_react.default.createElement(_GamePanel.default, null), /*#__PURE__*/_react.default.createElement(PlayGround, null, /*#__PURE__*/_react.default.createElement(_Chessboard.default, null)), /*#__PURE__*/_react.default.createElement(BoxGroup, null, /*#__PURE__*/_react.default.createElement(_ChessBox.default, {
+    color: "red"
+  }), /*#__PURE__*/_react.default.createElement(_ChessBox.default, {
+    color: "blue"
+  })));
 };
 
 _reactDom.default.render( /*#__PURE__*/_react.default.createElement(App, null), document.querySelector('#app'));
