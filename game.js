@@ -15,7 +15,7 @@ const gameObject = {
     { color: 'blue', size: 2 }, { color: 'blue', size: 2 },
     { color: 'blue', size: 3 }, { color: 'blue', size: 3 },
   ],
-  status: 'waiting' // playing, end
+  status: 'waiting' // playing, red-win, blue-win
 }
 
 const resetChessboard = () => {
@@ -126,6 +126,14 @@ const moveChess = action => {
   }
 }
 
+const gameLoop = action => {
+  const freezed = gameObject.status === 'red-win' || gameObject.status === 'blue-win'
+  if (freezed) {
+    return
+  }
+  moveChess(action)
+}
+
 const addPlayer = player => {
   gameObject.players.push(player)
 }
@@ -139,7 +147,7 @@ module.exports = {
   methods: {
     addPlayer,
     removePlayer,
-    moveChess,
-    resetChessboard
+    resetChessboard,
+    gameLoop
   }
 }
