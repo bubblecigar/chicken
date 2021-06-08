@@ -7,6 +7,7 @@ const ChessBoxStyle = styled.div`
   margin: 20px;
   position: relative;
   width: calc(50% - 40px);
+  background: white;
 `
 const ChessGroup = styled.div`
   display: flex;

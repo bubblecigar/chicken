@@ -41486,7 +41486,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  margin: 20px;\n  position: relative;\n  width: calc(50% - 40px);\n"]);
+  var data = _taggedTemplateLiteral(["\n  margin: 20px;\n  position: relative;\n  width: calc(50% - 40px);\n  background: white;\n"]);
 
   _templateObject = function _templateObject() {
     return data;
