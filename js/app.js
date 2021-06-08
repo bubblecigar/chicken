@@ -23,7 +23,10 @@ const PlayGround = styled.div`
   padding: 20px;
 `
 const BoxGroup = styled.div`
+  position: fixed;
   display: flex;
+  width: 100%;
+  bottom: 0;
   justify-content: center;
   align-items: center;
 `

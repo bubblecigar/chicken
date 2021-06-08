@@ -41333,8 +41333,8 @@ var Chess = function Chess(_ref) {
     className: 'nes-pointer' + ' ' + (chess.color === 'red' ? 'nes-charmander' : 'nes-squirtle'),
     zIndex: zIndex,
     style: {
-      left: "".concat(at ? '0' : 12 * (i + 1), "%"),
-      bottom: 0,
+      left: "".concat(at ? '0' : 15 * i, "%"),
+      bottom: '-14px',
       transformOrigin: "".concat(at ? 'center' : 'bottom')
     },
     size: chess.size,
@@ -41441,12 +41441,12 @@ var Chessboard = function Chessboard() {
           return _onDrop(e, [i, j]);
         }
       }, col.map(function (c, k) {
-        return c ? /*#__PURE__*/_react.default.createElement(_Chess.default, {
+        return /*#__PURE__*/_react.default.createElement(_Chess.default, {
           key: k,
           chess: c,
           at: [i, j],
           zIndex: k + 1
-        }) : null;
+        });
       }));
     }));
   })) : null;
@@ -41563,7 +41563,7 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: center;\n  align-items: center;\n"]);
+  var data = _taggedTemplateLiteral(["\n  position: fixed;\n  display: flex;\n  width: 100%;\n  bottom: 0;\n  justify-content: center;\n  align-items: center;\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;

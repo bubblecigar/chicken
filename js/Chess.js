@@ -16,8 +16,8 @@ const Chess = ({ chess, at, zIndex, i }) => {
       className={'nes-pointer' + ' ' + (chess.color === 'red' ? 'nes-charmander' : 'nes-squirtle')}
       zIndex={zIndex}
       style={{
-        left: `${at ? '0' : 12 * (i + 1)}%`,
-        bottom: 0,
+        left: `${at ? '0' : 15 * i}%`,
+        bottom: '-14px',
         transformOrigin: `${at ? 'center' : 'bottom'}`
       }}
       size={chess.size}
