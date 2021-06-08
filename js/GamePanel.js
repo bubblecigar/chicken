@@ -13,6 +13,9 @@ const GamePanel = () => {
   const onReset = () => {
     socket.emit('reset-chessboard')
   }
+  const takeColor = color => () => {
+    socket.emit('take-color', color)
+  }
   return gameObject ? (
     <GamePanelStyle>
       <div>
@@ -24,8 +27,8 @@ const GamePanel = () => {
         {
           gameObject.guests.map(
             user => (
-              <div key={user.id}>
-                {user.name}
+              <div key={user.userId}>
+                {user.userName}
               </div>
             )
           )
@@ -33,8 +36,8 @@ const GamePanel = () => {
       </div>
       <div>
         players:
-        <button>sit red</button>
-        <button>sit blue</button>
+        <button onClick={takeColor('red')}>sit red</button>
+        <button onClick={takeColor('blue')}>sit blue</button>
       </div>
     </GamePanelStyle>
   ) : null

@@ -20,7 +20,7 @@ io.on('connection', async function (socket) {
   const userData = socket.handshake.auth
   const { userName, userId } = userData
 
-  gameMethods.joinGuest({ id: userId, name: userName })
+  gameMethods.joinGuest(userData)
   messageMethods.pushSystemMessage(`${userName} join the room`)
   io.emit('update-gameObject', gameObject)
   io.emit('update-messages', messages)
@@ -39,6 +39,11 @@ io.on('connection', async function (socket) {
 
   socket.on('reset-chessboard', action => {
     gameMethods.resetChessboard()
+    io.emit('update-gameObject', gameObject)
+  })
+
+  socket.on('take-color', color => {
+    gameMethods.takeColor(userData, color)
     io.emit('update-gameObject', gameObject)
   })
 

@@ -41052,13 +41052,23 @@ var GamePanel = function GamePanel() {
     _app.socket.emit('reset-chessboard');
   };
 
+  var takeColor = function takeColor(color) {
+    return function () {
+      _app.socket.emit('take-color', color);
+    };
+  };
+
   return gameObject ? /*#__PURE__*/_react.default.createElement(GamePanelStyle, null, /*#__PURE__*/_react.default.createElement("div", null, gameObject.status, /*#__PURE__*/_react.default.createElement("button", {
     onClick: onReset
   }, "reset")), /*#__PURE__*/_react.default.createElement("div", null, "guests:", gameObject.guests.map(function (user) {
     return /*#__PURE__*/_react.default.createElement("div", {
-      key: user.id
-    }, user.name);
-  })), /*#__PURE__*/_react.default.createElement("div", null, "players:", /*#__PURE__*/_react.default.createElement("button", null, "sit red"), /*#__PURE__*/_react.default.createElement("button", null, "sit blue"))) : null;
+      key: user.userId
+    }, user.userName);
+  })), /*#__PURE__*/_react.default.createElement("div", null, "players:", /*#__PURE__*/_react.default.createElement("button", {
+    onClick: takeColor('red')
+  }, "sit red"), /*#__PURE__*/_react.default.createElement("button", {
+    onClick: takeColor('blue')
+  }, "sit blue"))) : null;
 };
 
 var _default = GamePanel;

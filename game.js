@@ -141,7 +141,27 @@ const joinGuest = user => {
   gameObject.guests.push(user)
 }
 const removeGuest = userId => {
-  gameObject.guests = gameObject.guests.filter(user => user.id !== userId)
+  gameObject.guests = gameObject.guests.filter(user => user.userId !== userId)
+}
+
+const leaveGame = user => {
+  const { redPlayer, bluePlayer } = gameObject
+  if (redPlayer && (redPlayer.userId === user.userId)) {
+    gameObject.redPlayer = null
+  }
+  if (bluePlayer && (bluePlayer.userId === user.userId)) {
+    gameObject.bluePlayer = null
+  }
+}
+const takeColor = (user, color) => {
+  const namespace = `${color}Player`
+  leaveGame(user)
+  if (gameObject[namespace]) {
+    // this place has already been token by other
+    return false
+  } else {
+    gameObject[namespace] = user
+  }
 }
 
 module.exports = {
@@ -149,6 +169,8 @@ module.exports = {
   methods: {
     joinGuest,
     removeGuest,
+    takeColor,
+    leaveGame,
     resetChessboard,
     gameLoop
   }
