@@ -40816,8 +40816,18 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  opacity: 0;\n  pointer-events: none;\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: flex-end;\n  align-items: center;\n\n  input {\n    width: 15em;\n  }\n\n  label {\n    margin: 0;\n    margin-right: 10px;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: flex-end;\n  align-items: center;\n\n  input {\n    width: 15em;\n    margin-left: 10px;\n  }\n\n  label {\n    margin: 0;\n    margin-right: 10px;\n  }\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -40865,6 +40875,8 @@ var setLocalUserData = function setLocalUserData(data) {
 
 var UserPanelStyle = _styledComponents.default.div(_templateObject());
 
+var BufferButton = _styledComponents.default.button(_templateObject2());
+
 var UserPanel = function UserPanel() {
   var _React$useState = _react.default.useState(getLocalUserData().userName),
       _React$useState2 = _slicedToArray(_React$useState, 2),
@@ -40885,7 +40897,10 @@ var UserPanel = function UserPanel() {
 
   return /*#__PURE__*/_react.default.createElement(UserPanelStyle, {
     className: "nes-field"
-  }, userName !== getLocalUserData().userName ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("button", {
+  }, /*#__PURE__*/_react.default.createElement(BufferButton, {
+    type: "button",
+    className: "nes-btn"
+  }, "X"), userName !== getLocalUserData().userName ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("button", {
     type: "button",
     className: "nes-btn is-success",
     onClick: onSave

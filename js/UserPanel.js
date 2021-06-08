@@ -36,12 +36,17 @@ const UserPanelStyle = styled.div`
 
   input {
     width: 15em;
+    margin-left: 10px;
   }
 
   label {
     margin: 0;
     margin-right: 10px;
   }
+`
+const BufferButton = styled.button`
+  opacity: 0;
+  pointer-events: none;
 `
 const UserPanel = () => {
   const [userName, setUserName] = React.useState(getLocalUserData().userName)
@@ -55,6 +60,7 @@ const UserPanel = () => {
   }
   return (
     <UserPanelStyle className="nes-field">
+      <BufferButton type="button" className="nes-btn">X</BufferButton>
       {
         userName !== getLocalUserData().userName
           ? <>
