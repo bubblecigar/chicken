@@ -2,11 +2,13 @@ import React from 'react'
 import styled from 'styled-components'
 
 const ContactStyle = styled.div`
-  margin-top: 300px;
   display: flex;
   flex-flow: column;
   justify-content: center;
   align-items: center;
+  > div:first-child {
+    margin: 15px 0;
+  }
 `
 const Links = styled.div`
   display: flex;
@@ -22,6 +24,9 @@ const Contact = ({ }) => {
 
   return (
     <ContactStyle>
+      <div>
+        @bubblecigar
+      </div>
       <Links>
         <a target="_BLANK" href="https://github.com/bubblecigar/chicken">
           <i className="nes-icon github is-medium"></i>
@@ -36,9 +41,6 @@ const Contact = ({ }) => {
           <i className="nes-icon facebook is-medium"></i>
         </a>
       </Links>
-      <div>
-        @bubblecigar
-      </div>
     </ContactStyle>
   )
 }

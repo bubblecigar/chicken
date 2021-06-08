@@ -9,6 +9,7 @@ import Chessboard from './Chessboard'
 import ChessBox from './ChessBox'
 import ExplainDialog from './ExplainDialog'
 import Contact from './Contact'
+import Tech from './Tech'
 
 const socket = io.connect({
   auth: {
@@ -35,6 +36,9 @@ const BoxGroup = styled.div`
 const Header = styled.h1`
   padding: 20px;
 `
+const Footer = styled.footer`
+  margin-top: 300px;
+`
 const App = () => {
   const [gameObject, setGameObject] = React.useState(null)
   const [messages, setMessages] = React.useState([])
@@ -52,7 +56,7 @@ const App = () => {
   )
 
   return (
-    <div style={{ paddingBottom: '200px' }}>
+    <div style={{ paddingBottom: '150px' }}>
       <GlobalContext.Provider value={{ gameObject, messages }}>
         <Header><a target='_BLANK' href='https://www.youtube.com/watch?v=F8F29jfZBRo'># Gobblet Gobbler</a></Header>
         <GamePanel />
@@ -63,7 +67,10 @@ const App = () => {
         <PlayGround>
           <ExplainDialog />
         </PlayGround>
-        <Contact />
+        <Footer>
+          <Tech />
+          <Contact />
+        </Footer>
         <BoxGroup>
           <ChessBox color='red' />
           <ChessBox color='blue' />

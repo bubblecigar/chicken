@@ -41617,7 +41617,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  margin-top: 300px;\n  display: flex;\n  flex-flow: column;\n  justify-content: center;\n  align-items: center;\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  flex-flow: column;\n  justify-content: center;\n  align-items: center;\n  > div:first-child {\n    margin: 15px 0;\n  }\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -41635,7 +41635,7 @@ var Links = _styledComponents.default.div(_templateObject2());
 var Contact = function Contact(_ref) {
   _objectDestructuringEmpty(_ref);
 
-  return /*#__PURE__*/_react.default.createElement(ContactStyle, null, /*#__PURE__*/_react.default.createElement(Links, null, /*#__PURE__*/_react.default.createElement("a", {
+  return /*#__PURE__*/_react.default.createElement(ContactStyle, null, /*#__PURE__*/_react.default.createElement("div", null, "@bubblecigar"), /*#__PURE__*/_react.default.createElement(Links, null, /*#__PURE__*/_react.default.createElement("a", {
     target: "_BLANK",
     href: "https://github.com/bubblecigar/chicken"
   }, /*#__PURE__*/_react.default.createElement("i", {
@@ -41655,10 +41655,84 @@ var Contact = function Contact(_ref) {
     href: "https://www.facebook.com/roy.wang.773"
   }, /*#__PURE__*/_react.default.createElement("i", {
     className: "nes-icon facebook is-medium"
-  }))), /*#__PURE__*/_react.default.createElement("div", null, "@bubblecigar"));
+  }))));
 };
 
 var _default = Contact;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"js/Tech.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _styledComponents = _interopRequireDefault(require("styled-components"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  flex-flow: row;\n  flex-wrap: wrap;\n  justify-content: center;\n  align-items: center;\n\n  > a {\n    margin: 15px 30px;\n  }\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  flex-flow: column;\n  justify-content: center;\n  align-items: center;\n  max-width: 70%;\n  margin: auto;\n\n  > div:first-child {\n    margin-bottom: 15px;\n  }\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var TechStyle = _styledComponents.default.div(_templateObject());
+
+var Links = _styledComponents.default.div(_templateObject2());
+
+var Tech = function Tech(_ref) {
+  _objectDestructuringEmpty(_ref);
+
+  return /*#__PURE__*/_react.default.createElement(TechStyle, null, /*#__PURE__*/_react.default.createElement("div", null, "built-by"), /*#__PURE__*/_react.default.createElement(Links, null, /*#__PURE__*/_react.default.createElement("a", {
+    target: "_BLANK",
+    href: "https://reactjs.org/"
+  }, "#react"), /*#__PURE__*/_react.default.createElement("a", {
+    target: "_BLANK",
+    href: "https://styled-components.com/"
+  }, "#styled-components"), /*#__PURE__*/_react.default.createElement("a", {
+    target: "_BLANK",
+    href: "https://nostalgic-css.github.io/NES.css/"
+  }, "#NES.css")), /*#__PURE__*/_react.default.createElement(Links, null, /*#__PURE__*/_react.default.createElement("a", {
+    target: "_BLANK",
+    href: "https://expressjs.com/"
+  }, "#express"), /*#__PURE__*/_react.default.createElement("a", {
+    target: "_BLANK",
+    href: "https://socket.io/"
+  }, "#socket.io"), /*#__PURE__*/_react.default.createElement("a", {
+    target: "_BLANK",
+    href: "https://dashboard.heroku.com/"
+  }, "#heroku")), /*#__PURE__*/_react.default.createElement(Links, null, /*#__PURE__*/_react.default.createElement("a", {
+    target: "_BLANK",
+    href: "https://parceljs.org/"
+  }, "#parcel"), /*#__PURE__*/_react.default.createElement("a", {
+    target: "_BLANK",
+    href: "https://lodash.com/"
+  }, "#lodash")));
+};
+
+var _default = Tech;
 exports.default = _default;
 },{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"js/app.js":[function(require,module,exports) {
 "use strict";
@@ -41690,6 +41764,8 @@ var _ExplainDialog = _interopRequireDefault(require("./ExplainDialog"));
 
 var _Contact = _interopRequireDefault(require("./Contact"));
 
+var _Tech = _interopRequireDefault(require("./Tech"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
@@ -41703,6 +41779,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _templateObject4() {
+  var data = _taggedTemplateLiteral(["\n  margin-top: 300px;\n"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
 
 function _templateObject3() {
   var data = _taggedTemplateLiteral(["\n  padding: 20px;\n"]);
@@ -41758,6 +41844,8 @@ var BoxGroup = _styledComponents.default.div(_templateObject2());
 
 var Header = _styledComponents.default.h1(_templateObject3());
 
+var Footer = _styledComponents.default.footer(_templateObject4());
+
 var App = function App() {
   var _React$useState = _react.default.useState(null),
       _React$useState2 = _slicedToArray(_React$useState, 2),
@@ -41783,7 +41871,7 @@ var App = function App() {
 
   return /*#__PURE__*/_react.default.createElement("div", {
     style: {
-      paddingBottom: '200px'
+      paddingBottom: '150px'
     }
   }, /*#__PURE__*/_react.default.createElement(GlobalContext.Provider, {
     value: {
@@ -41793,7 +41881,7 @@ var App = function App() {
   }, /*#__PURE__*/_react.default.createElement(Header, null, /*#__PURE__*/_react.default.createElement("a", {
     target: "_BLANK",
     href: "https://www.youtube.com/watch?v=F8F29jfZBRo"
-  }, "# Gobblet Gobbler")), /*#__PURE__*/_react.default.createElement(_GamePanel.default, null), /*#__PURE__*/_react.default.createElement(PlayGround, null, /*#__PURE__*/_react.default.createElement(_Chessboard.default, null), /*#__PURE__*/_react.default.createElement(_ChatBox.default, null)), /*#__PURE__*/_react.default.createElement(PlayGround, null, /*#__PURE__*/_react.default.createElement(_ExplainDialog.default, null)), /*#__PURE__*/_react.default.createElement(_Contact.default, null), /*#__PURE__*/_react.default.createElement(BoxGroup, null, /*#__PURE__*/_react.default.createElement(_ChessBox.default, {
+  }, "# Gobblet Gobbler")), /*#__PURE__*/_react.default.createElement(_GamePanel.default, null), /*#__PURE__*/_react.default.createElement(PlayGround, null, /*#__PURE__*/_react.default.createElement(_Chessboard.default, null), /*#__PURE__*/_react.default.createElement(_ChatBox.default, null)), /*#__PURE__*/_react.default.createElement(PlayGround, null, /*#__PURE__*/_react.default.createElement(_ExplainDialog.default, null)), /*#__PURE__*/_react.default.createElement(Footer, null, /*#__PURE__*/_react.default.createElement(_Tech.default, null), /*#__PURE__*/_react.default.createElement(_Contact.default, null)), /*#__PURE__*/_react.default.createElement(BoxGroup, null, /*#__PURE__*/_react.default.createElement(_ChessBox.default, {
     color: "red"
   }), /*#__PURE__*/_react.default.createElement(_ChessBox.default, {
     color: "blue"
@@ -41801,7 +41889,7 @@ var App = function App() {
 };
 
 _reactDom.default.render( /*#__PURE__*/_react.default.createElement(App, null), document.querySelector('#app'));
-},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","socket.io-client":"node_modules/socket.io-client/build/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./UserPanel":"js/UserPanel.js","./ChatBox":"js/ChatBox.js","./GamePanel":"js/GamePanel.js","./Chessboard":"js/Chessboard.js","./ChessBox":"js/ChessBox.js","./ExplainDialog":"js/ExplainDialog.js","./Contact":"js/Contact.js"}],"../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","socket.io-client":"node_modules/socket.io-client/build/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./UserPanel":"js/UserPanel.js","./ChatBox":"js/ChatBox.js","./GamePanel":"js/GamePanel.js","./Chessboard":"js/Chessboard.js","./ChessBox":"js/ChessBox.js","./ExplainDialog":"js/ExplainDialog.js","./Contact":"js/Contact.js","./Tech":"js/Tech.js"}],"../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
