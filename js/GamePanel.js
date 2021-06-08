@@ -57,8 +57,8 @@ const GamePanel = () => {
     }
   }
   return gameObject ? (
-    <GamePanelStyle className="nes-container with-title">
-      <p className="title">Chicken Chess</p>
+    <GamePanelStyle className="nes-container with-title is-centered">
+      <p className="title">game status - {gameObject.status}</p>
       <ButtonGroup>
         <div>
           <Player player={gameObject.redPlayer} color={'red'} onSubscribe={takeColor('red')} />

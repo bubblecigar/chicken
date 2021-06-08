@@ -41193,10 +41193,10 @@ var GamePanel = function GamePanel() {
   };
 
   return gameObject ? /*#__PURE__*/_react.default.createElement(GamePanelStyle, {
-    className: "nes-container with-title"
+    className: "nes-container with-title is-centered"
   }, /*#__PURE__*/_react.default.createElement("p", {
     className: "title"
-  }, "Chicken Chess"), /*#__PURE__*/_react.default.createElement(ButtonGroup, null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(Player, {
+  }, "game status - ", gameObject.status), /*#__PURE__*/_react.default.createElement(ButtonGroup, null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(Player, {
     player: gameObject.redPlayer,
     color: 'red',
     onSubscribe: takeColor('red')
