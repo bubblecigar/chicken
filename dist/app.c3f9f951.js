@@ -41262,6 +41262,9 @@ var GamePanel = function GamePanel() {
     color: 'red',
     onSubscribe: takeColor('red')
   }), /*#__PURE__*/_react.default.createElement("span", {
+    style: {
+      margin: '0 15px'
+    },
     className: "nes-text is-disabled"
   }, "vs"), /*#__PURE__*/_react.default.createElement(Player, {
     player: gameObject.bluePlayer,

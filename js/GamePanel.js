@@ -62,7 +62,7 @@ const GamePanel = () => {
       <ButtonGroup>
         <div>
           <Player player={gameObject.redPlayer} color={'red'} onSubscribe={takeColor('red')} />
-          <span className="nes-text is-disabled">vs</span>
+          <span style={{ margin: '0 15px' }} className="nes-text is-disabled">vs</span>
           <Player player={gameObject.bluePlayer} color={'blue'} onSubscribe={takeColor('blue')} />
         </div>
         <div>
