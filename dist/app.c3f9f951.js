@@ -41238,7 +41238,7 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  position: ", ";\n  z-index: ", ";\n  transform: scale(", ");\n"]);
+  var data = _taggedTemplateLiteral(["\n  position: ", ";\n  z-index: ", ";\n  margin: 10px;\n  transform: scale(", ");\n"]);
 
   _templateObject = function _templateObject() {
     return data;

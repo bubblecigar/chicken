@@ -4,6 +4,7 @@ import styled from 'styled-components'
 const IconStyle = styled.i`
   position: ${props => props.zIndex ? 'absolute' : 'relative'};
   z-index: ${props => props.zIndex};
+  margin: 10px;
   transform: scale(${props => props.size / 3});
 `
 const Chess = ({ chess, at, zIndex }) => {
@@ -12,7 +13,7 @@ const Chess = ({ chess, at, zIndex }) => {
   }
   return (
     <IconStyle
-      className={ 'nes-pointer' + ' ' + (chess.color === 'red' ? 'nes-charmander' : 'nes-squirtle')}
+      className={'nes-pointer' + ' ' + (chess.color === 'red' ? 'nes-charmander' : 'nes-squirtle')}
       zIndex={zIndex}
       size={chess.size}
       draggable
