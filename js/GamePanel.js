@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { GlobalContext, socket } from './app'
+import UserPanel from './UserPanel'
 
 const GamePanelStyle = styled.div`
   position: fixed;
@@ -21,6 +22,7 @@ const GamePanel = () => {
   }
   return gameObject ? (
     <GamePanelStyle>
+      <UserPanel />
       <div>
         {gameObject.status}
         <button onClick={onReset}>reset</button>

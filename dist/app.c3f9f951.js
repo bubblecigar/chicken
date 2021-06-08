@@ -41028,6 +41028,8 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 var _app = require("./app");
 
+var _UserPanel = _interopRequireDefault(require("./UserPanel"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject() {
@@ -41062,7 +41064,7 @@ var GamePanel = function GamePanel() {
     _app.socket.emit('leave-game');
   };
 
-  return gameObject ? /*#__PURE__*/_react.default.createElement(GamePanelStyle, null, /*#__PURE__*/_react.default.createElement("div", null, gameObject.status, /*#__PURE__*/_react.default.createElement("button", {
+  return gameObject ? /*#__PURE__*/_react.default.createElement(GamePanelStyle, null, /*#__PURE__*/_react.default.createElement(_UserPanel.default, null), /*#__PURE__*/_react.default.createElement("div", null, gameObject.status, /*#__PURE__*/_react.default.createElement("button", {
     onClick: onReset
   }, "reset")), /*#__PURE__*/_react.default.createElement("div", null, "guests:", gameObject.guests.map(function (user) {
     return /*#__PURE__*/_react.default.createElement("div", {
@@ -41079,7 +41081,7 @@ var GamePanel = function GamePanel() {
 
 var _default = GamePanel;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./app":"js/app.js"}],"js/Chess.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./app":"js/app.js","./UserPanel":"js/UserPanel.js"}],"js/Chess.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -41303,7 +41305,7 @@ var _socket = _interopRequireDefault(require("socket.io-client"));
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
-var _UserPanel = _interopRequireWildcard(require("./UserPanel"));
+var _UserPanel = require("./UserPanel");
 
 var _ChatBox = _interopRequireDefault(require("./ChatBox"));
 
@@ -41312,10 +41314,6 @@ var _GamePanel = _interopRequireDefault(require("./GamePanel"));
 var _Chessboard = _interopRequireDefault(require("./Chessboard"));
 
 var _ChessBox = _interopRequireDefault(require("./ChessBox"));
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -41376,7 +41374,7 @@ var App = function App() {
       gameObject: gameObject,
       messages: messages
     }
-  }, /*#__PURE__*/_react.default.createElement(_GamePanel.default, null), /*#__PURE__*/_react.default.createElement(_UserPanel.default, null), /*#__PURE__*/_react.default.createElement(_ChessBox.default, {
+  }, /*#__PURE__*/_react.default.createElement(_GamePanel.default, null), /*#__PURE__*/_react.default.createElement(_ChessBox.default, {
     color: "red"
   }), /*#__PURE__*/_react.default.createElement(_Chessboard.default, null), /*#__PURE__*/_react.default.createElement(_ChessBox.default, {
     color: "blue"

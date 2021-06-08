@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import io from 'socket.io-client'
 import styled from 'styled-components'
-import UserPanel, { getLocalUserData } from './UserPanel'
+import { getLocalUserData } from './UserPanel'
 import ChatBox from './ChatBox'
 import GamePanel from './GamePanel'
 import Chessboard from './Chessboard'
@@ -35,7 +35,6 @@ const App = () => {
   return (
     <GlobalContext.Provider value={{ gameObject, messages }}>
       <GamePanel />
-      <UserPanel />
       <ChessBox color='red' />
       <Chessboard />
       <ChessBox color='blue' />
