@@ -41047,8 +41047,17 @@ var ChatRecord = function ChatRecord() {
   var _React$useContext = _react.default.useContext(_app.GlobalContext),
       messages = _React$useContext.messages;
 
+  var ref = _react.default.useRef();
+
+  _react.default.useEffect(function () {
+    if (ref.current) {
+      ref.current.scrollTo(0, ref.current.scrollHeight);
+    }
+  }, [messages]);
+
   return /*#__PURE__*/_react.default.createElement(ChatRecordStyle, {
-    className: "nes-container is-dark"
+    className: "nes-container is-dark",
+    ref: ref
   }, messages.map(function (message, i) {
     switch (message.type) {
       case 'user-message':

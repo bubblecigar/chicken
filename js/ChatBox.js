@@ -47,8 +47,16 @@ const MessageRowStyle = styled.div`
 `
 const ChatRecord = () => {
   const { messages } = React.useContext(GlobalContext)
+  const ref = React.useRef()
+  React.useEffect(
+    () => {
+      if (ref.current) {
+        ref.current.scrollTo(0, ref.current.scrollHeight)
+      }
+    }, [messages]
+  )
   return (
-    <ChatRecordStyle className='nes-container is-dark'>
+    <ChatRecordStyle className='nes-container is-dark' ref={ref}>
       {
         messages.map(
           (message, i) => {
