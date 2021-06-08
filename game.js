@@ -84,11 +84,7 @@ const checkWin = () => {
       break
     }
   }
-  if (winner) {
-    return winner
-  } else {
-    return null
-  }
+  return winner
 }
 
 const checkNeighbor = (from, to) => {
