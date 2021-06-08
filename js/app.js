@@ -20,6 +20,7 @@ const PlayGround = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
 `
 const BoxGroup = styled.div`
   display: flex;
@@ -47,12 +48,12 @@ const App = () => {
       <GamePanel />
       <PlayGround>
         <Chessboard />
+        <ChatBox />
       </PlayGround>
       <BoxGroup>
         <ChessBox color='red' />
         <ChessBox color='blue' />
       </BoxGroup>
-      {/* <ChatBox /> */}
     </GlobalContext.Provider>
   )
 }

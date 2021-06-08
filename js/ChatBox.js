@@ -4,7 +4,15 @@ import { getLocalUserData } from './UserPanel'
 import { socket, GlobalContext } from './app'
 
 const ChatInputStyle = styled.div`
+  display: flex;
+  position: absolute;
+  bottom: 0;
   padding: 10px;
+  align-items: center;
+  width: 100%;
+  input {
+    margin-right: 15px;
+  }
 `
 const ChatInput = () => {
   const [message, setMessage] = React.useState('')
@@ -19,25 +27,25 @@ const ChatInput = () => {
     }
   }
   return (
-    <ChatInputStyle>
-      <input
-        value={message}
+    <ChatInputStyle className="nes-field">
+      <input type="text" className="nes-input" placeholder="type some messages..." value={message}
         onKeyDown={onKeyDown}
-        onChange={e => setMessage(e.target.value)}
-      />
-      <button onClick={onSend}>send</button>
+        onChange={e => setMessage(e.target.value)} />
+      <button type="button" className="nes-btn is-primary" onClick={onSend}>send</button>
     </ChatInputStyle>
   )
 }
 
 const ChatRecordStyle = styled.div`
+  overflow-y: auto;
+  height: calc(100% - 75px);
+  border-bottom: 4px solid black;
 `
 const MessageRowStyle = styled.div`
   padding: 5px 10px;
 `
 const ChatRecord = () => {
   const { messages } = React.useContext(GlobalContext)
-  console.log('messages:', messages)
   return (
     <ChatRecordStyle>
       {
@@ -64,10 +72,13 @@ const ChatRecord = () => {
 
 
 const ChatBoxStyle = styled.div`
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  border: 1px solid black;
+  border: 4px solid black;
+  height: 406px;
+  flex-grow: 1;
+  position: relative;
+  dispplay: flex;
+  flex-flow: column;
+
 `
 const ChatBox = () => {
   return (

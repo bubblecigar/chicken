@@ -12,7 +12,7 @@ const ChessboardStyle = styled.div`
   grid-template-columns: repeat(3, ${ChessboardSize}px);
   grid-gap: 4px;
   border: 4px solid black;
-  margin: 20px;
+  margin-right: 20px;
 `
 const CellStyle = styled.div`
   display: flex;

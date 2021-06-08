@@ -40920,7 +40920,7 @@ var _app = require("./app");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject4() {
-  var data = _taggedTemplateLiteral(["\n  position: fixed;\n  right: 0;\n  bottom: 0;\n  border: 1px solid black;\n"]);
+  var data = _taggedTemplateLiteral(["\n  border: 4px solid black;\n  height: 406px;\n  flex-grow: 1;\n  position: relative;\n  dispplay: flex;\n  flex-flow: column;\n\n"]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -40940,7 +40940,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n"]);
+  var data = _taggedTemplateLiteral(["\n  overflow-y: auto;\n  height: calc(100% - 75px);\n  border-bottom: 4px solid black;\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -40962,7 +40962,7 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  padding: 10px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  position: absolute;\n  bottom: 0;\n  padding: 10px;\n  align-items: center;\n  width: 100%;\n  input {\n    margin-right: 15px;\n  }\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -40997,13 +40997,20 @@ var ChatInput = function ChatInput() {
     }
   };
 
-  return /*#__PURE__*/_react.default.createElement(ChatInputStyle, null, /*#__PURE__*/_react.default.createElement("input", {
+  return /*#__PURE__*/_react.default.createElement(ChatInputStyle, {
+    className: "nes-field"
+  }, /*#__PURE__*/_react.default.createElement("input", {
+    type: "text",
+    className: "nes-input",
+    placeholder: "type some messages...",
     value: message,
     onKeyDown: onKeyDown,
     onChange: function onChange(e) {
       return setMessage(e.target.value);
     }
   }), /*#__PURE__*/_react.default.createElement("button", {
+    type: "button",
+    className: "nes-btn is-primary",
     onClick: onSend
   }, "send"));
 };
@@ -41016,7 +41023,6 @@ var ChatRecord = function ChatRecord() {
   var _React$useContext = _react.default.useContext(_app.GlobalContext),
       messages = _React$useContext.messages;
 
-  console.log('messages:', messages);
   return /*#__PURE__*/_react.default.createElement(ChatRecordStyle, null, messages.map(function (message, i) {
     switch (message.type) {
       case 'user-message':
@@ -41278,7 +41284,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  display: inline-grid;\n  background-color: black;\n  grid-template-rows: repeat(3, ", "px);\n  grid-template-columns: repeat(3, ", "px);\n  grid-gap: 4px;\n  border: 4px solid black;\n  margin: 20px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: inline-grid;\n  background-color: black;\n  grid-template-rows: repeat(3, ", "px);\n  grid-template-columns: repeat(3, ", "px);\n  grid-gap: 4px;\n  border: 4px solid black;\n  margin-right: 20px;\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -41463,7 +41469,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: center;\n  align-items: center;\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 20px;\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -41522,7 +41528,7 @@ var App = function App() {
       gameObject: gameObject,
       messages: messages
     }
-  }, /*#__PURE__*/_react.default.createElement(_GamePanel.default, null), /*#__PURE__*/_react.default.createElement(PlayGround, null, /*#__PURE__*/_react.default.createElement(_Chessboard.default, null)), /*#__PURE__*/_react.default.createElement(BoxGroup, null, /*#__PURE__*/_react.default.createElement(_ChessBox.default, {
+  }, /*#__PURE__*/_react.default.createElement(_GamePanel.default, null), /*#__PURE__*/_react.default.createElement(PlayGround, null, /*#__PURE__*/_react.default.createElement(_Chessboard.default, null), /*#__PURE__*/_react.default.createElement(_ChatBox.default, null)), /*#__PURE__*/_react.default.createElement(BoxGroup, null, /*#__PURE__*/_react.default.createElement(_ChessBox.default, {
     color: "red"
   }), /*#__PURE__*/_react.default.createElement(_ChessBox.default, {
     color: "blue"
