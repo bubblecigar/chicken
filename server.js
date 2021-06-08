@@ -27,6 +27,7 @@ io.on('connection', async function (socket) {
 
   socket.on('disconnect', async function () {
     gameMethods.removeGuest(userId)
+    gameMethods.leaveGame(userData)
     messageMethods.pushSystemMessage(`${userName} leave the room`)
     io.emit('update-gameObject', gameObject)
     io.emit('update-messages', messages)
