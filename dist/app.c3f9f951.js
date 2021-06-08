@@ -41151,10 +41151,6 @@ var GamePanel = function GamePanel() {
   var _React$useContext = _react.default.useContext(_app.GlobalContext),
       gameObject = _React$useContext.gameObject;
 
-  var onReset = function onReset() {
-    _app.socket.emit('reset-chessboard');
-  };
-
   var takeColor = function takeColor(color) {
     return function () {
       _app.socket.emit('take-color', color);
@@ -41214,15 +41210,11 @@ var GamePanel = function GamePanel() {
     onClick: leaveGame,
     type: "button",
     className: "nes-btn"
-  }, "leave") : null, isInGame() && enoughPlayer() ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("button", {
+  }, "leave") : null, isInGame() && enoughPlayer() ? /*#__PURE__*/_react.default.createElement("button", {
     onClick: onStart,
     type: "button",
     className: "nes-btn is-success"
-  }, "Start"), /*#__PURE__*/_react.default.createElement("button", {
-    onClick: onReset,
-    type: "button",
-    className: "nes-btn is-error"
-  }, "Reset")) : null, !isInGame() && !enoughPlayer() && /*#__PURE__*/_react.default.createElement(_UserPanel.default, null)))) : null;
+  }, "Start") : null, !isInGame() && !enoughPlayer() && /*#__PURE__*/_react.default.createElement(_UserPanel.default, null)))) : null;
 };
 
 var _default = GamePanel;

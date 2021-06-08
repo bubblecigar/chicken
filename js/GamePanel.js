@@ -26,9 +26,7 @@ const ButtonGroup = styled.div`
 `
 const GamePanel = () => {
   const { gameObject } = React.useContext(GlobalContext)
-  const onReset = () => {
-    socket.emit('reset-chessboard')
-  }
+
   const takeColor = color => () => {
     socket.emit('take-color', color)
   }
@@ -74,10 +72,9 @@ const GamePanel = () => {
               : null
           }
           {
-            isInGame() && enoughPlayer() ? <>
-              <button onClick={onStart} type="button" className="nes-btn is-success">Start</button>
-              <button onClick={onReset} type="button" className="nes-btn is-error">Reset</button>
-            </> : null
+            isInGame() && enoughPlayer()
+              ? <button onClick={onStart} type="button" className="nes-btn is-success">Start</button>
+              : null
           }
           {
             !isInGame() && !enoughPlayer() && <UserPanel />
