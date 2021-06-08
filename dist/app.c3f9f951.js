@@ -41210,7 +41210,7 @@ var GamePanel = function GamePanel() {
     onClick: onStart,
     type: "button",
     className: "nes-btn is-warning"
-  }, "Re") : null, isInGame() ? /*#__PURE__*/_react.default.createElement("button", {
+  }, "new") : null, isInGame() ? /*#__PURE__*/_react.default.createElement("button", {
     onClick: leaveGame,
     type: "button",
     className: "nes-btn"
