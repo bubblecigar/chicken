@@ -2,8 +2,10 @@ const express = require('express');
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-const { gameObject, methods: gameMethods } = require('./game.js')
 const { messages, methods: messageMethods } = require('./message.js')
+const gameObject = require('./gameObject.js')
+const getMethods = require('./gameMethods.js')
+const gameMethods = getMethods(gameObject)
 
 app.use('/', express.static(__dirname + '/dist'));
 
