@@ -19,7 +19,7 @@ const ChatInput = () => {
   const { messages, setMessages } = React.useContext(GlobalContext)
 
   const onSend = () => {
-    const messageObject = { message, user: getLocalUserData() }
+    const messageObject = { message, user: getLocalUserData(), type: 'user-message' }
     setMessages([...messages, messageObject])
     socket.emit('message', messageObject)
     setMessage('')

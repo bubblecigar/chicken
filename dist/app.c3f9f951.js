@@ -41047,7 +41047,8 @@ var ChatInput = function ChatInput() {
   var onSend = function onSend() {
     var messageObject = {
       message: message,
-      user: (0, _UserPanel.getLocalUserData)()
+      user: (0, _UserPanel.getLocalUserData)(),
+      type: 'user-message'
     };
     setMessages([].concat(_toConsumableArray(messages), [messageObject]));
 
@@ -41957,7 +41958,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54115" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49391" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

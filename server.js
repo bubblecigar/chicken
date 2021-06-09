@@ -75,7 +75,7 @@ io.on('connection', async function (socket) {
 
   socket.on('message', messageObject => {
     messageMethods.pushUserMessage(messageObject)
-    io.emit('update-messages', messages)
+    socket.broadcast.emit('update-messages', messages)
   })
 });
 
