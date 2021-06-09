@@ -52,7 +52,7 @@ io.on('connection', async function (socket) {
 
   socket.on('take-color', color => {
     gameMethods.takeColor(userData, color)
-    io.emit('update-gameObject', gameObject)
+    socket.broadcast.emit('update-gameObject', gameObject)
   })
   socket.on('player-ready', async () => {
     gameMethods.togglePlayerReady(userData)

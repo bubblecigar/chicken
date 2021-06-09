@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { GlobalContext, socket } from './app'
 import UserPanel, { getLocalUserData } from './UserPanel'
+import getMethods from '../gameMethods.js'
+import _ from 'lodash'
 
 const Player = ({ player, color, onSubscribe }) => {
   const { gameObject } = React.useContext(GlobalContext)
@@ -30,10 +32,13 @@ const ButtonGroup = styled.div`
   }
 `
 const GamePanel = () => {
-  const { gameObject } = React.useContext(GlobalContext)
+  const { gameObject, setGameObject } = React.useContext(GlobalContext)
 
   const takeColor = color => () => {
     socket.emit('take-color', color)
+    const gameMethods = getMethods(gameObject)
+    gameMethods.takeColor(getLocalUserData(), color)
+    setGameObject(_.cloneDeep(gameObject))
   }
   const leaveGame = () => {
     socket.emit('leave-game')
