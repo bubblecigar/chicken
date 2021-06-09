@@ -60021,6 +60021,12 @@ var _grassWithHole = _interopRequireDefault(require("../assets/grassWithHole.png
 
 var _grassWithFlower = _interopRequireDefault(require("../assets/grassWithFlower.png"));
 
+var _UserPanel = require("./UserPanel");
+
+var _gameMethods = _interopRequireDefault(require("../gameMethods.js"));
+
+var _lodash = _interopRequireDefault(require("lodash"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject2() {
@@ -60053,7 +60059,8 @@ var CellStyle = _styledComponents.default.div(_templateObject2(), function (prop
 
 var Chessboard = function Chessboard() {
   var _React$useContext = _react.default.useContext(_app.GlobalContext),
-      gameObject = _React$useContext.gameObject;
+      gameObject = _React$useContext.gameObject,
+      setGameObject = _React$useContext.setGameObject;
 
   var _onDrop = function onDrop(e, to) {
     var json = e.dataTransfer.getData('application/json');
@@ -60073,6 +60080,10 @@ var Chessboard = function Chessboard() {
     }
 
     _app.socket.emit('move-chess', action);
+
+    var gameMethods = (0, _gameMethods.default)(gameObject);
+    gameMethods.gameLoop(action, (0, _UserPanel.getLocalUserData)());
+    setGameObject(_lodash.default.cloneDeep(gameObject));
   };
 
   return gameObject ? /*#__PURE__*/_react.default.createElement(ChessboardStyle, null, gameObject.chessboard.map(function (row, i) {
@@ -60102,7 +60113,7 @@ var Chessboard = function Chessboard() {
 
 var _default = Chessboard;
 exports.default = _default;
-},{"@babel/runtime/helpers/taggedTemplateLiteral":"node_modules/@babel/runtime/helpers/taggedTemplateLiteral.js","react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./app":"js/app.js","./Chess":"js/Chess.js","../assets/grassWithHole.png":"assets/grassWithHole.png","../assets/grassWithFlower.png":"assets/grassWithFlower.png"}],"js/ChessBox.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/taggedTemplateLiteral":"node_modules/@babel/runtime/helpers/taggedTemplateLiteral.js","react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./app":"js/app.js","./Chess":"js/Chess.js","../assets/grassWithHole.png":"assets/grassWithHole.png","../assets/grassWithFlower.png":"assets/grassWithFlower.png","./UserPanel":"js/UserPanel.js","../gameMethods.js":"gameMethods.js","lodash":"node_modules/lodash/lodash.js"}],"js/ChessBox.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

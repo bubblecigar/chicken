@@ -4,7 +4,9 @@ import { socket, GlobalContext } from './app'
 import Chess from './Chess'
 import grassWithHole from '../assets/grassWithHole.png'
 import grassWithFlower from '../assets/grassWithFlower.png'
-
+import { getLocalUserData } from './UserPanel'
+import getMethods from '../gameMethods.js'
+import _ from 'lodash'
 const ChessboardSize = 130
 
 const ChessboardStyle = styled.div`
@@ -25,7 +27,7 @@ const CellStyle = styled.div`
   position: relative;
 `
 const Chessboard = () => {
-  const { gameObject } = React.useContext(GlobalContext)
+  const { gameObject, setGameObject } = React.useContext(GlobalContext)
 
   const onDrop = (e, to) => {
     const json = e.dataTransfer.getData('application/json')
@@ -39,6 +41,9 @@ const Chessboard = () => {
       return // in the same cell
     }
     socket.emit('move-chess', action)
+    const gameMethods = getMethods(gameObject)
+    gameMethods.gameLoop(action, getLocalUserData())
+    setGameObject(_.cloneDeep(gameObject))
   }
 
   return gameObject ? (
