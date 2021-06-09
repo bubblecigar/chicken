@@ -126,13 +126,16 @@ const startGame = async (cb) => {
       const finishCountDown = await countDown(countDownSeconds, exitTest, cb)
       if (finishCountDown) {
         resetChessboard()
-        changeGameStatus('red')
+        changeGameStatus(generateRandomColor())
         console.log('gameObject.status:', gameObject.status)
       }
     }
   }
 }
-
+const generateRandomColor = () => {
+  const number = Math.random()
+  return number >= 0.5 ? 'red' : 'blue'
+}
 const checkWin = () => {
   const toppestBoard = gameObject.chessboard.map(
     row => {

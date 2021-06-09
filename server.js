@@ -56,7 +56,7 @@ io.on('connection', async function (socket) {
     gameMethods.togglePlayerReady(userData)
     const cb = s => {
       if (s <= 0) {
-        messageMethods.pushGameMessage(`Game Start! red player's turn!`)
+        messageMethods.pushGameMessage(`Generate random color to start the game...`)
       } else {
         messageMethods.pushGameMessage(`Game will be start in ${s} seconds!`)
       }
