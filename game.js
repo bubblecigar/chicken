@@ -23,6 +23,39 @@ const gameObject = {
   status: 'waiting' // red, blue, red-win, blue-win, countDown
 }
 
+const changeGameStatus = status => {
+  gameObject.status = status
+  switch (status) {
+    case 'red-win': {
+      messageMethods.pushGameMessage(`Red player win the game!`)
+      break
+    }
+    case 'blue-win': {
+      messageMethods.pushGameMessage(`Blue player win the game!`)
+      break
+    }
+    case 'waiting': {
+      messageMethods.pushGameMessage(`Wait players to be ready...`)
+      break
+    }
+    case 'countDown': {
+      // server.js handle this part
+      break
+    }
+    case 'red': {
+      messageMethods.pushGameMessage(`Red player's turn`)
+      break
+    }
+    case 'blue': {
+      messageMethods.pushGameMessage(`Blue player's turn`)
+      break
+    }
+    default: {
+      console.log('unhandle status: ', status)
+    }
+  }
+}
+
 const updateUserData = userData => {
   if (gameObject.redPlayer) {
     if (gameObject.redPlayer.userId === userData.userId) {
@@ -40,7 +73,7 @@ const updateUserData = userData => {
 }
 
 const resetChessboard = () => {
-  gameObject.status = 'waiting'
+  changeGameStatus('waiting')
   gameObject.redPlayerReady = false
   gameObject.bluePlayerReady = false
   gameObject.chess = [
@@ -87,13 +120,14 @@ const startGame = async (cb) => {
   const playerEnough = gameObject.redPlayer && gameObject.bluePlayer
   if (playerEnough) {
     if (gameObject.redPlayerReady && gameObject.bluePlayerReady) {
-      gameObject.status = 'countDown'
+      changeGameStatus('countDown')
       const countDownSeconds = 5
       const exitTest = () => gameObject.status !== 'countDown'
       const finishCountDown = await countDown(countDownSeconds, exitTest, cb)
       if (finishCountDown) {
         resetChessboard()
-        gameObject.status = 'red'
+        changeGameStatus('red')
+        console.log('gameObject.status:', gameObject.status)
       }
     }
   }
@@ -179,8 +213,7 @@ const moveChess = (action, user) => {
       gameObject.chessboard[to[0]][to[1]].push(chess)
       const winner = checkWin()
       if (winner) {
-        gameObject.status = `${winner}-win`
-        messageMethods.pushGameMessage(`${winner} player win the game!`)
+        changeGameStatus(`${winner}-win`)
         return
       }
     } else { // move from cell to cell
@@ -188,20 +221,18 @@ const moveChess = (action, user) => {
       const winner = checkWin()
       gameObject.chessboard[to[0]][to[1]].push(chess)
       if (winner) {
-        gameObject.status = `${winner}-win`
-        messageMethods.pushGameMessage(`${winner} player win the game!`)
+        changeGameStatus(`${winner}-win`)
         return
       } else {
         const winner = checkWin()
         if (winner) {
-          gameObject.status = `${winner}-win`
-          messageMethods.pushGameMessage(`${winner} player win the game!`)
+          changeGameStatus(`${winner}-win`)
           return
         }
       }
     }
     // no winner, flip turn
-    gameObject.status = chess.color === 'red' ? 'blue' : 'red'
+    changeGameStatus(chess.color === 'red' ? 'blue' : 'red')
   }
 }
 
@@ -226,12 +257,12 @@ const leaveGame = user => {
   if (redPlayer && (redPlayer.userId === user.userId)) {
     gameObject.redPlayer = null
     gameObject.redPlayerReady = false
-    gameObject.status = 'waiting'
+    changeGameStatus('waiting')
   }
   if (bluePlayer && (bluePlayer.userId === user.userId)) {
     gameObject.bluePlayer = null
     gameObject.bluePlayerReady = false
-    gameObject.status = 'waiting'
+    changeGameStatus('waiting')
   }
 }
 const takeColor = (user, color) => {
