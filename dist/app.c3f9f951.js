@@ -41299,7 +41299,7 @@ var GamePanel = function GamePanel() {
     onClick: onReady,
     type: "button",
     className: "nes-btn is-success"
-  }, isReady() ? 'X' : 'Ready') : null, isInGame() ? /*#__PURE__*/_react.default.createElement("button", {
+  }, isReady() ? 'X' : 'Ready') : null, isInGame() && gameObject.status !== 'countDown' ? /*#__PURE__*/_react.default.createElement("button", {
     onClick: leaveGame,
     type: "button",
     className: "nes-btn"

@@ -10,9 +10,9 @@ const Player = ({ player, color, onSubscribe }) => {
     color === 'red' ? 'is-error' : 'is-primary'
   )
   return player ? (
-      <button type="button" className={`nes-btn ${btnClass}`} >
-        {player.userName || '?'}
-      </button >
+    <button type="button" className={`nes-btn ${btnClass}`} >
+      {player.userName || '?'}
+    </button >
   ) : (
       <button type="button" className="nes-btn" onClick={onSubscribe}>empty +</button>
     )
@@ -90,7 +90,7 @@ const GamePanel = () => {
               : null
           }
           {
-            isInGame()
+            isInGame() && gameObject.status !== 'countDown'
               ? <button onClick={leaveGame} type="button" className="nes-btn">leave</button>
               : null
           }

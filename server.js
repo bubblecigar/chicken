@@ -69,6 +69,7 @@ io.on('connection', async function (socket) {
   })
   socket.on('leave-game', () => {
     gameMethods.leaveGame(userData)
+    io.emit('update-messages', messages)
     io.emit('update-gameObject', gameObject)
   })
 

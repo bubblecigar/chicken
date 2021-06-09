@@ -20,7 +20,7 @@ const gameObject = {
     { color: 'blue', size: 2 }, { color: 'blue', size: 2 },
     { color: 'blue', size: 3 }, { color: 'blue', size: 3 },
   ],
-  status: 'waiting' // red, blue, red-win, blue-win
+  status: 'waiting' // red, blue, red-win, blue-win, countDown
 }
 
 const updateUserData = userData => {
@@ -70,12 +70,15 @@ const togglePlayerReady = user => {
     }
   }
 }
-const countDown = async (remainSeconds, callback) => {
+const countDown = async (remainSeconds, exitTest, callback) => {
   return new Promise((resolve, reject) => {
-    if (remainSeconds <= 0) resolve()
+    if (exitTest()) {
+      return resolve(false)
+    }
+    if (remainSeconds < 0) return resolve(true)
     callback(remainSeconds)
     setTimeout(
-      () => resolve(countDown(remainSeconds - 1, callback))
+      () => resolve(countDown(remainSeconds - 1, exitTest, callback))
       , 1000
     )
   })
@@ -84,14 +87,16 @@ const startGame = async (cb) => {
   const playerEnough = gameObject.redPlayer && gameObject.bluePlayer
   if (playerEnough) {
     if (gameObject.redPlayerReady && gameObject.bluePlayerReady) {
+      gameObject.status = 'countDown'
       const countDownSeconds = 5
-      await countDown(countDownSeconds, cb)
-      resetChessboard()
-      gameObject.status = 'red'
-      return true
+      const exitTest = () => gameObject.status !== 'countDown'
+      const finishCountDown = await countDown(countDownSeconds, exitTest, cb)
+      if (finishCountDown) {
+        resetChessboard()
+        gameObject.status = 'red'
+      }
     }
   }
-  return false
 }
 
 const checkWin = () => {
@@ -220,9 +225,13 @@ const leaveGame = user => {
   const { redPlayer, bluePlayer } = gameObject
   if (redPlayer && (redPlayer.userId === user.userId)) {
     gameObject.redPlayer = null
+    gameObject.redPlayerReady = false
+    gameObject.status = 'waiting'
   }
   if (bluePlayer && (bluePlayer.userId === user.userId)) {
     gameObject.bluePlayer = null
+    gameObject.bluePlayerReady = false
+    gameObject.status = 'waiting'
   }
 }
 const takeColor = (user, color) => {
