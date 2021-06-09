@@ -20,7 +20,7 @@ const ChessboardStyle = styled.div`
 `
 const CellStyle = styled.div`
   display: flex;
-  background-image: url(${props => (props.index % 2 === 0) ? grassWithHole : grassWithFlower});
+  background-image: url(${props => props.hint ? grassWithHole : grassWithFlower});
   background-size: ${ChessboardSize}px;
   justify-content: center;
   align-items: center;
@@ -46,6 +46,8 @@ const Chessboard = () => {
     setGameObject(_.cloneDeep(gameObject))
   }
 
+  const [dragHint, setDragHint] = React.useState([null, null])
+
   return gameObject ? (
     <ChessboardStyle>
       {
@@ -58,6 +60,9 @@ const Chessboard = () => {
                     <CellStyle
                       index={i + j}
                       key={j}
+                      hint={dragHint[0] === i && dragHint[1] === j}
+                      onDragEnter={e => setDragHint([i, j])}
+                      onMouseOver={e => setDragHint([i, j])}
                       onDragOver={e => e.preventDefault()}
                       onDrop={e => onDrop(e, [i, j])}
                     >

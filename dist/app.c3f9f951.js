@@ -60016,6 +60016,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
+
 var _taggedTemplateLiteral2 = _interopRequireDefault(require("@babel/runtime/helpers/taggedTemplateLiteral"));
 
 var _react = _interopRequireDefault(require("react"));
@@ -60063,7 +60065,7 @@ var ChessboardSize = 130;
 var ChessboardStyle = _styledComponents.default.div(_templateObject(), ChessboardSize, ChessboardSize);
 
 var CellStyle = _styledComponents.default.div(_templateObject2(), function (props) {
-  return props.index % 2 === 0 ? _grassWithHole.default : _grassWithFlower.default;
+  return props.hint ? _grassWithHole.default : _grassWithFlower.default;
 }, ChessboardSize);
 
 var Chessboard = function Chessboard() {
@@ -60095,6 +60097,11 @@ var Chessboard = function Chessboard() {
     setGameObject(_lodash.default.cloneDeep(gameObject));
   };
 
+  var _React$useState = _react.default.useState([null, null]),
+      _React$useState2 = (0, _slicedToArray2.default)(_React$useState, 2),
+      dragHint = _React$useState2[0],
+      setDragHint = _React$useState2[1];
+
   return gameObject ? /*#__PURE__*/_react.default.createElement(ChessboardStyle, null, gameObject.chessboard.map(function (row, i) {
     return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, {
       key: i
@@ -60102,6 +60109,13 @@ var Chessboard = function Chessboard() {
       return /*#__PURE__*/_react.default.createElement(CellStyle, {
         index: i + j,
         key: j,
+        hint: dragHint[0] === i && dragHint[1] === j,
+        onDragEnter: function onDragEnter(e) {
+          return setDragHint([i, j]);
+        },
+        onMouseOver: function onMouseOver(e) {
+          return setDragHint([i, j]);
+        },
         onDragOver: function onDragOver(e) {
           return e.preventDefault();
         },
@@ -60122,7 +60136,7 @@ var Chessboard = function Chessboard() {
 
 var _default = Chessboard;
 exports.default = _default;
-},{"@babel/runtime/helpers/taggedTemplateLiteral":"node_modules/@babel/runtime/helpers/taggedTemplateLiteral.js","react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./app":"js/app.js","./Chess":"js/Chess.js","../assets/grassWithHole.png":"assets/grassWithHole.png","../assets/grassWithFlower.png":"assets/grassWithFlower.png","./UserPanel":"js/UserPanel.js","../gameMethods.js":"gameMethods.js","lodash":"node_modules/lodash/lodash.js"}],"js/ChessBox.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/slicedToArray":"node_modules/@babel/runtime/helpers/slicedToArray.js","@babel/runtime/helpers/taggedTemplateLiteral":"node_modules/@babel/runtime/helpers/taggedTemplateLiteral.js","react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./app":"js/app.js","./Chess":"js/Chess.js","../assets/grassWithHole.png":"assets/grassWithHole.png","../assets/grassWithFlower.png":"assets/grassWithFlower.png","./UserPanel":"js/UserPanel.js","../gameMethods.js":"gameMethods.js","lodash":"node_modules/lodash/lodash.js"}],"js/ChessBox.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
