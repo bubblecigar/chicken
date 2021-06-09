@@ -41000,6 +41000,14 @@ function _templateObject2() {
   return data;
 }
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -41032,11 +41040,16 @@ var ChatInput = function ChatInput() {
       message = _React$useState2[0],
       setMessage = _React$useState2[1];
 
+  var _React$useContext = _react.default.useContext(_app.GlobalContext),
+      messages = _React$useContext.messages,
+      setMessages = _React$useContext.setMessages;
+
   var onSend = function onSend() {
     var messageObject = {
       message: message,
       user: (0, _UserPanel.getLocalUserData)()
     };
+    setMessages([].concat(_toConsumableArray(messages), [messageObject]));
 
     _app.socket.emit('message', messageObject);
 
@@ -41116,8 +41129,8 @@ var MessageRow = function MessageRow(_ref) {
 };
 
 var ChatRecord = function ChatRecord() {
-  var _React$useContext = _react.default.useContext(_app.GlobalContext),
-      messages = _React$useContext.messages;
+  var _React$useContext2 = _react.default.useContext(_app.GlobalContext),
+      messages = _React$useContext2.messages;
 
   var ref = _react.default.useRef();
 
@@ -41901,7 +41914,9 @@ var App = function App() {
   }, /*#__PURE__*/_react.default.createElement(GlobalContext.Provider, {
     value: {
       gameObject: gameObject,
-      messages: messages
+      messages: messages,
+      setGameObject: setGameObject,
+      setMessages: setMessages
     }
   }, /*#__PURE__*/_react.default.createElement(Header, null, /*#__PURE__*/_react.default.createElement("a", {
     target: "_BLANK",

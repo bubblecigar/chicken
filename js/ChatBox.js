@@ -16,8 +16,11 @@ const ChatInputStyle = styled.div`
 `
 const ChatInput = () => {
   const [message, setMessage] = React.useState('')
+  const { messages, setMessages } = React.useContext(GlobalContext)
+
   const onSend = () => {
     const messageObject = { message, user: getLocalUserData() }
+    setMessages([...messages, messageObject])
     socket.emit('message', messageObject)
     setMessage('')
   }

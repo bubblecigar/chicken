@@ -57,7 +57,7 @@ const App = () => {
 
   return (
     <div style={{ paddingBottom: '150px' }}>
-      <GlobalContext.Provider value={{ gameObject, messages }}>
+      <GlobalContext.Provider value={{ gameObject, messages, setGameObject, setMessages }}>
         <Header><a target='_BLANK' href='https://www.youtube.com/watch?v=F8F29jfZBRo'># Gobblet Gobbler</a></Header>
         <GamePanel />
         <PlayGround>
