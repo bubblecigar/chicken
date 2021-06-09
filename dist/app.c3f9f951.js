@@ -41222,8 +41222,8 @@ var GamePanel = function GamePanel() {
     _app.socket.emit('leave-game');
   };
 
-  var onStart = function onStart() {
-    _app.socket.emit('start-game');
+  var onReady = function onReady() {
+    _app.socket.emit('player-ready');
   };
 
   var isInGame = function isInGame() {
@@ -41242,6 +41242,25 @@ var GamePanel = function GamePanel() {
       }
 
       return false;
+    }
+  };
+
+  var isReady = function isReady() {
+    var user = (0, _UserPanel.getLocalUserData)();
+
+    if (gameObject) {
+      var redPlayer = gameObject.redPlayer,
+          bluePlayer = gameObject.bluePlayer;
+
+      if (redPlayer && redPlayer.userId === user.userId) {
+        return gameObject.redPlayerReady;
+      }
+
+      if (bluePlayer && bluePlayer.userId === user.userId) {
+        return gameObject.bluePlayerReady;
+      }
+
+      return null;
     }
   };
 
@@ -41271,18 +41290,18 @@ var GamePanel = function GamePanel() {
     color: 'blue',
     onSubscribe: takeColor('blue')
   })), /*#__PURE__*/_react.default.createElement("div", null, isInGame() && enoughPlayer() && (gameObject.status === 'blue-win' || gameObject.status === 'red-win') ? /*#__PURE__*/_react.default.createElement("button", {
-    onClick: onStart,
+    onClick: onReady,
     type: "button",
-    className: "nes-btn is-warning"
-  }, "new") : null, isInGame() ? /*#__PURE__*/_react.default.createElement("button", {
+    className: "nes-btn is-success"
+  }, isReady() ? 'X' : 'Ready') : null, isInGame() ? /*#__PURE__*/_react.default.createElement("button", {
     onClick: leaveGame,
     type: "button",
     className: "nes-btn"
   }, "leave") : null, isInGame() && enoughPlayer() && gameObject.status === 'waiting' ? /*#__PURE__*/_react.default.createElement("button", {
-    onClick: onStart,
+    onClick: onReady,
     type: "button",
     className: "nes-btn is-success"
-  }, "Start") : null, !isInGame() && !enoughPlayer() && /*#__PURE__*/_react.default.createElement(_UserPanel.default, null)))) : null;
+  }, isReady() ? 'X' : 'Ready') : null, !isInGame() && !enoughPlayer() && /*#__PURE__*/_react.default.createElement(_UserPanel.default, null)))) : null;
 };
 
 var _default = GamePanel;
@@ -41917,7 +41936,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63352" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54115" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

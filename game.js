@@ -4,7 +4,9 @@ const { methods: messageMethods } = require('./message.js')
 const gameObject = {
   guests: [],
   redPlayer: null,
+  redPlayerReady: false,
   bluePlayer: null,
+  bluePlayerReady: false,
   chessboard: [
     [[], [], []],
     [[], [], []],
@@ -39,6 +41,8 @@ const updateUserData = userData => {
 
 const resetChessboard = () => {
   gameObject.status = 'waiting'
+  gameObject.redPlayerReady = false
+  gameObject.bluePlayerReady = false
   gameObject.chess = [
     { color: 'red', size: 1 }, { color: 'red', size: 1 },
     { color: 'red', size: 2 }, { color: 'red', size: 2 },
@@ -54,13 +58,26 @@ const resetChessboard = () => {
   ]
 }
 
+const togglePlayerReady = user => {
+  if (gameObject.redPlayer) {
+    if (gameObject.redPlayer.userId === user.userId) {
+      gameObject.redPlayerReady = !gameObject.redPlayerReady
+    }
+  }
+  if (gameObject.bluePlayer) {
+    if (gameObject.bluePlayer.userId === user.userId) {
+      gameObject.bluePlayerReady = !gameObject.bluePlayerReady
+    }
+  }
+}
 const startGame = () => {
   const playerEnough = gameObject.redPlayer && gameObject.bluePlayer
   if (playerEnough) {
-    resetChessboard()
-    gameObject.status = 'red'
-  } else {
-
+    if (gameObject.redPlayerReady && gameObject.bluePlayerReady) {
+      resetChessboard()
+      gameObject.status = 'red'
+      return true
+    }
   }
 }
 
@@ -215,6 +232,7 @@ module.exports = {
     takeColor,
     leaveGame,
     startGame,
+    togglePlayerReady,
     resetChessboard,
     gameLoop
   }

@@ -33,8 +33,8 @@ const GamePanel = () => {
   const leaveGame = () => {
     socket.emit('leave-game')
   }
-  const onStart = () => {
-    socket.emit('start-game')
+  const onReady = () => {
+    socket.emit('player-ready')
   }
 
   const isInGame = () => {
@@ -48,6 +48,19 @@ const GamePanel = () => {
         return true
       }
       return false
+    }
+  }
+  const isReady = () => {
+    const user = getLocalUserData()
+    if (gameObject) {
+      const { redPlayer, bluePlayer } = gameObject
+      if (redPlayer && redPlayer.userId === user.userId) {
+        return gameObject.redPlayerReady
+      }
+      if (bluePlayer && bluePlayer.userId === user.userId) {
+        return gameObject.bluePlayerReady
+      }
+      return null
     }
   }
   const enoughPlayer = () => {
@@ -68,7 +81,7 @@ const GamePanel = () => {
         <div>
           {
             isInGame() && enoughPlayer() && (gameObject.status === 'blue-win' || gameObject.status === 'red-win')
-              ? <button onClick={onStart} type="button" className="nes-btn is-warning">new</button>
+              ? <button onClick={onReady} type="button" className="nes-btn is-success">{isReady() ? 'X' : 'Ready'}</button>
               : null
           }
           {
@@ -78,7 +91,7 @@ const GamePanel = () => {
           }
           {
             isInGame() && enoughPlayer() && gameObject.status === 'waiting'
-              ? <button onClick={onStart} type="button" className="nes-btn is-success">Start</button>
+              ? <button onClick={onReady} type="button" className="nes-btn is-success">{isReady() ? 'X' : 'Ready'}</button>
               : null
           }
           {

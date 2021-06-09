@@ -53,9 +53,10 @@ io.on('connection', async function (socket) {
     gameMethods.takeColor(userData, color)
     io.emit('update-gameObject', gameObject)
   })
-  socket.on('start-game', () => {
-    gameMethods.startGame()
-    messageMethods.pushGameMessage(`Game start, It's red player's turn!`)
+  socket.on('player-ready', () => {
+    gameMethods.togglePlayerReady(userData)
+    const isStart = gameMethods.startGame()
+    isStart && messageMethods.pushGameMessage(`Game start, It's red player's turn!`)
     io.emit('update-messages', messages)
     io.emit('update-gameObject', gameObject)
   })
