@@ -42,9 +42,15 @@ const GamePanel = () => {
   }
   const leaveGame = () => {
     socket.emit('leave-game')
+    const gameMethods = getMethods(gameObject)
+    gameMethods.leaveGame(getLocalUserData())
+    setGameObject(_.cloneDeep(gameObject))
   }
   const onReady = () => {
     socket.emit('player-ready')
+    const gameMethods = getMethods(gameObject)
+    gameMethods.togglePlayerReady(getLocalUserData())
+    setGameObject(_.cloneDeep(gameObject))
   }
 
   const isInGame = () => {

@@ -59508,25 +59508,19 @@ var getMethods = function getMethods(gameObject) {
     };
   }();
 
+  var canStart = function canStart() {
+    var playerEnough = gameObject.redPlayer && gameObject.bluePlayer;
+    var playerReady = gameObject.redPlayerReady && gameObject.bluePlayerReady;
+    return playerEnough && playerReady;
+  };
+
   var startGame = /*#__PURE__*/function () {
     var _ref2 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2(cb) {
-      var playerEnough, countDownSeconds, exitTest, finishCountDown;
+      var countDownSeconds, exitTest, finishCountDown;
       return _regenerator.default.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              playerEnough = gameObject.redPlayer && gameObject.bluePlayer;
-
-              if (!playerEnough) {
-                _context2.next = 10;
-                break;
-              }
-
-              if (!(gameObject.redPlayerReady && gameObject.bluePlayerReady)) {
-                _context2.next = 10;
-                break;
-              }
-
               changeGameStatus('countDown');
               countDownSeconds = 3;
 
@@ -59534,10 +59528,10 @@ var getMethods = function getMethods(gameObject) {
                 return gameObject.status !== 'countDown';
               };
 
-              _context2.next = 8;
+              _context2.next = 5;
               return countDown(countDownSeconds, exitTest, cb);
 
-            case 8:
+            case 5:
               finishCountDown = _context2.sent;
 
               if (finishCountDown) {
@@ -59546,7 +59540,7 @@ var getMethods = function getMethods(gameObject) {
                 console.log('gameObject.status:', gameObject.status);
               }
 
-            case 10:
+            case 7:
             case "end":
               return _context2.stop();
           }
@@ -59746,6 +59740,7 @@ var getMethods = function getMethods(gameObject) {
     removeGuest: removeGuest,
     takeColor: takeColor,
     leaveGame: leaveGame,
+    canStart: canStart,
     startGame: startGame,
     togglePlayerReady: togglePlayerReady,
     resetChessboard: resetChessboard,
@@ -59843,10 +59838,18 @@ var GamePanel = function GamePanel() {
 
   var leaveGame = function leaveGame() {
     _app.socket.emit('leave-game');
+
+    var gameMethods = (0, _gameMethods.default)(gameObject);
+    gameMethods.leaveGame((0, _UserPanel.getLocalUserData)());
+    setGameObject(_lodash.default.cloneDeep(gameObject));
   };
 
   var onReady = function onReady() {
     _app.socket.emit('player-ready');
+
+    var gameMethods = (0, _gameMethods.default)(gameObject);
+    gameMethods.togglePlayerReady((0, _UserPanel.getLocalUserData)());
+    setGameObject(_lodash.default.cloneDeep(gameObject));
   };
 
   var isInGame = function isInGame() {

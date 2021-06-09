@@ -96,20 +96,20 @@ const getMethods = gameObject => {
       )
     })
   }
-  const startGame = async (cb) => {
+  const canStart = () => {
     const playerEnough = gameObject.redPlayer && gameObject.bluePlayer
-    if (playerEnough) {
-      if (gameObject.redPlayerReady && gameObject.bluePlayerReady) {
-        changeGameStatus('countDown')
-        const countDownSeconds = 3
-        const exitTest = () => gameObject.status !== 'countDown'
-        const finishCountDown = await countDown(countDownSeconds, exitTest, cb)
-        if (finishCountDown) {
-          resetChessboard()
-          changeGameStatus(generateRandomColor())
-          console.log('gameObject.status:', gameObject.status)
-        }
-      }
+    const playerReady = gameObject.redPlayerReady && gameObject.bluePlayerReady
+    return playerEnough && playerReady
+  }
+  const startGame = async (cb) => {
+    changeGameStatus('countDown')
+    const countDownSeconds = 3
+    const exitTest = () => gameObject.status !== 'countDown'
+    const finishCountDown = await countDown(countDownSeconds, exitTest, cb)
+    if (finishCountDown) {
+      resetChessboard()
+      changeGameStatus(generateRandomColor())
+      console.log('gameObject.status:', gameObject.status)
     }
   }
   const generateRandomColor = () => {
@@ -265,6 +265,7 @@ const getMethods = gameObject => {
     removeGuest,
     takeColor,
     leaveGame,
+    canStart,
     startGame,
     togglePlayerReady,
     resetChessboard,

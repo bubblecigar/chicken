@@ -56,23 +56,29 @@ io.on('connection', async function (socket) {
   })
   socket.on('player-ready', async () => {
     gameMethods.togglePlayerReady(userData)
-    const cb = s => {
-      if (s <= 0) {
-        messageMethods.pushGameMessage(`Generate random color to start the game...`)
-      } else {
-        messageMethods.pushGameMessage(`Game will be start in ${s} seconds!`)
+    socket.broadcast.emit('update-gameObject', gameObject)
+    const canstart = gameMethods.canStart()
+    if (canstart) {
+      const cb = s => {
+        if (s <= 0) {
+          messageMethods.pushGameMessage(`Generate random color to start the game...`)
+        } else {
+          messageMethods.pushGameMessage(`Game will be start in ${s} seconds!`)
+        }
+        io.emit('update-messages', messages)
+        io.emit('update-gameObject', gameObject)
       }
+      await gameMethods.startGame(cb)
       io.emit('update-messages', messages)
       io.emit('update-gameObject', gameObject)
     }
-    await gameMethods.startGame(cb)
-    io.emit('update-messages', messages)
-    io.emit('update-gameObject', gameObject)
   })
   socket.on('leave-game', () => {
-    gameMethods.leaveGame(userData)
-    io.emit('update-messages', messages)
-    io.emit('update-gameObject', gameObject)
+    setTimeout(() => {
+      gameMethods.leaveGame(userData)
+      io.emit('update-messages', messages)
+      socket.broadcast.emit('update-gameObject', gameObject)
+    }, 1000);
   })
 
   socket.on('message', messageObject => {
