@@ -8,6 +8,20 @@ const ChessBoxStyle = styled.div`
   position: relative;
   width: calc(50% - 40px);
   background: white;
+
+  animation-name: ${props => props.inTurn ? 'bordering' : ''};
+  animation-duration: 1s;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+
+  @keyframes bordering {
+    from {
+      transform: translateY(0)
+    }
+    to {
+      transform: translateY(-15px)
+    }
+  }
 `
 const ChessGroup = styled.div`
   display: flex;
@@ -16,8 +30,8 @@ const ChessGroup = styled.div`
 const Chessbox = ({ color }) => {
   const { gameObject } = React.useContext(GlobalContext)
   return gameObject ? (
-    <ChessBoxStyle className="nes-container with-title">
-      <p className="title">{color}</p>
+    <ChessBoxStyle className="nes-container with-title" inTurn={gameObject.status === color}>
+      <p className="title">{gameObject[`${color}Player`] ? gameObject[`${color}Player`].userName : '*'}</p>
       <ChessGroup>
         {
           gameObject.chess.filter(c => c.color === color).map(

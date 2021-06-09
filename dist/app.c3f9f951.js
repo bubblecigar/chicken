@@ -60153,7 +60153,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = (0, _taggedTemplateLiteral2.default)(["\n  margin: 20px;\n  position: relative;\n  width: calc(50% - 40px);\n  background: white;\n"]);
+  var data = (0, _taggedTemplateLiteral2.default)(["\n  margin: 20px;\n  position: relative;\n  width: calc(50% - 40px);\n  background: white;\n\n  animation-name: ", ";\n  animation-duration: 1s;\n  animation-direction: alternate;\n  animation-iteration-count: infinite;\n\n  @keyframes bordering {\n    from {\n      transform: translateY(0)\n    }\n    to {\n      transform: translateY(-15px)\n    }\n  }\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -60162,7 +60162,9 @@ function _templateObject() {
   return data;
 }
 
-var ChessBoxStyle = _styledComponents.default.div(_templateObject());
+var ChessBoxStyle = _styledComponents.default.div(_templateObject(), function (props) {
+  return props.inTurn ? 'bordering' : '';
+});
 
 var ChessGroup = _styledComponents.default.div(_templateObject2());
 
@@ -60173,10 +60175,11 @@ var Chessbox = function Chessbox(_ref) {
       gameObject = _React$useContext.gameObject;
 
   return gameObject ? /*#__PURE__*/_react.default.createElement(ChessBoxStyle, {
-    className: "nes-container with-title"
+    className: "nes-container with-title",
+    inTurn: gameObject.status === color
   }, /*#__PURE__*/_react.default.createElement("p", {
     className: "title"
-  }, color), /*#__PURE__*/_react.default.createElement(ChessGroup, null, gameObject.chess.filter(function (c) {
+  }, gameObject["".concat(color, "Player")] ? gameObject["".concat(color, "Player")].userName : '*'), /*#__PURE__*/_react.default.createElement(ChessGroup, null, gameObject.chess.filter(function (c) {
     return c.color === color;
   }).map(function (c, i) {
     return /*#__PURE__*/_react.default.createElement(_Chess.default, {
