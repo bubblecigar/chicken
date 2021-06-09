@@ -121,7 +121,7 @@ const startGame = async (cb) => {
   if (playerEnough) {
     if (gameObject.redPlayerReady && gameObject.bluePlayerReady) {
       changeGameStatus('countDown')
-      const countDownSeconds = 5
+      const countDownSeconds = 3
       const exitTest = () => gameObject.status !== 'countDown'
       const finishCountDown = await countDown(countDownSeconds, exitTest, cb)
       if (finishCountDown) {
