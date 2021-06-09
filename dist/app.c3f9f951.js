@@ -59946,6 +59946,8 @@ var _react = _interopRequireDefault(require("react"));
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
+var _app = require("./app");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject() {
@@ -59970,6 +59972,9 @@ var Chess = function Chess(_ref) {
       zIndex = _ref.zIndex,
       i = _ref.i;
 
+  var _React$useContext = _react.default.useContext(_app.GlobalContext),
+      gameObject = _React$useContext.gameObject;
+
   var _onDragStart = function onDragStart(e, chess) {
     e.dataTransfer.setData("application/json", JSON.stringify({
       chess: chess,
@@ -59977,10 +59982,14 @@ var Chess = function Chess(_ref) {
     }));
   };
 
+  var isWinColor = gameObject.status === 'red-win' && chess.color === 'red' || gameObject.status === 'blue-win' && chess.color === 'blue';
+  var isLoseColor = gameObject.status === 'red-win' && chess.color === 'blue' || gameObject.status === 'blue-win' && chess.color === 'red';
+  var chessClass = chess.color === 'red' ? 'nes-charmander' : 'nes-squirtle';
   return /*#__PURE__*/_react.default.createElement(IconStyle, {
-    className: 'nes-pointer' + ' ' + (chess.color === 'red' ? 'nes-charmander' : 'nes-squirtle'),
+    className: 'nes-pointer' + ' ' + chessClass,
     zIndex: zIndex,
     style: {
+      opacity: "".concat(isLoseColor ? '0.4' : '1'),
       left: "".concat(at ? '0' : 15 * i, "%"),
       bottom: '-14px',
       transformOrigin: "".concat(at ? 'center' : 'bottom')
@@ -59995,7 +60004,7 @@ var Chess = function Chess(_ref) {
 
 var _default = Chess;
 exports.default = _default;
-},{"@babel/runtime/helpers/taggedTemplateLiteral":"node_modules/@babel/runtime/helpers/taggedTemplateLiteral.js","react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"assets/grassWithHole.png":[function(require,module,exports) {
+},{"@babel/runtime/helpers/taggedTemplateLiteral":"node_modules/@babel/runtime/helpers/taggedTemplateLiteral.js","react":"node_modules/react/index.js","styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js","./app":"js/app.js"}],"assets/grassWithHole.png":[function(require,module,exports) {
 module.exports = "/grassWithHole.f1e9fa77.png";
 },{}],"assets/grassWithFlower.png":[function(require,module,exports) {
 module.exports = "/grassWithFlower.611b9ca1.png";
