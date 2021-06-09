@@ -41194,9 +41194,15 @@ var Player = function Player(_ref) {
   var player = _ref.player,
       color = _ref.color,
       onSubscribe = _ref.onSubscribe;
+
+  var _React$useContext = _react.default.useContext(_app.GlobalContext),
+      gameObject = _React$useContext.gameObject;
+
+  var isReady = color === 'red' ? gameObject.redPlayerReady : gameObject.bluePlayerReady;
+  var btnClass = isReady ? 'is-disabled' : color === 'red' ? 'is-error' : 'is-primary';
   return player ? /*#__PURE__*/_react.default.createElement("button", {
     type: "button",
-    className: "nes-btn ".concat(color === "red" ? "is-error" : "is-primary")
+    className: "nes-btn ".concat(btnClass)
   }, player.userName || '?') : /*#__PURE__*/_react.default.createElement("button", {
     type: "button",
     className: "nes-btn",
@@ -41209,8 +41215,8 @@ var GamePanelStyle = _styledComponents.default.div(_templateObject());
 var ButtonGroup = _styledComponents.default.div(_templateObject2());
 
 var GamePanel = function GamePanel() {
-  var _React$useContext = _react.default.useContext(_app.GlobalContext),
-      gameObject = _React$useContext.gameObject;
+  var _React$useContext2 = _react.default.useContext(_app.GlobalContext),
+      gameObject = _React$useContext2.gameObject;
 
   var takeColor = function takeColor(color) {
     return function () {

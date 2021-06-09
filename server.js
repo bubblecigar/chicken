@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-const { v4 } = require('uuid')
 const { gameObject, methods: gameMethods } = require('./game.js')
 const { messages, methods: messageMethods } = require('./message.js')
 
@@ -53,10 +52,18 @@ io.on('connection', async function (socket) {
     gameMethods.takeColor(userData, color)
     io.emit('update-gameObject', gameObject)
   })
-  socket.on('player-ready', () => {
+  socket.on('player-ready', async () => {
     gameMethods.togglePlayerReady(userData)
-    const isStart = gameMethods.startGame()
-    isStart && messageMethods.pushGameMessage(`Game start, It's red player's turn!`)
+    const cb = s => {
+      if (s <= 0) {
+        messageMethods.pushGameMessage(`Game Start! red player's turn!`)
+      } else {
+        messageMethods.pushGameMessage(`Game will be start in ${s} seconds!`)
+      }
+      io.emit('update-messages', messages)
+      io.emit('update-gameObject', gameObject)
+    }
+    await gameMethods.startGame(cb)
     io.emit('update-messages', messages)
     io.emit('update-gameObject', gameObject)
   })
@@ -70,3 +77,8 @@ io.on('connection', async function (socket) {
     io.emit('update-messages', messages)
   })
 });
+
+const getIO = () => io
+module.exports = {
+  getIO
+}

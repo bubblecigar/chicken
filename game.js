@@ -1,5 +1,5 @@
 const _ = require('lodash')
-const { methods: messageMethods } = require('./message.js')
+const { methods: messageMethods, messages } = require('./message.js')
 
 const gameObject = {
   guests: [],
@@ -70,15 +70,28 @@ const togglePlayerReady = user => {
     }
   }
 }
-const startGame = () => {
+const countDown = async (remainSeconds, callback) => {
+  return new Promise((resolve, reject) => {
+    if (remainSeconds <= 0) resolve()
+    callback(remainSeconds)
+    setTimeout(
+      () => resolve(countDown(remainSeconds - 1, callback))
+      , 1000
+    )
+  })
+}
+const startGame = async (cb) => {
   const playerEnough = gameObject.redPlayer && gameObject.bluePlayer
   if (playerEnough) {
     if (gameObject.redPlayerReady && gameObject.bluePlayerReady) {
+      const countDownSeconds = 5
+      await countDown(countDownSeconds, cb)
       resetChessboard()
       gameObject.status = 'red'
       return true
     }
   }
+  return false
 }
 
 const checkWin = () => {

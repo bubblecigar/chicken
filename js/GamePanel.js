@@ -4,10 +4,15 @@ import { GlobalContext, socket } from './app'
 import UserPanel, { getLocalUserData } from './UserPanel'
 
 const Player = ({ player, color, onSubscribe }) => {
+  const { gameObject } = React.useContext(GlobalContext)
+  const isReady = color === 'red' ? gameObject.redPlayerReady : gameObject.bluePlayerReady
+  const btnClass = isReady ? 'is-disabled' : (
+    color === 'red' ? 'is-error' : 'is-primary'
+  )
   return player ? (
-    <button type="button" className={`nes-btn ${(color === "red") ? "is-error" : "is-primary"}`} >
-      {player.userName || '?'}
-    </button >
+      <button type="button" className={`nes-btn ${btnClass}`} >
+        {player.userName || '?'}
+      </button >
   ) : (
       <button type="button" className="nes-btn" onClick={onSubscribe}>empty +</button>
     )
